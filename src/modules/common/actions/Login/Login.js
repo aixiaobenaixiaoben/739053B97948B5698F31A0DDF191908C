@@ -1,6 +1,7 @@
 /** @flow */
-import {LOGIN, LOGOUT, TAB_BAR_BADGE_CLEAR, TAB_BAR_BADGE_SET} from "../../Constants"
-import {Toast} from "antd-mobile-rn"
+import {Modal, Toast} from "antd-mobile-rn"
+import Request from "axios/index"
+import {ACTION_LOGIN, ACTION_LOGOUT, URL_LOGIN} from "../../Constants"
 
 
 export type Action = {
@@ -9,22 +10,29 @@ export type Action = {
 
 export type ActionAsync = (dispatch: Function, getState: Function) => void
 
-export const login = (): ActionAsync => {
+export const login = (data): ActionAsync => {
   return (dispatch, getState) => {
 
-    Toast.loading('登录中...', 0)
+    Toast.loading('登录中', 0)
 
-    setTimeout(() => {
-      dispatch({
-        type: LOGIN,
+    Request.get(URL_LOGIN, {params: data})
+      .then(response => {
+        const { COD, MSG } = response.data
+        if (COD === 'SUC') {
+          dispatch({ type: ACTION_LOGIN, payload: data })
+          Toast.hide()
+        } else {
+          Modal.alert('', MSG)
+        }
       })
-      Toast.hide()
-    }, 3000)
+      .catch(error => {
+        Modal.alert('', error.message)
+      })
   }
 };
 
 export const logout = (): Action => {
   return {
-    type: LOGOUT,
+    type: ACTION_LOGOUT,
   }
 };

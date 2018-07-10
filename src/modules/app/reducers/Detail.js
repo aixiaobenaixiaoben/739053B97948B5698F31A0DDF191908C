@@ -1,7 +1,7 @@
 /** @flow */
 import {handleActions} from "redux-actions"
 
-import {DETAIL_CLEAR, DETAIL_REQUEST, DETAIL_WATCHED, DETAIL_WISH} from "../Constants"
+import {ACTION_DETAIL_CLEAR, ACTION_DETAIL_REQUEST, ACTION_DETAIL_WATCHED, ACTION_DETAIL_WISH} from "../Constants"
 
 
 type State = {
@@ -16,18 +16,18 @@ const initialState: State = {
 
 export default handleActions(
   {
-    [DETAIL_CLEAR]: (state: State, action) => {
+    [ACTION_DETAIL_CLEAR]: (state: State, action) => {
 
       return { ...state, movie: {} }
 
     },
-    [DETAIL_REQUEST]: (state: State, action) => {
+    [ACTION_DETAIL_REQUEST]: (state: State, action) => {
 
       const { movie } = action;
       return { ...state, movie }
 
     },
-    [DETAIL_WATCHED]: (state: State, action) => {
+    [ACTION_DETAIL_WATCHED]: (state: State, action) => {
 
       const { id } = action;
       let mark = state.marks[id];
@@ -45,7 +45,7 @@ export default handleActions(
       };
 
     },
-    [DETAIL_WISH]: (state: State, action) => {
+    [ACTION_DETAIL_WISH]: (state: State, action) => {
 
       const { id } = action;
       let mark = state.marks[id];

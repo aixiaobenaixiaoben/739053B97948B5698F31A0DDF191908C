@@ -1,7 +1,7 @@
 /** @flow */
 import {handleActions} from "redux-actions"
 
-import {PROGRESS_DESTROY, PROGRESS_WORKING} from "../Constants"
+import {ACTION_PROGRESS_DESTROY, ACTION_PROGRESS_WORKING} from "../Constants"
 
 
 type State = {
@@ -14,13 +14,13 @@ const initialState: State = {
 
 export default handleActions(
   {
-    [PROGRESS_WORKING]: (state: State, action) => {
+    [ACTION_PROGRESS_WORKING]: (state: State, action) => {
 
       const { progress } = state;
       return { progress: progress + 0.01 };
 
     },
-    [PROGRESS_DESTROY]: (state: State, action) => {
+    [ACTION_PROGRESS_DESTROY]: (state: State, action) => {
 
       return { progress: 0 };
 

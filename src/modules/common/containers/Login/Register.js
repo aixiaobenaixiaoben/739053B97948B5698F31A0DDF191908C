@@ -1,7 +1,7 @@
 /** @flow */
 import React, {Component} from "react"
 import {StatusBar, TouchableOpacity, View} from "react-native"
-import {COLOR_WHITE} from "../../Constants"
+import {COLOR_WHITE} from "../../../../Style"
 import {connect} from "react-redux"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import style from "../styles/Login/Register"
@@ -33,14 +33,6 @@ class Register extends Component<any, any> {
     StatusBar.setBarStyle('default')
   }
 
-  onChangeMobile = (mobile) => {
-    this.setState({mobile})
-  }
-
-  onChangeCode = (code) => {
-    this.setState({code})
-  }
-
   sendVerifyCode = () => {
     alert('发送验证码')
   }
@@ -56,40 +48,18 @@ class Register extends Component<any, any> {
       <View style={style.view}>
 
         <List style={style.list}>
-          <InputItem
-            type='number'
-            maxLength={11}
-            clear
-            value={this.state.mobile}
-            onChange={this.onChangeMobile}
-            placeholder="请输入本人手机号"
-            style={{ borderBottomWidth: 1 }}
-          >手机号
+          <InputItem type='number' maxLength={11} clear placeholder="请输入本人手机号" style={{ borderBottomWidth: 1 }}
+                     value={this.state.mobile} onChange={(mobile) => this.setState({mobile})}>
+            手机号
           </InputItem>
-          <InputItem
-            type='number'
-            maxLength={8}
-            clear
-            value={this.state.code}
-            onChange={this.onChangeCode}
-            placeholder="请输入"
-            extra={
-              <Button
-                text='发送验证码'
-                onPress={this.sendVerifyCode}
-                style={style.sendButton}
-                textStyle={style.sendButtonText}
-              />
-            }
-          >验证码
+          <InputItem type='number' maxLength={8} clear placeholder="请输入" value={this.state.code}
+                     onChange={(code) => this.setState({code})}
+                     extra={ <Button text='发送验证码' style={style.sendButton} textStyle={style.sendButtonText} onPress={this.sendVerifyCode}/> }>
+            验证码
           </InputItem>
         </List>
 
-        <Button
-          text='下一步'
-          onPress={this.next}
-          style={style.button}
-        />
+        <Button text='下一步' style={style.button} onPress={this.next} />
       </View>
     )
   }

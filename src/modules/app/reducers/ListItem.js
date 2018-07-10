@@ -1,7 +1,7 @@
 /** @flow */
 import {handleActions} from "redux-actions"
 
-import {LIST_ITEM_VISIT} from "../Constants"
+import {ACTION_LIST_ITEM_VISIT} from "../Constants"
 
 
 type State = {
@@ -14,7 +14,7 @@ const initialState: State = {
 
 export default handleActions(
   {
-    [LIST_ITEM_VISIT]: (state: State, action) => {
+    [ACTION_LIST_ITEM_VISIT]: (state: State, action) => {
 
       const { id } = action;
       state.visit.push(id);

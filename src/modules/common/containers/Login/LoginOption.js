@@ -8,7 +8,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome"
 
 import style from "../styles/Login/LoginOption"
 import Button from "../../components/Button"
-import {COLOR_BLACK_08, COLOR_BLUE_SYS, COLOR_GRAY_LIGHT} from "../../Constants"
+import {COLOR_BLACK_08, COLOR_BLUE_SYS, COLOR_GRAY_LIGHT} from "../../../../Style"
 
 
 class LoginOption extends Component<any, any> {
@@ -29,14 +29,6 @@ class LoginOption extends Component<any, any> {
     alert('指纹登录')
   }
 
-  onPressIn = () => {
-    this.setState({color: COLOR_BLACK_08})
-  }
-
-  onPressOut = () => {
-    this.setState({color: COLOR_BLUE_SYS})
-  }
-
   render() {
     const { loginID } = this.props
 
@@ -53,17 +45,14 @@ class LoginOption extends Component<any, any> {
 
         <View style={style.middle}>
           <TouchableOpacity onPress={this.loginWithFinger}
-                            onPressIn={this.onPressIn}
-                            onPressOut={this.onPressOut}
+                            onPressIn={() => this.setState({color: COLOR_BLACK_08})}
+                            onPressOut={() => this.setState({color: COLOR_BLUE_SYS})}
                             activeOpacity={1}>
             <Image source = {require('../../../../../assets/7.png')}
                    style = {[style.touchID, {tintColor:`${this.state.color}`}]}/>
           </TouchableOpacity>
-
-          <Button style={[style.button, style.button1]}
-                  textStyle={style.buttonText}
-                  text='点击进行指纹登录'
-                  onPress={this.loginWithFinger} />
+          <Button text='点击进行指纹登录' style={[style.button, style.button1]}
+                  textStyle={style.buttonText} onPress={this.loginWithFinger} />
         </View>
 
         <View style={style.bottom}>

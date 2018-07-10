@@ -1,6 +1,6 @@
 /** @flow */
 import {StyleSheet} from "react-native"
-import {COLOR_BLUE_SYS, COLOR_WHITE, FONT_SIZE_16, FONT_SIZE_18} from "../../../Constants"
+import {COLOR_BLUE_SYS, COLOR_WHITE, FONT_SIZE_16, FONT_SIZE_18} from "../../../../../Style"
 
 export default StyleSheet.create({
   view: {

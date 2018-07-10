@@ -1,6 +1,6 @@
 /** @flow */
 import {StyleSheet} from "react-native"
-import {COLOR, COLOR_WHITE, COLOR_BLACK_02, COLOR_BLACK_06} from "../../Constants"
+import {COLOR, COLOR_WHITE, COLOR_BLACK_02, COLOR_BLACK_06} from "../../../../Style"
 
 
 export default StyleSheet.create({

@@ -1,6 +1,6 @@
 /** @flow */
 import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_BLACK_08, COLOR_WHITE} from "../../Constants"
+import {COLOR_BLACK_08, COLOR_WHITE} from "../../../../Style"
 
 const { width, height } = Dimensions.get('window')
 

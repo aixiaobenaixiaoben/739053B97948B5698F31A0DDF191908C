@@ -27,10 +27,13 @@ class Main extends Component<any, any> {
     if (!this.props.isLogin) {
       this.jump()
     }
+    const { mobile, password } = this.props
 
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text>This Is My Main Page</Text>
+        <Text>Mobile: {mobile}</Text>
+        <Text>Password: {password}</Text>
         <Button title='Go To Detail' onPress={() => this.props.navigation.navigate('MyDetail')} />
         <Button title='退出登录' onPress={this.logout} />
       </View>
@@ -48,6 +51,8 @@ export default connect(
   state => ({
     isLogin: state.common.login.isLogin,
     loginID: state.common.login.loginID,
+    mobile: state.common.login.mobile,
+    password: state.common.login.password,
   }),
   dispatch => ({
     logout: () => dispatch(actions.logout()),

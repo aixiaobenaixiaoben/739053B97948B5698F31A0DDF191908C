@@ -1,5 +1,5 @@
 /** @flow */
-import {GUIDE_READ, GUIDE_RESET} from "../Constants"
+import {ACTION_GUIDE_READ, ACTION_GUIDE_RESET} from "../Constants"
 
 
 export type Action = {
@@ -8,12 +8,12 @@ export type Action = {
 
 export const guideRead = (): Action => {
   return {
-    type: GUIDE_READ,
+    type: ACTION_GUIDE_READ,
   }
 };
 
 export const guideReset = (): Action => {
   return {
-    type: GUIDE_RESET,
+    type: ACTION_GUIDE_RESET,
   }
 };

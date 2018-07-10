@@ -5,10 +5,10 @@ import {connect} from "react-redux"
 import {NavigationActions, StackActions} from "react-navigation"
 import PropTypes from "prop-types"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
-import {InputItem, List} from "antd-mobile-rn"
+import {InputItem, List, Modal} from "antd-mobile-rn"
 
 import * as actions from "../../actions/Login/Login"
-import {COLOR_GRAY_LIGHT} from "../../Constants"
+import {COLOR_GRAY_LIGHT} from "../../../../Style"
 import style from "../styles/Login/Login"
 import Button from "../../components/Button"
 
@@ -20,14 +20,6 @@ class Login extends Component<any, any> {
     password: '',
   }
 
-  onChangeMobile = (mobile) => {
-    this.setState({mobile})
-  }
-
-  onChangePassword = (password) => {
-    this.setState({password})
-  }
-
   jumpTo = (route) => {
     const resetAction = StackActions.reset({
       index: 0,
@@ -37,7 +29,20 @@ class Login extends Component<any, any> {
   }
 
   login = () => {
-    this.props.login()
+    const { mobile, password } = this.state
+    if (mobile.length === 0 || password.length === 0) {
+      Modal.alert('', '手机号或者密码不能为空')
+      return
+    }
+    if (mobile.length !== 11) {
+      Modal.alert('', '请输入11位手机号')
+      return
+    }
+    if (password.length < 8) {
+      Modal.alert('', '密码长度不能小于8位')
+      return
+    }
+    this.props.login(this.state)
   }
 
   render() {
@@ -56,51 +61,23 @@ class Login extends Component<any, any> {
 
       <View style={style.middle}>
         <List style={style.list}>
-          <InputItem
-            type='number'
-            maxLength={11}
-            clear
-            value={this.state.mobile}
-            onChange={this.onChangeMobile}
-            placeholder="手机号"
-          />
-          <InputItem
-            type='password'
-            maxLength={15}
-            clear
-            value={this.state.password}
-            onChange={this.onChangePassword}
-            placeholder="请输入登录密码"
-          />
+          <InputItem type='number' maxLength={11} clear placeholder="手机号"
+                     value={this.state.mobile} onChange={(mobile) => this.setState({mobile})}/>
+          <InputItem type='password' maxLength={15} clear placeholder="请输入登录密码"
+                     value={this.state.password} onChange={(password) => this.setState({password})} />
         </List>
 
         <View style={style.submitView}>
-          <Button
-            text='注册'
-            onPress={() => this.props.navigation.navigate('register')}
-            style={style.submitButton}
-          />
-          <Button
-            text='登录'
-            onPress={this.login}
-            style={style.submitButton}
-          />
+          <Button text='注册' style={style.submitButton} onPress={() => this.props.navigation.navigate('register')}/>
+          <Button text='登录' style={style.submitButton} onPress={this.login} />
         </View>
 
         <View style={style.forgetView}>
-          <Button
-            style={style.forgetButton}
-            textStyle={style.forgetButtonText}
-            text='忘记密码'
-            onPress={() => alert('忘记密码')}
-          />
+          <Button text='忘记密码' style={style.forgetButton} textStyle={style.forgetButtonText} onPress={() => alert('忘记密码')}/>
           {routeFrom !== undefined &&
-          <Button
-            style={[style.forgetButton, style.forgetButtonRight]}
-            textStyle={style.forgetButtonText}
-            text='返回指纹登录'
-            onPress={() => this.jumpTo('MyLoginOption')}
-          />}
+          <Button text='返回指纹登录' style={[style.forgetButton, style.forgetButtonRight]}
+                  textStyle={style.forgetButtonText} onPress={() => this.jumpTo('MyLoginOption')} />
+          }
         </View>
       </View>
 
@@ -122,6 +99,6 @@ export default connect(
     isLogin: state.common.login.isLogin,
   }),
   dispatch => ({
-    login: () => dispatch(actions.login()),
+    login: (data) => dispatch(actions.login(data)),
   })
 )(Login)

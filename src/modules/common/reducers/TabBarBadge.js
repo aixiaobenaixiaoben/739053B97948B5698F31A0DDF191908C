@@ -1,6 +1,6 @@
 /** @flow */
 import {handleActions} from "redux-actions"
-import {TAB_BAR_BADGE_SET, TAB_BAR_BADGE_CLEAR} from "../Constants"
+import {ACTION_TAB_BAR_BADGE_CLEAR, ACTION_TAB_BAR_BADGE_SET} from "../Constants"
 
 
 type State = {
@@ -38,7 +38,7 @@ const initialState: State = {
 
 export default handleActions(
   {
-    [TAB_BAR_BADGE_SET]: (state: State, action) => {
+    [ACTION_TAB_BAR_BADGE_SET]: (state: State, action) => {
       const { tab , content } = action.payload
       return {
         ...state,
@@ -50,7 +50,7 @@ export default handleActions(
       };
 
     },
-    [TAB_BAR_BADGE_CLEAR]: (state: State, action) => {
+    [ACTION_TAB_BAR_BADGE_CLEAR]: (state: State, action) => {
       const { tab } = action.payload
       return {
         ...state,

@@ -1,33 +1,42 @@
 /** @flow */
 import {handleActions} from "redux-actions"
-import {LOGIN, LOGOUT} from "../../Constants"
+import {ACTION_LOGIN, ACTION_LOGOUT} from "../../Constants"
 
 
 type State = {
   isLogin: boolean,
   loginID: string,
+  mobile: string,
+  password: string,
 }
 
 const initialState: State = {
   isLogin: false,
   loginID: '',
+  mobile: '',
+  password: '',
 };
 
 export default handleActions(
   {
-    [LOGIN]: (state: State, action) => {
+    [ACTION_LOGIN]: (state: State, action) => {
+      const { mobile, password } = action.payload
       return {
         ...state,
         isLogin: true,
-        loginID: '000****0000',
+        loginID: '00000000000',
+        mobile,
+        password,
       };
 
     },
-    [LOGOUT]: (state: State, action) => {
+    [ACTION_LOGOUT]: (state: State, action) => {
       return {
         ...state,
         isLogin: false,
-        // loginID: '',
+        loginID: '',
+        mobile: '',
+        password: '',
       };
 
     },

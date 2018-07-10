@@ -1,7 +1,7 @@
 /** @flow */
 import {handleActions} from "redux-actions"
 
-import {LIST_REQUEST} from "../Constants"
+import {ACTION_LIST_REQUEST} from "../Constants"
 
 
 type State = {
@@ -14,7 +14,7 @@ const initialState: State = {
 
 export default handleActions(
   {
-    [LIST_REQUEST]: (state: State, action) => {
+    [ACTION_LIST_REQUEST]: (state: State, action) => {
 
       const { movies } = action;
       return { ...state, movies }

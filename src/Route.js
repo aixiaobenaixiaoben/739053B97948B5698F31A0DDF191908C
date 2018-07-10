@@ -10,7 +10,7 @@ import GuideView from "./modules/common/containers/Guide"
 import TabBarBadge from "./modules/common/containers/TabBarBadge"
 import LoginView from "./modules/common/containers/Login/Login"
 import LoginOptionView from "./modules/common/containers/Login/LoginOption"
-import {COLOR_BLUE_SYS, COLOR_GRAY} from "./modules/common/Constants"
+import {COLOR_BLUE_SYS, COLOR_GRAY} from "./Style"
 
 const AppHomeStack = createStackNavigator(
   {

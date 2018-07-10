@@ -1,7 +1,7 @@
 /** @flow */
 import {createStackNavigator} from "react-navigation"
 import Register from "./containers/Login/Register"
-import {COLOR_BLACK_SYS, COLOR_WHITE} from "./Constants"
+import {COLOR_BLACK_SYS, COLOR_WHITE} from "../../Style"
 import SetPassword from "./containers/Login/SetPassword"
 import Result from "./containers/Result"
 

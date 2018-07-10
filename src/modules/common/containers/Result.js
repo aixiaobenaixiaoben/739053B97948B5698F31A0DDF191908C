@@ -5,7 +5,7 @@ import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 
 import Button from "../components/Button"
 import style from "./styles/Result"
-import {COLOR_GREEN, COLOR_RED} from "../Constants"
+import {COLOR_GREEN, COLOR_RED} from "../../../Style"
 
 
 class Result extends Component<any, any> {

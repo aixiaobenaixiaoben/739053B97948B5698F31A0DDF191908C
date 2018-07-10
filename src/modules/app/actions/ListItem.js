@@ -1,5 +1,5 @@
 /** @flow */
-import {LIST_ITEM_VISIT} from "../Constants"
+import {ACTION_LIST_ITEM_VISIT} from "../Constants"
 
 
 export type Action = {
@@ -9,7 +9,7 @@ export type Action = {
 
 export const visitItem = (id: string): Action => {
   return {
-    type: LIST_ITEM_VISIT,
+    type: ACTION_LIST_ITEM_VISIT,
     id: id,
   }
 };

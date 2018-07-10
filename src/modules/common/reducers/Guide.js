@@ -1,6 +1,6 @@
 /** @flow */
 import {handleActions} from "redux-actions"
-import {GUIDE_READ, GUIDE_RESET} from "../Constants"
+import {ACTION_GUIDE_READ, ACTION_GUIDE_RESET} from "../Constants"
 
 
 type State = {
@@ -13,14 +13,14 @@ const initialState: State = {
 
 export default handleActions(
   {
-    [GUIDE_READ]: (state: State, action) => {
+    [ACTION_GUIDE_READ]: (state: State, action) => {
       return {
         ...state,
         guideRead: true,
       };
 
     },
-    [GUIDE_RESET]: (state: State, action) => {
+    [ACTION_GUIDE_RESET]: (state: State, action) => {
       return {
         ...state,
         guideRead: false,
