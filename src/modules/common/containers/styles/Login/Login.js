@@ -1,6 +1,6 @@
 /** @flow */
 import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_BLACK_02, COLOR_BLUE_SYS, COLOR_BLUE_SYS_08, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
+import {COLOR_BLACK_02, COLOR_BLUE_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
 
 const { width } = Dimensions.get('window')
 
@@ -36,7 +36,6 @@ export default StyleSheet.create({
   },
   submitButton: {
     width: width * 0.4,
-    backgroundColor: COLOR_BLUE_SYS_08,
   },
   forgetButton: {
     backgroundColor: 'transparent',

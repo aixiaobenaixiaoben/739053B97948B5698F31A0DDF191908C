@@ -1,7 +1,7 @@
 /** @flow */
 
 /** color */
-export const COLOR = '#ED312F'
+export const COLOR = '#157EFB'
 export const COLOR_BLACK_02 = 'rgba(0, 0, 0, 0.2)'
 export const COLOR_BLACK_06 = 'rgba(0, 0, 0, 0.6)'
 export const COLOR_BLACK_08 = 'rgba(0, 0, 0, 0.8)'

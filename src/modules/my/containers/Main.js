@@ -10,12 +10,26 @@ import * as actions from "../../common/actions/Login/Login"
 
 class Main extends Component<any, any> {
 
+  componentWillMount() {
+    if (!this.props.isLogin) {
+      this.jump(this.props)
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (!nextProps.isLogin) {
+      this.jump(nextProps)
+      return false
+    }
+    return true
+  }
+
   logout = () => {
     this.props.logout()
   }
 
-  jump = () => {
-    const route = this.props.loginID === undefined || this.props.loginID.length === 0 ? 'MyLogin' : 'MyLoginOption'
+  jump = (props) => {
+    const route = props.loginID === undefined || props.loginID.length === 0 ? 'MyLogin' : 'MyLoginOption'
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: route })],
@@ -24,11 +38,7 @@ class Main extends Component<any, any> {
   }
 
   render() {
-    if (!this.props.isLogin) {
-      this.jump()
-    }
     const { mobile, password } = this.props
-
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text>This Is My Main Page</Text>

@@ -1,6 +1,6 @@
 /** @flow */
 import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_BLACK_08, COLOR_BLUE_SYS_08, COLOR_WHITE_DARK, FONT_SIZE_16} from "../../../../../Style"
+import {COLOR_BLUE_SYS, COLOR_WHITE_DARK, FONT_SIZE_16} from "../../../../../Style"
 
 const { width } = Dimensions.get('window')
 
@@ -14,18 +14,14 @@ export default StyleSheet.create({
     marginVertical: 10,
   },
   button: {
-    backgroundColor: COLOR_BLUE_SYS_08,
     margin: 10,
   },
   sendButton: {
     backgroundColor: 'transparent',
     height: null,
-    padding: 5,
-    borderWidth: 1,
-    borderColor: COLOR_BLACK_08,
   },
   sendButtonText: {
-    color: COLOR_BLACK_08,
+    color: COLOR_BLUE_SYS,
     fontSize: FONT_SIZE_16,
   }
 })

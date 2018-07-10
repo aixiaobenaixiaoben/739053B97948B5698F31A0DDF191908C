@@ -20,6 +20,14 @@ class Login extends Component<any, any> {
     password: '',
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.isLogin) {
+      this.jumpTo('MyHome')
+      return false
+    }
+    return true
+  }
+
   jumpTo = (route) => {
     const resetAction = StackActions.reset({
       index: 0,
@@ -45,11 +53,11 @@ class Login extends Component<any, any> {
     this.props.login(this.state)
   }
 
-  render() {
-    if (this.props.isLogin) {
-      this.jumpTo('MyHome')
-    }
+  register = () => {
+    this.props.navigation.navigate('register')
+  }
 
+  render() {
     const routeFrom = this.props.navigation.getParam('routeFrom')
 
     return (
@@ -68,7 +76,7 @@ class Login extends Component<any, any> {
         </List>
 
         <View style={style.submitView}>
-          <Button text='注册' style={style.submitButton} onPress={() => this.props.navigation.navigate('register')}/>
+          <Button text='注册' style={style.submitButton} onPress={this.register}/>
           <Button text='登录' style={style.submitButton} onPress={this.login} />
         </View>
 

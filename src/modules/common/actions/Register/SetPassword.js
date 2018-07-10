@@ -2,19 +2,19 @@
 import {Modal, Toast} from "antd-mobile-rn"
 import Request from "axios/index"
 import type {Action, ActionAsync} from "../../Constants"
-import {ACTION_LOGIN, ACTION_LOGOUT, URL_LOGIN} from "../../Constants"
+import {ACTION_REGISTER_RESET, ACTION_REGISTER_SUC, URL_REGISTER} from "../../Constants"
 
 
-export const login = (data): ActionAsync => {
+export const register = (data): ActionAsync => {
   return (dispatch, getState) => {
 
-    Toast.loading('登录中', 0)
+    Toast.loading('注册中', 0)
 
-    Request.get(URL_LOGIN, {params: data})
+    Request.get(URL_REGISTER, {params: data})
       .then(response => {
         const { COD, MSG } = response.data
         if (COD === 'SUC') {
-          dispatch({ type: ACTION_LOGIN, payload: data })
+          dispatch({ type: ACTION_REGISTER_SUC })
           Toast.hide()
         } else {
           Modal.alert('', MSG)
@@ -24,10 +24,10 @@ export const login = (data): ActionAsync => {
         Modal.alert('', error.message)
       })
   }
-};
+}
 
-export const logout = (): Action => {
+export const registerReset = (): Action => {
   return {
-    type: ACTION_LOGOUT,
+    type: ACTION_REGISTER_RESET,
   }
-};
+}

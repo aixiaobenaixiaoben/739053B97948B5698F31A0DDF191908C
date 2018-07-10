@@ -1,26 +1,26 @@
 /** @flow */
 import {createStackNavigator} from "react-navigation"
-import Register from "./containers/Login/Register"
+import RegisterMobileCheck from "./containers/Register/MobileCheck"
 import {COLOR_BLACK_SYS, COLOR_WHITE} from "../../Style"
-import SetPassword from "./containers/Login/SetPassword"
+import RegisterSetPassword from "./containers/Register/SetPassword"
 import Result from "./containers/Result"
 
 
 export const CommonRegisterRoute = createStackNavigator(
   {
-    CommonRegister: {
-      screen: Register,
+    CommonRegisterMobileCheck: {
+      screen: RegisterMobileCheck,
       navigationOptions: {
-        title: '验证手机号',
+        title: '手机注册',
       }
     },
-    CommonSetPassword: {
-      screen: SetPassword,
+    CommonRegisterSetPassword: {
+      screen: RegisterSetPassword,
       navigationOptions: {
-        title: '设置密码',
+        title: '设置登录密码',
       }
     },
-    CommonResult: {
+    CommonRegisterResult: {
       screen: Result,
       navigationOptions: {
         title: '注册结果',
