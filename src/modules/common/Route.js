@@ -1,8 +1,10 @@
 /** @flow */
 import {createStackNavigator} from "react-navigation"
-import RegisterMobileCheck from "./containers/Register/MobileCheck"
 import {COLOR_BLACK_SYS, COLOR_WHITE} from "../../Style"
+import RegisterMobileCheck from "./containers/Register/MobileCheck"
 import RegisterSetPassword from "./containers/Register/SetPassword"
+import ResetPasswordMobileCheck from "./containers/ResetPassword/MobileCheck"
+import ResetPasswordSetPassword from "./containers/ResetPassword/SetPassword"
 import Result from "./containers/Result"
 
 
@@ -29,6 +31,30 @@ export const CommonRegisterRoute = createStackNavigator(
   },
   {
     navigationOptions: {
+      headerStyle: {
+        backgroundColor: COLOR_BLACK_SYS,
+      },
+      headerTintColor: COLOR_WHITE,
+      headerBackTitle: null,
+    }
+  }
+);
+
+export const CommonResetPasswordRoute = createStackNavigator(
+  {
+    CommonResetPasswordMobileCheck: {
+      screen: ResetPasswordMobileCheck,
+    },
+    CommonResetPasswordSetPassword: {
+      screen: ResetPasswordSetPassword,
+    },
+    CommonResetPasswordResult: {
+      screen: Result,
+    },
+  },
+  {
+    navigationOptions: {
+      title: '重置登录密码',
       headerStyle: {
         backgroundColor: COLOR_BLACK_SYS,
       },

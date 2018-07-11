@@ -154,6 +154,7 @@ export default createStackNavigator(
     life: life.LifeRoute,
     my: my.MyRoute,
     register: common.CommonRegisterRoute,
+    resetPassword: common.CommonResetPasswordRoute,
   },
   {
     headerMode: 'none',

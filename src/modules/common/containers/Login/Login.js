@@ -57,6 +57,10 @@ class Login extends Component<any, any> {
     this.props.navigation.navigate('register')
   }
 
+  resetPassword = () => {
+    this.props.navigation.navigate('resetPassword')
+  }
+
   render() {
     const routeFrom = this.props.navigation.getParam('routeFrom')
 
@@ -81,7 +85,7 @@ class Login extends Component<any, any> {
         </View>
 
         <View style={style.forgetView}>
-          <Button text='忘记密码' style={style.forgetButton} textStyle={style.forgetButtonText} onPress={() => alert('忘记密码')}/>
+          <Button text='忘记密码' style={style.forgetButton} textStyle={style.forgetButtonText} onPress={this.resetPassword}/>
           {routeFrom !== undefined &&
           <Button text='返回指纹登录' style={[style.forgetButton, style.forgetButtonRight]}
                   textStyle={style.forgetButtonText} onPress={() => this.jumpTo('MyLoginOption')} />
