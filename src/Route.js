@@ -4,7 +4,7 @@ import {createBottomTabNavigator, createStackNavigator} from "react-navigation"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
 
-import {app, common, fin, home, life, my, ref} from "./modules"
+import {common, fin, home, life, my, ref} from "./modules"
 import StartView from "./modules/common/containers/Start"
 import GuideView from "./modules/common/containers/Guide"
 import TabBarBadge from "./modules/common/containers/TabBarBadge"
@@ -12,16 +12,6 @@ import LoginView from "./modules/common/containers/Login/Login"
 import LoginOptionView from "./modules/common/containers/Login/LoginOption"
 import {COLOR_BLUE_SYS, COLOR_GRAY} from "./Style"
 
-const AppHomeStack = createStackNavigator(
-  {
-    AppHome: {
-      screen: app.AppHome,
-      navigationOptions: {
-        title: '电影库',
-      }
-    },
-  },
-);
 
 const HomeHomeStack = createStackNavigator(
   {
@@ -93,15 +83,6 @@ const MyHomeStack = createStackNavigator(
 
 const RootTab = createBottomTabNavigator(
   {
-    AppTab: {
-      screen: AppHomeStack,
-      navigationOptions: {
-        title: '电影',
-        tabBarIcon: ({focused, tintColor}) => (
-          <Ionicons name={`ios-american-football${focused ? '' : '-outline'}`} size={25} color={tintColor}/>
-        ),
-      }
-    },
     HomeTab: {
       screen: HomeHomeStack,
       navigationOptions: {
@@ -167,7 +148,6 @@ export default createStackNavigator(
     start: StartView,
     guide: GuideView,
     RootTab: RootTab,
-    app: app.AppRoute,
     home: home.HomeRoute,
     ref: ref.RefRoute,
     fin: fin.FinRoute,

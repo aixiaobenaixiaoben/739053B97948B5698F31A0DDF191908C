@@ -13,12 +13,8 @@ import * as actions from "../actions/Guide"
 class Start extends Component<any, any> {
 
   timer: any
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      count: 3,
-    }
+  state = {
+    count: 3,
   }
 
   componentDidMount() {
