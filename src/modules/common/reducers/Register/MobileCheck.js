@@ -1,41 +1,45 @@
 /** @flow */
 import {handleActions} from "redux-actions"
-import {ACTION_RESET_VERIFY_CODE, ACTION_SET_VERIFY_CODE, ACTION_VERIFY_CODE_SUC} from "../../Constants"
+import {
+  ACTION_REGISTER_MOBILE_CHECK_RESET,
+  ACTION_REGISTER_MOBILE_CHECK_SEND,
+  ACTION_REGISTER_MOBILE_CHECK_SUC
+} from "../../Constants"
 
 
 type State = {
-  isVerifySuc: boolean,
+  isMobileCheckSuc: boolean,
   mobile: string,
   code: string,
 }
 
 const initialState: State = {
-  isVerifySuc: false,
+  isMobileCheckSuc: false,
   mobile: '',
   code: '',
 }
 
 export default handleActions(
   {
-    [ACTION_SET_VERIFY_CODE]: (state: State, action) => {
+    [ACTION_REGISTER_MOBILE_CHECK_SEND]: (state: State, action) => {
       const { mobile, code } = action.payload
       return {
         ...state,
-        isVerifySuc: false,
+        isMobileCheckSuc: false,
         mobile,
         code
       }
     },
-    [ACTION_VERIFY_CODE_SUC]: (state: State, action) => {
+    [ACTION_REGISTER_MOBILE_CHECK_SUC]: (state: State, action) => {
       return {
         ...state,
-        isVerifySuc: true,
+        isMobileCheckSuc: true,
       }
     },
-    [ACTION_RESET_VERIFY_CODE]: (state: State, action) => {
+    [ACTION_REGISTER_MOBILE_CHECK_RESET]: (state: State, action) => {
       return {
         ...state,
-        isVerifySuc: false,
+        isMobileCheckSuc: false,
         mobile: '',
         code: '',
       }

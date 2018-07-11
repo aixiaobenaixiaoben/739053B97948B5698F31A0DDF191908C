@@ -32,7 +32,7 @@ class MobileCheck extends Component<any, any> {
 
   componentDidMount() {
     StatusBar.setBarStyle('light-content')
-    this.props.resetVerifyCode()
+    this.props.mobileCheckReset()
   }
 
   componentWillUnmount() {
@@ -40,21 +40,21 @@ class MobileCheck extends Component<any, any> {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.isVerifySuc) {
+    if (nextProps.isMobileCheckSuc) {
       this.next()
-      this.props.resetVerifyCode()
+      this.props.mobileCheckReset()
       return false
     }
     return true
   }
 
-  sendVerifyCode = () => {
+  mobileCheckSend = () => {
     let { mobile } = this.state
     if (mobile.length !== 11) {
       Modal.alert('', '请输入11位手机号')
       return
     }
-    this.props.sendVerifyCode({mobile})
+    this.props.mobileCheckSend({mobile})
 
     this.setState({disabled: true, timerLeft: 6})
     this.timer = setInterval(() => {
@@ -67,7 +67,7 @@ class MobileCheck extends Component<any, any> {
     }, 1000)
   }
 
-  verifyCode = () => {
+  mobileCheck = () => {
     let { mobile, code } = this.state
     if (mobile.length === 0 || code.length === 0) {
       Modal.alert('', '手机号或者验证码不能为空')
@@ -85,7 +85,7 @@ class MobileCheck extends Component<any, any> {
       Modal.alert('', '验证码错误')
       return
     }
-    this.props.verifyCode({ mobile, code })
+    this.props.mobileCheck({ mobile, code })
   }
 
   next = () => {
@@ -110,35 +110,35 @@ class MobileCheck extends Component<any, any> {
           <InputItem type='number' maxLength={6} clear placeholder="请输入" value={this.state.code}
                      onChange={(code) => this.setState({code})}
                      extra={ <Button text={buttonText} style={style.sendButton} textStyle={style.sendButtonText}
-                                     disabled={disabled} onPress={this.sendVerifyCode}/> }>
+                                     disabled={disabled} onPress={this.mobileCheckSend}/> }>
             验证码
           </InputItem>
         </List>
 
-        <Button text='下一步' style={style.button} onPress={this.verifyCode} />
+        <Button text='下一步' style={style.button} onPress={this.mobileCheck} />
       </View>
     )
   }
 }
 
 MobileCheck.propTypes = {
-  isVerifySuc: PropTypes.bool.isRequired,
+  isMobileCheckSuc: PropTypes.bool.isRequired,
   mobile: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
-  sendVerifyCode: PropTypes.func.isRequired,
-  verifyCode: PropTypes.func.isRequired,
-  resetVerifyCode: PropTypes.func.isRequired,
+  mobileCheckSend: PropTypes.func.isRequired,
+  mobileCheck: PropTypes.func.isRequired,
+  mobileCheckReset: PropTypes.func.isRequired,
 }
 
 export default connect(
   state => ({
-    isVerifySuc: state.common.registerMobileCheck.isVerifySuc,
+    isMobileCheckSuc: state.common.registerMobileCheck.isMobileCheckSuc,
     mobile: state.common.registerMobileCheck.mobile,
     code: state.common.registerMobileCheck.code,
   }),
   dispatch => ({
-    sendVerifyCode: (data) => dispatch(actions.sendVerifyCode(data)),
-    verifyCode: (data) => dispatch(actions.verifyCode(data)),
-    resetVerifyCode: () => dispatch(actions.resetVerifyCode()),
+    mobileCheckSend: (data) => dispatch(actions.mobileCheckSend(data)),
+    mobileCheck: (data) => dispatch(actions.mobileCheck(data)),
+    mobileCheckReset: () => dispatch(actions.mobileCheckReset()),
   })
 )(MobileCheck)

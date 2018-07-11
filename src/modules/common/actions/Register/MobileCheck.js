@@ -3,24 +3,24 @@ import {Modal, Toast} from "antd-mobile-rn"
 import Request from "axios/index"
 import type {Action, ActionAsync} from "../../Constants"
 import {
-  ACTION_RESET_VERIFY_CODE,
-  ACTION_SET_VERIFY_CODE,
-  ACTION_VERIFY_CODE_SUC,
-  URL_SEND_VERIFY_CODE,
-  URL_VERIFY_CODE
+  ACTION_REGISTER_MOBILE_CHECK_RESET,
+  ACTION_REGISTER_MOBILE_CHECK_SEND,
+  ACTION_REGISTER_MOBILE_CHECK_SUC,
+  URL_REGISTER_MOBILE_CHECK,
+  URL_REGISTER_MOBILE_CHECK_SEND
 } from "../../Constants"
 
 
-export const sendVerifyCode = (data): ActionAsync => {
+export const mobileCheckSend = (data): ActionAsync => {
   return (dispatch, getState) => {
 
     Toast.loading('发送中', 0)
 
-    Request.get(URL_SEND_VERIFY_CODE, {params: data})
+    Request.get(URL_REGISTER_MOBILE_CHECK_SEND, {params: data})
       .then(response => {
         const { COD, DTA, MSG } = response.data
         if (COD === 'SUC') {
-          dispatch({ type: ACTION_SET_VERIFY_CODE, payload: DTA })
+          dispatch({ type: ACTION_REGISTER_MOBILE_CHECK_SEND, payload: DTA })
           Toast.hide()
         } else {
           Modal.alert('', MSG)
@@ -32,16 +32,16 @@ export const sendVerifyCode = (data): ActionAsync => {
   }
 }
 
-export const verifyCode = (data): ActionAsync => {
+export const mobileCheck = (data): ActionAsync => {
   return (dispatch, getState) => {
 
     Toast.loading('验证中', 0)
 
-    Request.get(URL_VERIFY_CODE, {params: data})
+    Request.get(URL_REGISTER_MOBILE_CHECK, {params: data})
       .then(response => {
         const { COD, MSG } = response.data
         if (COD === 'SUC') {
-          dispatch({ type: ACTION_VERIFY_CODE_SUC })
+          dispatch({ type: ACTION_REGISTER_MOBILE_CHECK_SUC })
           Toast.hide()
         } else {
           Modal.alert('', MSG)
@@ -53,8 +53,8 @@ export const verifyCode = (data): ActionAsync => {
   }
 }
 
-export const resetVerifyCode = (): Action => {
+export const mobileCheckReset = (): Action => {
   return {
-    type: ACTION_RESET_VERIFY_CODE,
+    type: ACTION_REGISTER_MOBILE_CHECK_RESET,
   }
 }
