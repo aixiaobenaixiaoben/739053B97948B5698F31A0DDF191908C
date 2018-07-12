@@ -9,6 +9,7 @@ import StartView from "./modules/common/containers/Start"
 import GuideView from "./modules/common/containers/Guide"
 import TabBarBadge from "./modules/common/containers/TabBarBadge"
 import LoginView from "./modules/common/containers/Login/Login"
+import LoginPasswordView from "./modules/common/containers/Login/LoginPassword"
 import LoginOptionView from "./modules/common/containers/Login/LoginOption"
 import {COLOR_BLUE_SYS, COLOR_GRAY} from "./Style"
 
@@ -67,6 +68,12 @@ const MyHomeStack = createStackNavigator(
     },
     MyLogin: {
       screen: LoginView,
+      navigationOptions: {
+        header: null
+      }
+    },
+    MyLoginPassword: {
+      screen: LoginPasswordView,
       navigationOptions: {
         header: null
       }
