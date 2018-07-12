@@ -34,9 +34,6 @@ export default handleActions(
       return {
         ...state,
         isLogin: false,
-        loginID: '',
-        mobile: '',
-        password: '',
       };
 
     },

@@ -20,6 +20,13 @@ class Login extends Component<any, any> {
     password: '',
   }
 
+  componentWillMount() {
+    const routeFrom = this.props.navigation.getParam('routeFrom')
+    if (routeFrom === undefined && this.props.loginID.length > 0) {
+      this.jumpTo('MyLoginOption')
+    }
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.isLogin) {
       this.jumpTo('MyHome')
@@ -103,12 +110,14 @@ class Login extends Component<any, any> {
 
 Login.propTypes = {
   isLogin: PropTypes.bool.isRequired,
+  loginID: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
 }
 
 export default connect(
   state => ({
     isLogin: state.common.login.isLogin,
+    loginID: state.common.login.loginID,
   }),
   dispatch => ({
     login: (data) => dispatch(actions.login(data)),

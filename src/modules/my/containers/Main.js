@@ -12,13 +12,13 @@ class Main extends Component<any, any> {
 
   componentWillMount() {
     if (!this.props.isLogin) {
-      this.jump(this.props)
+      this.jumpToLogin()
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     if (!nextProps.isLogin) {
-      this.jump(nextProps)
+      this.jumpToLogin()
       return false
     }
     return true
@@ -28,11 +28,10 @@ class Main extends Component<any, any> {
     this.props.logout()
   }
 
-  jump = (props) => {
-    const route = props.loginID === undefined || props.loginID.length === 0 ? 'MyLogin' : 'MyLoginOption'
+  jumpToLogin = () => {
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: route })],
+      actions: [NavigationActions.navigate({ routeName: 'MyLogin' })],
     })
     this.props.navigation.dispatch(resetAction)
   }
