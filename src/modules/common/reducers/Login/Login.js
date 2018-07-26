@@ -15,27 +15,27 @@ const initialState: State = {
   loginID: '',
   mobile: '',
   password: '',
-};
+}
 
 export default handleActions(
   {
     [ACTION_LOGIN]: (state: State, action) => {
-      const { mobile, password } = action.payload
+      const {mobile, password} = action.payload
       return {
         ...state,
         isLogin: true,
         loginID: '00000000000',
         mobile,
         password,
-      };
+      }
 
     },
     [ACTION_LOGOUT]: (state: State, action) => {
       return {
         ...state,
         isLogin: false,
-      };
+      }
 
     },
   },
-  initialState);
+  initialState)

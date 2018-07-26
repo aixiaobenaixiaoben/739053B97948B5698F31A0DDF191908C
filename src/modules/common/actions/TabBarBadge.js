@@ -11,7 +11,7 @@ export const setTabBarBadge = (tab: string, hidden: boolean, content: string): A
       content: content,
     }
   }
-};
+}
 
 export const clearTabBarBadge = (tab: string): Action => {
   return {
@@ -20,4 +20,4 @@ export const clearTabBarBadge = (tab: string): Action => {
       tab: tab,
     }
   }
-};
+}

@@ -1,26 +1,55 @@
 /** @flow */
 import {createStackNavigator} from "react-navigation"
-import Detail from "./containers/Detail"
+import Setting from "./containers/Setting/Setting"
+import PasswordModify from "./containers/Setting/PasswordModify"
+import PasswordModifyCheck from "./containers/Setting/PasswordModifyCheck"
+import Result from "../common/containers/Result"
+import GestureModify from "./containers/Setting/GestureModify"
+import GestureSetting from "./containers/Setting/GestureSetting"
 
 
-const MyStack = createStackNavigator(
+export const MySettingRoute = createStackNavigator(
   {
-    MyDetail: {
-      screen: Detail,
+    MySetting: {
+      screen: Setting,
       navigationOptions: {
-        title: 'Detail',
+        title: '设置',
       }
     },
-  }
-);
-
-const MainStack = createStackNavigator(
-  {
-    My: MyStack,
+    MyPasswordModifyCheck: {
+      screen: PasswordModifyCheck,
+      navigationOptions: {
+        title: '校验原登录密码',
+      }
+    },
+    MyPasswordModify: {
+      screen: PasswordModify,
+      navigationOptions: {
+        title: '设置新登录密码',
+      }
+    },
+    MyPasswordModifyResult: {
+      screen: Result,
+      navigationOptions: {
+        title: '密码修改结果',
+      }
+    },
+    MyGestureSetting: {
+      screen: GestureSetting,
+      navigationOptions: {
+        title: '设置手势密码',
+      }
+    },
+    MyGestureModify: {
+      screen: GestureModify,
+      navigationOptions: {
+        title: '设置手势密码',
+      }
+    },
   },
   {
-    headerMode: 'none',
+    navigationOptions: {
+      headerBackTitle: null,
+    }
   }
-);
-
-export default MainStack;
+)

@@ -29,7 +29,8 @@ class Button extends Component<any, any> {
 
     return (
       <View>
-        <TouchableOpacity onPress={this.press} style={[defaultStyle.touch, style, disableStyle]} activeOpacity={0.6} disabled={disable}>
+        <TouchableOpacity onPress={this.press} style={[defaultStyle.touch, style, disableStyle]} activeOpacity={0.6}
+                          disabled={disable}>
           <Text style={[defaultStyle.touchText, textStyle]}>{title}</Text>
         </TouchableOpacity>
       </View>
@@ -48,4 +49,4 @@ Button.propTypes = {
   textStyle: Text.propTypes.style,
 }
 
-export default Button;
+export default Button

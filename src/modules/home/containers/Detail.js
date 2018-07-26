@@ -14,8 +14,8 @@ class Detail extends Component<any, any> {
           onPress={() => this.props.navigation.pop()}
         />
       </View>
-    );
+    )
   }
 }
 
-export default Detail;
+export default Detail

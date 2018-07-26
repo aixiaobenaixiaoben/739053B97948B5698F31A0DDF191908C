@@ -18,9 +18,9 @@ export const mobileCheckSend = (data): ActionAsync => {
 
     Request.get(URL_REGISTER_MOBILE_CHECK_SEND, {params: data})
       .then(response => {
-        const { COD, DTA, MSG } = response.data
+        const {COD, DTA, MSG} = response.data
         if (COD === 'SUC') {
-          dispatch({ type: ACTION_REGISTER_MOBILE_CHECK_SEND, payload: DTA })
+          dispatch({type: ACTION_REGISTER_MOBILE_CHECK_SEND, payload: DTA})
           Toast.hide()
         } else {
           Modal.alert('', MSG)
@@ -39,9 +39,9 @@ export const mobileCheck = (data): ActionAsync => {
 
     Request.get(URL_REGISTER_MOBILE_CHECK, {params: data})
       .then(response => {
-        const { COD, MSG } = response.data
+        const {COD, MSG} = response.data
         if (COD === 'SUC') {
-          dispatch({ type: ACTION_REGISTER_MOBILE_CHECK_SUC })
+          dispatch({type: ACTION_REGISTER_MOBILE_CHECK_SUC})
           Toast.hide()
         } else {
           Modal.alert('', MSG)

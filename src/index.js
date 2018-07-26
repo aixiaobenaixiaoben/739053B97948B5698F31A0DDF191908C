@@ -17,11 +17,11 @@ Request.interceptors.response.use(
     if (error.message.indexOf('Network Error') !== -1) {
       error.message = '网络错误'
     }
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
 )
 
-const { store, persistor } = createStore();
+const {store, persistor} = createStore()
 
 const Main = () => {
 
@@ -32,7 +32,7 @@ const Main = () => {
       </PersistGate>
     </Provider>
   )
-};
+}
 
 export default Main
 

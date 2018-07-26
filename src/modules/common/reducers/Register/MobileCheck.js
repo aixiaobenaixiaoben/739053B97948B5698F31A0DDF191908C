@@ -22,7 +22,7 @@ const initialState: State = {
 export default handleActions(
   {
     [ACTION_REGISTER_MOBILE_CHECK_SEND]: (state: State, action) => {
-      const { mobile, code } = action.payload
+      const {mobile, code} = action.payload
       return {
         ...state,
         isMobileCheckSuc: false,

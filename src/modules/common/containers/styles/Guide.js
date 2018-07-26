@@ -2,7 +2,7 @@
 import {Dimensions, StyleSheet} from "react-native"
 import {COLOR_BLACK_06, COLOR_WHITE, FONT_SIZE_18} from "../../../../Style"
 
-const { width, height } = Dimensions.get('window')
+const {width, height} = Dimensions.get('window')
 
 export default StyleSheet.create({
   dotStyle: {
@@ -32,7 +32,7 @@ export default StyleSheet.create({
     backgroundColor: COLOR_BLACK_06,
     opacity: 0.8,
   },
-  text:  {
+  text: {
     fontSize: FONT_SIZE_18,
     color: COLOR_WHITE,
   }

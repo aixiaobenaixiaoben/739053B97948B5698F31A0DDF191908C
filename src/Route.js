@@ -4,15 +4,10 @@ import {createBottomTabNavigator, createStackNavigator} from "react-navigation"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
 
-import {common, fin, home, life, my, ref} from "./modules"
-import StartView from "./modules/common/containers/Start"
-import GuideView from "./modules/common/containers/Guide"
-import TabBarBadge from "./modules/common/containers/TabBarBadge"
-import LoginView from "./modules/common/containers/Login/Login"
-import LoginPasswordView from "./modules/common/containers/Login/LoginPassword"
-import LoginOptionView from "./modules/common/containers/Login/LoginOption"
+import {common, home, movie, music, my, read} from "./modules"
 import {COLOR_BLUE_SYS, COLOR_GRAY} from "./Style"
 
+const TabBarBadge = common.TabBarBadge
 
 const HomeHomeStack = createStackNavigator(
   {
@@ -23,69 +18,67 @@ const HomeHomeStack = createStackNavigator(
       }
     },
   },
-);
+)
 
-const RefHomeStack = createStackNavigator(
+const MovieHomeStack = createStackNavigator(
   {
-    RefHome: {
-      screen: ref.RefMain,
+    MovieHome: {
+      screen: movie.MovieMain,
       navigationOptions: {
-        title: 'Ref',
+        title: 'Movie',
       }
     },
   },
-);
+)
 
-const FinHomeStack = createStackNavigator(
+const MusicHomeStack = createStackNavigator(
   {
-    FinHome: {
-      screen: fin.FinMain,
+    MusicHome: {
+      screen: music.MusicMain,
       navigationOptions: {
-        title: 'Fin',
+        title: 'Music',
       }
     },
   },
-);
+)
 
-const LifeHomeStack = createStackNavigator(
+const ReadHomeStack = createStackNavigator(
   {
-    LifeHome: {
-      screen: life.LifeMain,
+    ReadHome: {
+      screen: read.ReadMain,
       navigationOptions: {
-        title: 'Life',
+        title: 'Read',
       }
     },
   },
-);
+)
 
 const MyHomeStack = createStackNavigator(
   {
     MyHome: {
       screen: my.MyMain,
-      navigationOptions: {
-        title: 'My',
-      }
+      navigationOptions: {}
     },
     MyLogin: {
-      screen: LoginView,
+      screen: common.Login,
       navigationOptions: {
         header: null
       }
     },
     MyLoginPassword: {
-      screen: LoginPasswordView,
+      screen: common.LoginPassword,
       navigationOptions: {
         header: null
       }
     },
-    MyLoginOption: {
-      screen: LoginOptionView,
+    MyLoginGesture: {
+      screen: common.LoginGesture,
       navigationOptions: {
         header: null
-      },
+      }
     },
   },
-);
+)
 
 
 const RootTab = createBottomTabNavigator(
@@ -96,37 +89,37 @@ const RootTab = createBottomTabNavigator(
         title: '首页',
         tabBarIcon: ({focused, tintColor}) => {
           const icon = <MaterialIcon name={`home${focused ? '' : '-outline'}`} size={25} color={tintColor}/>
-          return (<TabBarBadge tab='home' icon={icon} />)
+          return (<TabBarBadge tab='home' icon={icon}/>)
         },
       }
     },
-    RefTab: {
-      screen: RefHomeStack,
+    MovieTab: {
+      screen: MovieHomeStack,
       navigationOptions: {
-        title: '参考',
+        title: '电影',
         tabBarIcon: ({focused, tintColor}) => {
-          const icon = <Ionicons name={`ios-list-box${focused ? '' : '-outline'}`} size={25} color={tintColor}/>
-          return (<TabBarBadge tab='ref' icon={icon} />)
+          const icon = <MaterialIcon name={'movie-roll'} size={25} color={tintColor}/>
+          return (<TabBarBadge tab='movie' icon={icon}/>)
         }
       }
     },
-    FinTab: {
-      screen: FinHomeStack,
+    MusicTab: {
+      screen: MusicHomeStack,
       navigationOptions: {
-        title: '理财',
+        title: '音乐',
         tabBarIcon: ({focused, tintColor}) => {
-          const icon = <MaterialIcon name={`stop-circle${focused ? '' : '-outline'}`} size={25} color={tintColor}/>
-          return (<TabBarBadge tab='fin' icon={icon} />)
+          const icon = <Ionicons name={`ios-musical-notes${focused ? '' : '-outline'}`} size={25} color={tintColor}/>
+          return (<TabBarBadge tab='music' icon={icon}/>)
         }
       }
     },
-    LifeTab: {
-      screen: LifeHomeStack,
+    ReadTab: {
+      screen: ReadHomeStack,
       navigationOptions: {
-        title: '生活',
+        title: '文字',
         tabBarIcon: ({focused, tintColor}) => {
-          const icon = <Ionicons name={`ios-cafe${focused ? '' : '-outline'}`} size={25} color={tintColor}/>
-          return (<TabBarBadge tab='life' icon={icon}/>)
+          const icon = <MaterialIcon name={'audiobook'} size={25} color={tintColor}/>
+          return (<TabBarBadge tab='read' icon={icon}/>)
         },
       }
     },
@@ -148,22 +141,23 @@ const RootTab = createBottomTabNavigator(
     },
     lazy: true,
   }
-);
+)
 
 export default createStackNavigator(
   {
-    start: StartView,
-    guide: GuideView,
     RootTab: RootTab,
-    home: home.HomeRoute,
-    ref: ref.RefRoute,
-    fin: fin.FinRoute,
-    life: life.LifeRoute,
-    my: my.MyRoute,
-    register: common.CommonRegisterRoute,
-    resetPassword: common.CommonResetPasswordRoute,
+    Start: common.Start,
+    Guide: common.Guide,
+    CommonRegister: common.CommonRegisterRoute,
+    CommonResetPassword: common.CommonResetPasswordRoute,
+    CommonLoginAgreement: common.CommonLoginAgreementRoute,
+    Home: home.HomeDetailRoute,
+    Movie: movie.MovieDetailRoute,
+    Music: music.MusicDetailRoute,
+    Read: read.ReadDetailRoute,
+    MySetting: my.MySettingRoute,
   },
   {
     headerMode: 'none',
   }
-);
+)

@@ -21,10 +21,10 @@ class MobileCheck extends Component<any, any> {
     timerLeft: 0,
   }
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({navigation}) => {
     return {
       headerLeft:
-        <TouchableOpacity onPress={() => navigation.pop()} style={{paddingLeft: 9,paddingTop: 4,}}>
+        <TouchableOpacity onPress={() => navigation.pop()} style={{paddingLeft: 9, paddingTop: 4,}}>
           <Ionicons name='ios-arrow-back' size={36} color={COLOR_WHITE}/>
         </TouchableOpacity>
     }
@@ -49,9 +49,14 @@ class MobileCheck extends Component<any, any> {
   }
 
   mobileCheckSend = () => {
-    let { mobile } = this.state
+    let {mobile} = this.state
     if (mobile.length !== 11) {
       Modal.alert('', '请输入11位手机号')
+      return
+    }
+    const regular = /^[0-9]{11}$/
+    if (!regular.test(mobile)) {
+      Modal.alert('', '手机号码格式不正确')
       return
     }
     this.props.mobileCheckSend({mobile})
@@ -68,13 +73,18 @@ class MobileCheck extends Component<any, any> {
   }
 
   mobileCheck = () => {
-    let { mobile, code } = this.state
+    let {mobile, code} = this.state
     if (mobile.length === 0 || code.length === 0) {
       Modal.alert('', '手机号或者验证码不能为空')
       return
     }
     if (mobile.length !== 11) {
       Modal.alert('', '请输入11位手机号')
+      return
+    }
+    const regular = /^[0-9]{11}$/
+    if (!regular.test(mobile)) {
+      Modal.alert('', '手机号码格式不正确')
       return
     }
     if (code.length !== 6) {
@@ -85,7 +95,7 @@ class MobileCheck extends Component<any, any> {
       Modal.alert('', '验证码错误')
       return
     }
-    this.props.mobileCheck({ mobile, code })
+    this.props.mobileCheck({mobile, code})
   }
 
   next = () => {
@@ -96,26 +106,26 @@ class MobileCheck extends Component<any, any> {
   }
 
   render() {
-    let { disabled, timerLeft } = this.state
+    let {disabled, timerLeft} = this.state
     let buttonText = disabled ? timerLeft + '秒后重新发送' : '发送验证码'
 
     return (
       <View style={style.view}>
 
         <List style={style.list}>
-          <InputItem type='number' maxLength={11} clear placeholder="请输入本人手机号" style={{ borderBottomWidth: 1 }}
+          <InputItem type='number' maxLength={11} clear placeholder="请输入本人手机号" style={{borderBottomWidth: 1}}
                      value={this.state.mobile} onChange={(mobile) => this.setState({mobile})}>
             手机号
           </InputItem>
           <InputItem type='number' maxLength={6} clear placeholder="请输入" value={this.state.code}
                      onChange={(code) => this.setState({code})}
-                     extra={ <Button text={buttonText} style={style.sendButton} textStyle={style.sendButtonText}
-                                     disabled={disabled} onPress={this.mobileCheckSend}/> }>
+                     extra={<Button text={buttonText} style={style.sendButton} textStyle={style.sendButtonText}
+                                    disabled={disabled} onPress={this.mobileCheckSend}/>}>
             验证码
           </InputItem>
         </List>
 
-        <Button text='下一步' style={style.button} onPress={this.mobileCheck} />
+        <Button text='下一步' style={style.button} onPress={this.mobileCheck}/>
       </View>
     )
   }

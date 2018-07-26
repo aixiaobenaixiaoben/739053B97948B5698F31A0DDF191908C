@@ -9,12 +9,12 @@ import IconBadge from "../components/IconBadge"
 class TabBarBadge extends Component<any, any> {
 
   shouldComponentUpdate() {
-    const { tab, tabBarBadge: {tabWillUpdate}} = this.props
+    const {tab, tabBarBadge: {tabWillUpdate}} = this.props
     return tab === tabWillUpdate
   }
 
   render() {
-    const { tab, icon } = this.props
+    const {tab, icon} = this.props
     const {hidden, content} = this.props.tabBarBadge[tab]
 
     return (<IconBadge hidden={hidden} icon={icon} badge={content}/>)

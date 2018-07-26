@@ -1,7 +1,7 @@
 /** @flow */
 
 /** name of this modules */
-export const NAME = 'home';
+export const NAME = 'home'
 
 
 

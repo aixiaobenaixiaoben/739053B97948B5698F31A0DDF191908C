@@ -18,4 +18,4 @@ export default StyleSheet.create({
   disable: {
     opacity: 0.6,
   }
-});
+})

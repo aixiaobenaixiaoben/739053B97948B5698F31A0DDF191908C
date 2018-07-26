@@ -1,5 +1,7 @@
 /** @flow */
-import MyRoute from "./Route"
+import {NAME} from "./Constants"
+import reducer from "./reducers"
 import MyMain from "./containers/Main"
+import {MySettingRoute} from "./Route"
 
-export default {MyRoute, MyMain};
+export default {NAME, reducer, MyMain, MySettingRoute}

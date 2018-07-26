@@ -1,9 +1,13 @@
 /** @flow */
 import React, {Component} from "react"
-import {Button, Text, View} from "react-native"
+import {Button, StatusBar, Text, View} from "react-native"
 
 
 class Main extends Component<any, any> {
+
+  componentWillMount() {
+    StatusBar.setBarStyle('default')
+  }
 
   render() {
     return (
@@ -11,11 +15,11 @@ class Main extends Component<any, any> {
         <Text>This Is Home Main Page</Text>
         <Button
           title='Go To Detail'
-          onPress={() => this.props.navigation.navigate('HomeDetail')}
+          onPress={() => this.props.navigation.navigate('Home')}
         />
       </View>
-    );
+    )
   }
 }
 
-export default Main;
+export default Main

@@ -38,26 +38,26 @@ class Start extends Component<any, any> {
     clearInterval(this.timer)
     let nextRoute = 'RootTab'
     if (!this.props.guideRead) {
-      nextRoute = 'guide'
+      nextRoute = 'Guide'
       this.props.readGuide()
     }
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: nextRoute })],
-    });
-    this.props.navigation.dispatch(resetAction);
+      actions: [NavigationActions.navigate({routeName: nextRoute})],
+    })
+    this.props.navigation.dispatch(resetAction)
   }
 
   render() {
-    const { count } = this.state
+    const {count} = this.state
     return (
       <View style={style.view}>
-        <ImageBackground source = {require('../../../../assets/4.png')} style = {style.imageBack}>
+        <ImageBackground source={require('../../../../assets/4.png')} style={style.imageBack}>
           <Button style={style.button} text={`${count} | 跳过`} onPress={this.goHome}/>
         </ImageBackground>
 
         <View style={style.bottom}>
-          <Image source = {require('../../../../assets/5.png')} style = {style.bottomImage}/>
+          <Image source={require('../../../../assets/5.png')} style={style.bottomImage}/>
         </View>
       </View>
     )
@@ -68,7 +68,7 @@ Start.propTypes = {
   guideRead: PropTypes.bool.isRequired,
   readGuide: PropTypes.func.isRequired,
   resetGuide: PropTypes.func.isRequired,
-};
+}
 
 export default connect(
   state => ({
@@ -78,4 +78,4 @@ export default connect(
     readGuide: () => dispatch(actions.guideRead()),
     resetGuide: () => dispatch(actions.guideReset()),
   })
-)(Start);
+)(Start)

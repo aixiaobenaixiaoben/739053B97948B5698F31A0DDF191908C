@@ -15,14 +15,14 @@ class IconBadge extends Component<any, any> {
       badge = '',
       iconStyle = {},
       badgeStyle = {}
-    } = this.props;
+    } = this.props
 
     const dotStyle = badge.length === 0 ? style.badgeDot : {}
 
     return (
       <View style={[style.icon, iconStyle]}>
         {icon}
-        { !hidden &&
+        {!hidden &&
         <View style={[style.badge, dotStyle, badgeStyle]}>
           <Text style={style.text}>{badge}</Text>
         </View>
@@ -40,4 +40,4 @@ IconBadge.propTypes = {
   badgeStyle: ViewPropTypes.style,
 }
 
-export default IconBadge;
+export default IconBadge

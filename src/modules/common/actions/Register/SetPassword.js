@@ -12,9 +12,9 @@ export const register = (data): ActionAsync => {
 
     Request.get(URL_REGISTER, {params: data})
       .then(response => {
-        const { COD, MSG } = response.data
+        const {COD, MSG} = response.data
         if (COD === 'SUC') {
-          dispatch({ type: ACTION_REGISTER_SUC })
+          dispatch({type: ACTION_REGISTER_SUC})
           Toast.hide()
         } else {
           Modal.alert('', MSG)

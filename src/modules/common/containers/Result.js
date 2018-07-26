@@ -20,7 +20,7 @@ class Result extends Component<any, any> {
       onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => false,
       onPanResponderTerminationRequest: (evt, gestureState) => false,
-    });
+    })
   }
 
   static navigationOptions = () => {
@@ -30,15 +30,15 @@ class Result extends Component<any, any> {
   }
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
   }
 
   handleBackPress = () => {
-    return true;
+    return true
   }
 
   onPress = () => {
@@ -50,13 +50,13 @@ class Result extends Component<any, any> {
   }
 
   render() {
-    const { navigation } = this.props
+    const {navigation} = this.props
     const isSuccess = navigation.getParam('isSuccess', true)
     const title = navigation.getParam('title', '验证成功')
     const description = navigation.getParam('description', '所提交内容已成功完成验证')
 
     const icon = isSuccess ? <SimpleLineIcons name='check' size={60} color={COLOR_GREEN}/> :
-                          <SimpleLineIcons name='close' size={60} color={COLOR_RED}/>
+      <SimpleLineIcons name='close' size={60} color={COLOR_RED}/>
 
     return (
       <View {...this._panResponder.panHandlers} style={style.view}>

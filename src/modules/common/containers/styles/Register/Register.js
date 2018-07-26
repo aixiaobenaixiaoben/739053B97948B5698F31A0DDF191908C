@@ -2,7 +2,7 @@
 import {Dimensions, StyleSheet} from "react-native"
 import {COLOR_BLUE_SYS, COLOR_WHITE_DARK, FONT_SIZE_16} from "../../../../../Style"
 
-const { width } = Dimensions.get('window')
+const {width} = Dimensions.get('window')
 
 export default StyleSheet.create({
   view: {

@@ -1,5 +1,5 @@
 /** @flow */
-import HomeRoute from "./Route"
 import HomeMain from "./containers/Main"
+import {HomeDetailRoute} from "./Route"
 
-export default {HomeRoute, HomeMain};
+export default {HomeMain, HomeDetailRoute}

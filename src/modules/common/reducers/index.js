@@ -8,6 +8,7 @@ import registerMobileCheck from "./Register/MobileCheck"
 import registerSetPassword from "./Register/SetPassword"
 import resetPasswordMobileCheck from "./ResetPassword/MobileCheck"
 import resetPasswordSetPassword from "./ResetPassword/SetPassword"
+import loginGesture from "./Login/LoginGesture"
 
 
 export default combineReducers({
@@ -18,4 +19,5 @@ export default combineReducers({
   registerSetPassword,
   resetPasswordMobileCheck,
   resetPasswordSetPassword,
-});
+  loginGesture,
+})

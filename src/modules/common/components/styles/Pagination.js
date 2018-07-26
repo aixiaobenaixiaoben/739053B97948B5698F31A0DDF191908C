@@ -1,6 +1,6 @@
 /** @flow */
 import {StyleSheet} from "react-native"
-import {COLOR, COLOR_WHITE, COLOR_BLACK_02, COLOR_BLACK_06} from "../../../../Style"
+import {COLOR, COLOR_BLACK_02, COLOR_BLACK_06, COLOR_WHITE} from "../../../../Style"
 
 
 export default StyleSheet.create({
@@ -59,4 +59,4 @@ export default StyleSheet.create({
   touchText: {
     color: COLOR,
   }
-});
+})

@@ -7,10 +7,10 @@ export const guideRead = (): Action => {
   return {
     type: ACTION_GUIDE_READ,
   }
-};
+}
 
 export const guideReset = (): Action => {
   return {
     type: ACTION_GUIDE_RESET,
   }
-};
+}

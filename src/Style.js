@@ -14,8 +14,10 @@ export const COLOR_BLUE_SYS = '#157EFB'
 export const COLOR_BLUE_SYS_08 = 'rgba(21, 126, 251, 0.8)'
 export const COLOR_GRAY = 'gray'
 export const COLOR_GRAY_LIGHT = 'lightgray'
+export const COLOR_GRAY_ANT = '#EBEBEB'
 
 /** font */
+export const FONT_SIZE_12 = 12
 export const FONT_SIZE_14 = 14
 export const FONT_SIZE_16 = 16
 export const FONT_SIZE_18 = 18

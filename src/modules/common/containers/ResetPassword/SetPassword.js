@@ -26,7 +26,7 @@ class SetPassword extends Component<any, any> {
   }
 
   submit = () => {
-    const { password1, password2 } = this.state
+    const {password1, password2} = this.state
     if (password1.length === 0 || password2.length === 0) {
       Modal.alert('', '请输入登录密码和确认密码')
       return
@@ -37,6 +37,11 @@ class SetPassword extends Component<any, any> {
     }
     if (password1 !== password2) {
       Modal.alert('', '登录密码和确认密码不一致')
+      return
+    }
+    const reg = /^[A-Za-z0-9_]{8,15}$/
+    if (!reg.test(password1)) {
+      Modal.alert('', '密码格式不正确,必须为只包含数字、大小写字母或下划线的8-15位字符串')
       return
     }
     this.props.resetPassword({
@@ -59,17 +64,17 @@ class SetPassword extends Component<any, any> {
       <View style={style.view}>
 
         <List style={style.list}>
-          <InputItem type='password' maxLength={15} clear placeholder="请设置8-15位数字或者字母密码" style={{ borderBottomWidth: 1 }}
-                     value={this.state.password1} onChange={(password1) => this.setState({password1})} >
+          <InputItem type='password' maxLength={15} clear placeholder="8-15位数字、字母或下划线组成" style={{borderBottomWidth: 1}}
+                     value={this.state.password1} onChange={(password1) => this.setState({password1})}>
             登录密码
           </InputItem>
           <InputItem type='password' maxLength={15} clear placeholder="请再次输入登录密码"
-                     value={this.state.password2} onChange={(password2) => this.setState({password2})} >
+                     value={this.state.password2} onChange={(password2) => this.setState({password2})}>
             确认密码
           </InputItem>
         </List>
 
-        <Button text='提交' style={style.button} onPress={this.submit} />
+        <Button text='提交' style={style.button} onPress={this.submit}/>
       </View>
     )
   }

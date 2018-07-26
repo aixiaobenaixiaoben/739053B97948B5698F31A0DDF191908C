@@ -9,7 +9,7 @@ type State = {
 
 const initialState: State = {
   guideRead: false,
-};
+}
 
 export default handleActions(
   {
@@ -17,15 +17,15 @@ export default handleActions(
       return {
         ...state,
         guideRead: true,
-      };
+      }
 
     },
     [ACTION_GUIDE_RESET]: (state: State, action) => {
       return {
         ...state,
         guideRead: false,
-      };
+      }
 
     },
   },
-  initialState);
+  initialState)

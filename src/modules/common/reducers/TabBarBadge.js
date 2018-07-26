@@ -5,9 +5,9 @@ import {ACTION_TAB_BAR_BADGE_CLEAR, ACTION_TAB_BAR_BADGE_SET} from "../Constants
 
 type State = {
   home: Object,
-  ref: Object,
-  fin: Object,
-  life: Object,
+  movie: Object,
+  music: Object,
+  read: Object,
   my: Object,
   tabWillUpdate: string,
 }
@@ -17,15 +17,15 @@ const initialState: State = {
     hidden: true,
     content: ''
   },
-  ref: {
+  movie: {
     hidden: true,
     content: ''
   },
-  fin: {
+  music: {
     hidden: true,
     content: ''
   },
-  life: {
+  read: {
     hidden: true,
     content: ''
   },
@@ -34,12 +34,12 @@ const initialState: State = {
     content: ''
   },
   tabWillUpdate: '',
-};
+}
 
 export default handleActions(
   {
     [ACTION_TAB_BAR_BADGE_SET]: (state: State, action) => {
-      const { tab , content } = action.payload
+      const {tab, content} = action.payload
       return {
         ...state,
         [tab]: {
@@ -47,11 +47,11 @@ export default handleActions(
           content: content,
         },
         tabWillUpdate: tab,
-      };
+      }
 
     },
     [ACTION_TAB_BAR_BADGE_CLEAR]: (state: State, action) => {
-      const { tab } = action.payload
+      const {tab} = action.payload
       return {
         ...state,
         [tab]: {
@@ -59,7 +59,7 @@ export default handleActions(
           content: ''
         },
         tabWillUpdate: tab,
-      };
+      }
     },
   },
-  initialState);
+  initialState)

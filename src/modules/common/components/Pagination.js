@@ -10,13 +10,13 @@ import Button from "./Button"
 class Pagination extends Component<any, any> {
 
   prev = () => {
-    const { current = 1 } = this.props
+    const {current = 1} = this.props
     if (current === 1) return
     this.props.onPress(current - 1)
   }
 
   next = () => {
-    const { current = 1, total = 1 } = this.props
+    const {current = 1, total = 1} = this.props
     if (current === total) return
     this.props.onPress(current + 1)
   }
@@ -26,12 +26,12 @@ class Pagination extends Component<any, any> {
   }
 
   last = () => {
-    const { total = 1 } = this.props
+    const {total = 1} = this.props
     this.props.onPress(total)
   }
 
   render() {
-    const { current = 1, total = 1 } = this.props
+    const {current = 1, total = 1} = this.props
     const disablePrev = current === 1
     const disableNext = current === total
     return (
@@ -43,12 +43,14 @@ class Pagination extends Component<any, any> {
 
         <View style={style.down}>
           <View style={style.downLeft}>
-            <Button onPress={this.prev} style={style.touch} textStyle={style.touchText} text='上一页' disabled={disablePrev}/>
+            <Button onPress={this.prev} style={style.touch} textStyle={style.touchText} text='上一页'
+                    disabled={disablePrev}/>
             <Button onPress={this.first} style={[style.touch, style.touchFirst]} textStyle={style.touchText} text='首页'/>
           </View>
           <View style={style.downRight}>
             <Button onPress={this.last} style={[style.touch, style.touchLast]} textStyle={style.touchText} text='末页'/>
-            <Button onPress={this.next} style={style.touch} textStyle={style.touchText} text='下一页' disabled={disableNext}/>
+            <Button onPress={this.next} style={style.touch} textStyle={style.touchText} text='下一页'
+                    disabled={disableNext}/>
           </View>
         </View>
       </View>
@@ -63,4 +65,4 @@ Pagination.propTypes = {
   onPress: PropTypes.func.isRequired,
 }
 
-export default Pagination;
+export default Pagination

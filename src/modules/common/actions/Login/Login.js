@@ -12,9 +12,9 @@ export const login = (data): ActionAsync => {
 
     Request.get(URL_LOGIN, {params: data})
       .then(response => {
-        const { COD, MSG } = response.data
+        const {COD, MSG} = response.data
         if (COD === 'SUC') {
-          dispatch({ type: ACTION_LOGIN, payload: data })
+          dispatch({type: ACTION_LOGIN, payload: data})
           Toast.hide()
         } else {
           Modal.alert('', MSG)
@@ -24,10 +24,10 @@ export const login = (data): ActionAsync => {
         Modal.alert('', error.message)
       })
   }
-};
+}
 
 export const logout = (): Action => {
   return {
     type: ACTION_LOGOUT,
   }
-};
+}

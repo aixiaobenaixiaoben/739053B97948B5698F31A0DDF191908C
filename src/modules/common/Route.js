@@ -6,6 +6,7 @@ import RegisterSetPassword from "./containers/Register/SetPassword"
 import ResetPasswordMobileCheck from "./containers/ResetPassword/MobileCheck"
 import ResetPasswordSetPassword from "./containers/ResetPassword/SetPassword"
 import Result from "./containers/Result"
+import LoginAgreement from "./containers/Login/LoginAgreement"
 
 
 export const CommonRegisterRoute = createStackNavigator(
@@ -38,7 +39,7 @@ export const CommonRegisterRoute = createStackNavigator(
       headerBackTitle: null,
     }
   }
-);
+)
 
 export const CommonResetPasswordRoute = createStackNavigator(
   {
@@ -62,4 +63,24 @@ export const CommonResetPasswordRoute = createStackNavigator(
       headerBackTitle: null,
     }
   }
-);
+)
+
+export const CommonLoginAgreementRoute = createStackNavigator(
+  {
+    CommonLoginAgreementRoute: {
+      screen: LoginAgreement,
+      navigationOptions: {
+        title: 'App服务协议',
+      }
+    },
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: COLOR_BLACK_SYS,
+      },
+      headerTintColor: COLOR_WHITE,
+      headerBackTitle: null,
+    }
+  }
+)

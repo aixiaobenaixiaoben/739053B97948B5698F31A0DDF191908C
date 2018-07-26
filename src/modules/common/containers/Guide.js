@@ -13,9 +13,9 @@ class Guide extends Component<any, any> {
   goHome = () => {
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'RootTab' })],
-    });
-    this.props.navigation.dispatch(resetAction);
+      actions: [NavigationActions.navigate({routeName: 'RootTab'})],
+    })
+    this.props.navigation.dispatch(resetAction)
   }
 
   render() {
@@ -23,7 +23,7 @@ class Guide extends Component<any, any> {
       <Carousel dotStyle={style.dotStyle}>
 
         <View style={style.container}>
-          <ImageBackground source = {require('../../../../assets/1.png')} style = {style.imageBack}>
+          <ImageBackground source={require('../../../../assets/1.png')} style={style.imageBack}>
             <View style={style.bottomView}>
               <Text style={style.text}>向左滑动屏幕查看更多</Text>
               <Button text='跳过' onPress={this.goHome} style={style.button}/>
@@ -32,12 +32,12 @@ class Guide extends Component<any, any> {
         </View>
 
         <View style={style.container}>
-          <ImageBackground source = {require('../../../../assets/2.png')} style = {style.imageBack}>
+          <ImageBackground source={require('../../../../assets/2.png')} style={style.imageBack}>
           </ImageBackground>
         </View>
 
         <View style={style.container}>
-          <ImageBackground source = {require('../../../../assets/3.png')} style = {style.imageBack}>
+          <ImageBackground source={require('../../../../assets/3.png')} style={style.imageBack}>
             <View style={style.bottomView}>
               <Text> </Text>
               <Button text='立即体验' onPress={this.goHome} style={style.button}/>
