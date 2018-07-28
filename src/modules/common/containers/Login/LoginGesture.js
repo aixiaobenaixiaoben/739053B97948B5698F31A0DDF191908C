@@ -4,13 +4,14 @@ import {Text, View} from "react-native"
 import {connect} from "react-redux"
 import {NavigationActions, StackActions} from "react-navigation"
 import PropTypes from "prop-types"
-import PasswordGesture from 'react-native-gesture-password'
-import style from "../styles/Login/LoginGesture"
+import {Gesture} from "react-native-gesture-login"
+import FontAwesome from "react-native-vector-icons/FontAwesome"
 import {ActionSheet, Modal} from "antd-mobile-rn"
+
+import style from "../styles/Login/LoginGesture"
 import * as LoginActions from "../../actions/Login/Login"
 import * as actions from "../../actions/Login/LoginGesture"
 import {COLOR_GRAY_LIGHT} from "../../../../Style"
-import FontAwesome from "react-native-vector-icons/FontAwesome"
 import Button from "../../components/Button"
 
 
@@ -48,7 +49,7 @@ class LoginGesture extends Component<any, any> {
     )
   }
 
-  onEnd = (password) => {
+  onRelease = (password) => {
     if (password.length < 4) {
       Modal.alert('', '手势密码: 至少连接4个点.')
       return
@@ -91,11 +92,7 @@ class LoginGesture extends Component<any, any> {
         </View>
 
         <View style={style.middle}>
-          <PasswordGesture
-            style={style.gesture}
-            onEnd={(password) => this.onEnd(password)}
-            interval={1}
-          />
+          <Gesture onRelease={this.onRelease}/>
         </View>
 
         <View style={style.bottom}>

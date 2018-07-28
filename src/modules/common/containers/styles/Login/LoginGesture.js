@@ -2,7 +2,7 @@
 import {Dimensions, StyleSheet} from "react-native"
 import {COLOR_BLUE_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
 
-const {width, height} = Dimensions.get('window')
+const {width} = Dimensions.get('window')
 
 export default StyleSheet.create({
   view: {
@@ -10,23 +10,19 @@ export default StyleSheet.create({
     backgroundColor: COLOR_WHITE,
   },
   top: {
-    position: 'absolute',
-    height: (height - width) * 0.5,
-    width: width,
+    flex: 2,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    zIndex: 2,
   },
   middle: {
-    flex: 1,
+    width: width,
+    height: width * 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   bottom: {
-    position: 'absolute',
-    bottom: 0,
-    height: (height - width) * 0.3,
-    width: width,
+    flex: 1,
     alignItems: 'center',
-    zIndex: 2,
   },
   gesture: {
     backgroundColor: 'white',

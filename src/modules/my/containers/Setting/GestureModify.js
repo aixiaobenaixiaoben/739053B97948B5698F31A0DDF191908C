@@ -3,27 +3,24 @@ import React, {Component} from "react"
 import {Text, View} from "react-native"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
-import PasswordGesture from 'react-native-gesture-password'
 import {Toast} from "antd-mobile-rn"
+import {Gesture, GesturePad} from "react-native-gesture-login"
 
 import style from "../styles/Setting/GestureModify"
 import * as actions from "../../../common/actions/Login/LoginGesture"
-import {COLOR_RED} from "../../../../Style"
 
 
 class GestureModify extends Component<any, any> {
 
-  password = ''
-
   state = {
     modified: false,
+    password: '',
     title: '绘制解锁图案',
-    status: 'normal',
+    isWrong: false,
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextState.modified && nextProps.isGestureEnabled && nextProps.gesturePassword === this.password) {
-      this.password = ''
+    if (nextState.modified && nextProps.isGestureEnabled && nextProps.gesturePassword === this.state.password) {
       Toast.success('手势密码设置成功', 0)
       setTimeout(() => {
         Toast.hide()
@@ -34,42 +31,42 @@ class GestureModify extends Component<any, any> {
     return true
   }
 
-  onEnd = (password) => {
-    if (this.password === '') {
+  onRelease = (password) => {
+    if (this.state.password === '') {
 
       if (password.length < 4) {
         this.setState({
           title: '至少连接4个点，请重新绘制',
-          status: 'wrong',
+          isWrong: true,
         })
         return
       }
 
       this.setState({
         title: '请再次绘制解锁图案',
+        password,
       })
-      this.password = password
 
-    } else if (this.password.length > 0) {
+    } else if (this.state.password.length > 0) {
 
-      if (this.password === password) {
-        this.gestureModifySuccess(this.password)
+      if (this.state.password === password) {
+        this.gestureModifySuccess(this.state.password)
 
       } else {
         this.setState({
           title: '两次绘制图案不一致，请重新绘制',
-          status: 'wrong',
+          isWrong: true,
+          password: '',
         })
-        this.password = ''
       }
     }
   }
 
-  onReset = () => {
-    if (this.password === '') {
+  onClear = () => {
+    if (this.state.password === '') {
       this.setState({
         title: '绘制解锁图案',
-        status: 'normal',
+        isWrong: false,
       })
     }
   }
@@ -81,26 +78,27 @@ class GestureModify extends Component<any, any> {
   }
 
   render() {
-    const {title, status} = this.state
-    const wrongStyle = status === 'wrong' ? {color: COLOR_RED} : {}
+    const {password, title, isWrong} = this.state
+    let textStyle, circleStyle, centerStyle, lineStyle
+    if (isWrong) {
+      textStyle = style.text
+      circleStyle = style.circle
+      centerStyle = style.center
+      lineStyle = style.line
+    }
 
     return (
       <View style={style.view}>
-
-        <View style={style.top}>
-          <Text style={[style.title, wrongStyle]}>{title}</Text>
-        </View>
-
-        <View style={style.middle}>
-          <PasswordGesture
-            style={style.gesture}
-            status={status}
-            onEnd={(password) => this.onEnd(password)}
-            onReset={this.onReset}
-            interval={1000}
-          />
-        </View>
-
+        <GesturePad sequence={password}/>
+        <Text style={[style.title, textStyle]}>{title}</Text>
+        <Gesture
+          clearTime={1000}
+          linedCircleStyle={circleStyle}
+          linedCenterStyle={centerStyle}
+          lineStyle={lineStyle}
+          onRelease={this.onRelease}
+          onClear={this.onClear}
+        />
       </View>
     )
   }

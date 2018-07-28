@@ -3324,11 +3324,9 @@ react-native-drawer-layout@1.3.2, react-native-drawer-layout@~1.3.0:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
-react-native-gesture-password@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/react-native-gesture-password/-/react-native-gesture-password-0.3.4.tgz#f1fe3a0e7ba35941c1f5820312fa0a64097269c5"
-  dependencies:
-    prop-types "^15.6.0"
+react-native-gesture-login@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-gesture-login/-/react-native-gesture-login-1.0.8.tgz#9ba9cfadab1aeb9bdc79270bc0a9a35a0940a3e6"
 
 react-native-menu@^0.23.0:
   version "0.23.0"

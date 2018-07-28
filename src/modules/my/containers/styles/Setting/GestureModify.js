@@ -1,31 +1,29 @@
 /** @flow */
-import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_BLACK_06, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
-
-const {width, height} = Dimensions.get('window')
+import {StyleSheet} from "react-native"
+import {COLOR_BLACK_06, COLOR_RED, COLOR_RED_02, COLOR_RED_04, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
 
 export default StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: COLOR_WHITE,
-  },
-  top: {
-    position: 'absolute',
-    height: (height - width - 64) * 0.5,
-    width: width,
-    zIndex: 2,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
-  },
-  middle: {
-    flex: 1,
-  },
-  gesture: {
-    backgroundColor: 'white',
-    top: -36,
+    backgroundColor: COLOR_WHITE,
   },
   title: {
     fontSize: FONT_SIZE_16,
     color: COLOR_BLACK_06,
+  },
+  circle: {
+    backgroundColor: COLOR_RED_02,
+    borderColor: COLOR_RED_04,
+  },
+  center: {
+    backgroundColor: COLOR_RED,
+  },
+  line: {
+    backgroundColor: COLOR_RED,
+  },
+  text: {
+    color: COLOR_RED,
   }
 })
