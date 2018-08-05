@@ -6,6 +6,9 @@ import PasswordModifyCheck from "./containers/Setting/PasswordModifyCheck"
 import Result from "../common/containers/Result"
 import GestureModify from "./containers/Setting/GestureModify"
 import GestureSetting from "./containers/Setting/GestureSetting"
+import {COLOR_BLACK_SYS, COLOR_WHITE} from "../../Style"
+import HeaderBackImage from "../common/components/HeaderBackImage"
+import React from "react"
 
 
 export const MySettingRoute = createStackNavigator(
@@ -48,8 +51,15 @@ export const MySettingRoute = createStackNavigator(
     },
   },
   {
-    navigationOptions: {
-      headerBackTitle: null,
+    navigationOptions: ({navigation}) => {
+      return {
+        headerStyle: {
+          backgroundColor: COLOR_BLACK_SYS,
+        },
+        headerTintColor: COLOR_WHITE,
+        headerBackTitle: null,
+        headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
+      }
     }
   }
 )

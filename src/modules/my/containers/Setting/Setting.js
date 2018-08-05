@@ -1,15 +1,14 @@
 /** @flow */
 import React, {Component} from "react"
-import {ScrollView, TouchableOpacity} from "react-native"
+import {ScrollView} from "react-native"
 import {List, Modal, WhiteSpace} from "antd-mobile-rn"
-import Ionicons from "react-native-vector-icons/Ionicons"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 
 import style from "../styles/Setting/Setting"
 import Button from "../../../common/components/Button"
-import {COLOR_BLUE_SYS} from "../../../../Style"
 import * as actions from "../../../common/actions/Login/Login"
+import HeaderBackImage from "../../../common/components/HeaderBackImage"
 
 
 const Item = List.Item
@@ -18,10 +17,7 @@ class Setting extends Component<any, any> {
 
   static navigationOptions = ({navigation}) => {
     return {
-      headerLeft:
-        <TouchableOpacity onPress={() => navigation.pop()} style={style.headerLeft}>
-          <Ionicons name='ios-arrow-back' size={36} color={COLOR_BLUE_SYS}/>
-        </TouchableOpacity>
+      headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
     }
   }
 

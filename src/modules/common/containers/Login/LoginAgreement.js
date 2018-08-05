@@ -1,19 +1,15 @@
 /** @flow */
 import React, {Component} from "react"
-import {ScrollView, StatusBar, Text, TouchableOpacity, View} from "react-native"
+import {ScrollView, StatusBar, Text, View} from "react-native"
 import style from "../styles/Login/LoginAgreement"
-import {COLOR_WHITE} from "../../../../Style"
-import Ionicons from "react-native-vector-icons/Ionicons"
+import HeaderBackImage from "../../components/HeaderBackImage"
 
 
 class LoginAgreement extends Component<any, any> {
 
   static navigationOptions = ({navigation}) => {
     return {
-      headerLeft:
-        <TouchableOpacity onPress={() => navigation.pop()} style={{paddingLeft: 9, paddingTop: 4,}}>
-          <Ionicons name='ios-arrow-back' size={36} color={COLOR_WHITE}/>
-        </TouchableOpacity>
+      headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
     }
   }
 

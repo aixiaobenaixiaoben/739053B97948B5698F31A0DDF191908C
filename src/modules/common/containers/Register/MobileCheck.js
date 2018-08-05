@@ -1,14 +1,13 @@
 /** @flow */
 import React, {Component} from "react"
-import {StatusBar, TouchableOpacity, View} from "react-native"
-import {COLOR_WHITE} from "../../../../Style"
+import {StatusBar, View} from "react-native"
 import {connect} from "react-redux"
-import Ionicons from "react-native-vector-icons/Ionicons"
 import style from "../styles/Register/Register"
 import Button from "../../components/Button"
 import {InputItem, List, Modal} from "antd-mobile-rn"
 import PropTypes from "prop-types"
 import * as actions from "../../actions/Register/MobileCheck"
+import HeaderBackImage from "../../components/HeaderBackImage"
 
 
 class MobileCheck extends Component<any, any> {
@@ -23,10 +22,7 @@ class MobileCheck extends Component<any, any> {
 
   static navigationOptions = ({navigation}) => {
     return {
-      headerLeft:
-        <TouchableOpacity onPress={() => navigation.pop()} style={{paddingLeft: 9, paddingTop: 4,}}>
-          <Ionicons name='ios-arrow-back' size={36} color={COLOR_WHITE}/>
-        </TouchableOpacity>
+      headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
     }
   }
 

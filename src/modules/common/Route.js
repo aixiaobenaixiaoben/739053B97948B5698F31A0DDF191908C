@@ -7,6 +7,8 @@ import ResetPasswordMobileCheck from "./containers/ResetPassword/MobileCheck"
 import ResetPasswordSetPassword from "./containers/ResetPassword/SetPassword"
 import Result from "./containers/Result"
 import LoginAgreement from "./containers/Login/LoginAgreement"
+import HeaderBackImage from "./components/HeaderBackImage"
+import React from "react"
 
 
 export const CommonRegisterRoute = createStackNavigator(
@@ -31,12 +33,15 @@ export const CommonRegisterRoute = createStackNavigator(
     },
   },
   {
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: COLOR_BLACK_SYS,
-      },
-      headerTintColor: COLOR_WHITE,
-      headerBackTitle: null,
+    navigationOptions: ({navigation}) => {
+      return {
+        headerStyle: {
+          backgroundColor: COLOR_BLACK_SYS,
+        },
+        headerTintColor: COLOR_WHITE,
+        headerBackTitle: null,
+        headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
+      }
     }
   }
 )
@@ -54,13 +59,16 @@ export const CommonResetPasswordRoute = createStackNavigator(
     },
   },
   {
-    navigationOptions: {
-      title: '重置登录密码',
-      headerStyle: {
-        backgroundColor: COLOR_BLACK_SYS,
-      },
-      headerTintColor: COLOR_WHITE,
-      headerBackTitle: null,
+    navigationOptions: ({navigation}) => {
+      return {
+        title: '重置登录密码',
+        headerStyle: {
+          backgroundColor: COLOR_BLACK_SYS,
+        },
+        headerTintColor: COLOR_WHITE,
+        headerBackTitle: null,
+        headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
+      }
     }
   }
 )
