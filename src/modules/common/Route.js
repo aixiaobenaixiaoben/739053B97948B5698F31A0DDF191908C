@@ -1,6 +1,5 @@
 /** @flow */
 import {createStackNavigator} from "react-navigation"
-import {COLOR_BLACK_SYS, COLOR_WHITE} from "../../Style"
 import RegisterMobileCheck from "./containers/Register/MobileCheck"
 import RegisterSetPassword from "./containers/Register/SetPassword"
 import ResetPasswordMobileCheck from "./containers/ResetPassword/MobileCheck"
@@ -15,9 +14,10 @@ export const CommonRegisterRoute = createStackNavigator(
   {
     CommonRegisterMobileCheck: {
       screen: RegisterMobileCheck,
-      navigationOptions: {
+      navigationOptions: ({navigation}) => ({
+        headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
         title: '手机注册',
-      }
+      })
     },
     CommonRegisterSetPassword: {
       screen: RegisterSetPassword,
@@ -33,16 +33,10 @@ export const CommonRegisterRoute = createStackNavigator(
     },
   },
   {
-    navigationOptions: ({navigation}) => {
-      return {
-        headerStyle: {
-          backgroundColor: COLOR_BLACK_SYS,
-        },
-        headerTintColor: COLOR_WHITE,
-        headerBackTitle: null,
-        headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
-      }
-    }
+    navigationOptions: ({navigation}) => ({
+      headerBackTitle: null,
+      headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
+    })
   }
 )
 
@@ -50,6 +44,9 @@ export const CommonResetPasswordRoute = createStackNavigator(
   {
     CommonResetPasswordMobileCheck: {
       screen: ResetPasswordMobileCheck,
+      navigationOptions: ({navigation}) => ({
+        headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
+      })
     },
     CommonResetPasswordSetPassword: {
       screen: ResetPasswordSetPassword,
@@ -59,17 +56,11 @@ export const CommonResetPasswordRoute = createStackNavigator(
     },
   },
   {
-    navigationOptions: ({navigation}) => {
-      return {
-        title: '重置登录密码',
-        headerStyle: {
-          backgroundColor: COLOR_BLACK_SYS,
-        },
-        headerTintColor: COLOR_WHITE,
-        headerBackTitle: null,
-        headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
-      }
-    }
+    navigationOptions: ({navigation}) => ({
+      title: '重置登录密码',
+      headerBackTitle: null,
+      headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
+    })
   }
 )
 
@@ -77,17 +68,14 @@ export const CommonLoginAgreementRoute = createStackNavigator(
   {
     CommonLoginAgreementRoute: {
       screen: LoginAgreement,
-      navigationOptions: {
+      navigationOptions: ({navigation}) => ({
+        headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
         title: 'App服务协议',
-      }
+      })
     },
   },
   {
     navigationOptions: {
-      headerStyle: {
-        backgroundColor: COLOR_BLACK_SYS,
-      },
-      headerTintColor: COLOR_WHITE,
       headerBackTitle: null,
     }
   }

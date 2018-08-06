@@ -4,22 +4,13 @@ import {ScrollView} from "react-native"
 import {List, Modal, WhiteSpace} from "antd-mobile-rn"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
-
-import style from "../styles/Setting/Setting"
 import Button from "../../../common/components/Button"
 import * as actions from "../../../common/actions/Login/Login"
-import HeaderBackImage from "../../../common/components/HeaderBackImage"
 
 
 const Item = List.Item
 
 class Setting extends Component<any, any> {
-
-  static navigationOptions = ({navigation}) => {
-    return {
-      headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
-    }
-  }
 
   passwordModify = () => {
     this.props.navigation.navigate('MyPasswordModifyCheck')
@@ -56,7 +47,7 @@ class Setting extends Component<any, any> {
         </List>
         <WhiteSpace size="lg"/>
 
-        <Button text='安全退出' onPress={this.logout} style={style.logoutButton}/>
+        <Button text='安全退出' onPress={this.logout} style={{margin: 10}}/>
       </ScrollView>
     )
   }

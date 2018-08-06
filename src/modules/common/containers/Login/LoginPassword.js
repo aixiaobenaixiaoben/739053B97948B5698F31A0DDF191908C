@@ -5,7 +5,7 @@ import {connect} from "react-redux"
 import {NavigationActions, StackActions} from "react-navigation"
 import PropTypes from "prop-types"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
-import {InputItem, List} from "antd-mobile-rn"
+import {InputItem, List, WhiteSpace} from "antd-mobile-rn"
 import {COLOR_GRAY_LIGHT} from "../../../../Style"
 import style from "../styles/Login/LoginPassword"
 import Button from "../../components/Button"
@@ -36,7 +36,7 @@ class LoginPassword extends Component<any, any> {
   }
 
   resetPassword = () => {
-    this.props.navigation.navigate('resetPassword')
+    this.props.navigation.navigate('CommonResetPassword')
   }
 
   login = () => {
@@ -107,7 +107,7 @@ class LoginPassword extends Component<any, any> {
           <View style={style.forgetView}>
             <Button text='忘记密码' style={style.forgetButton} textStyle={style.forgetButtonText}
                     onPress={this.resetPassword}/>
-            <Button text='更多' style={[style.forgetButton, style.forgetButtonRight]}
+            <Button text='更多' style={style.forgetButton}
                     textStyle={style.forgetButtonText} onPress={this.showChoice}/>
           </View>
         </View>

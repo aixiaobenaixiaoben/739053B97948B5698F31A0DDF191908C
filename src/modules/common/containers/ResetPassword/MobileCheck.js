@@ -1,13 +1,12 @@
 /** @flow */
 import React, {Component} from "react"
-import {StatusBar, View} from "react-native"
+import {ScrollView} from "react-native"
 import {connect} from "react-redux"
 import style from "../styles/Register/Register"
 import Button from "../../components/Button"
-import {InputItem, List, Modal} from "antd-mobile-rn"
+import {InputItem, List, Modal, WhiteSpace} from "antd-mobile-rn"
 import PropTypes from "prop-types"
 import * as actions from "../../actions/ResetPassword/MobileCheck"
-import HeaderBackImage from "../../components/HeaderBackImage"
 
 
 class MobileCheck extends Component<any, any> {
@@ -20,19 +19,8 @@ class MobileCheck extends Component<any, any> {
     timerLeft: 0,
   }
 
-  static navigationOptions = ({navigation}) => {
-    return {
-      headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
-    }
-  }
-
   componentDidMount() {
-    StatusBar.setBarStyle('light-content')
     this.props.mobileCheckReset()
-  }
-
-  componentWillUnmount() {
-    StatusBar.setBarStyle('default')
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -106,10 +94,11 @@ class MobileCheck extends Component<any, any> {
     let buttonText = disabled ? timerLeft + '秒后重新发送' : '发送验证码'
 
     return (
-      <View style={style.view}>
+      <ScrollView keyboardShouldPersistTaps='handled'>
 
-        <List style={style.list}>
-          <InputItem type='number' maxLength={11} clear placeholder="请输入本人手机号" style={{borderBottomWidth: 1}}
+        <WhiteSpace size="lg"/>
+        <List>
+          <InputItem type='number' maxLength={11} clear placeholder="请输入本人手机号"
                      value={this.state.mobile} onChange={(mobile) => this.setState({mobile})}>
             手机号
           </InputItem>
@@ -120,9 +109,10 @@ class MobileCheck extends Component<any, any> {
             验证码
           </InputItem>
         </List>
+        <WhiteSpace size="lg"/>
 
         <Button text='下一步' style={style.button} onPress={this.mobileCheck}/>
-      </View>
+      </ScrollView>
     )
   }
 }

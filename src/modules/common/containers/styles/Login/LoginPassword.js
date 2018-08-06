@@ -1,6 +1,6 @@
 /** @flow */
 import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_BLACK_02, COLOR_BLUE_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
+import {COLOR_BLUE_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
 
 const {width} = Dimensions.get('window')
 
@@ -34,10 +34,10 @@ export default StyleSheet.create({
   },
   list: {
     width: width - 40,
-    paddingBottom: 20,
   },
   submitView: {
     alignItems: 'center',
+    paddingTop: 20,
     paddingBottom: 40,
   },
   forgetView: {
@@ -50,11 +50,7 @@ export default StyleSheet.create({
   forgetButton: {
     backgroundColor: 'transparent',
     height: null,
-    paddingHorizontal: 12,
-  },
-  forgetButtonRight: {
-    borderLeftWidth: 1,
-    borderLeftColor: COLOR_BLACK_02,
+    marginHorizontal: 12,
   },
   forgetButtonText: {
     color: COLOR_BLUE_SYS,

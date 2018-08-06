@@ -24,10 +24,6 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  gesture: {
-    backgroundColor: 'white',
-    top: 24,
-  },
   info: {
     flexDirection: 'row',
     justifyContent: 'space-between',

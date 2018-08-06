@@ -1,6 +1,6 @@
 /** @flow */
 import React, {Component} from "react"
-import {StatusBar, Text, TouchableOpacity, View} from "react-native"
+import {Text, TouchableOpacity, View} from "react-native"
 import {NavigationActions, StackActions} from "react-navigation"
 import {connect} from "react-redux"
 import {Modal} from "antd-mobile-rn"
@@ -34,7 +34,6 @@ class Main extends Component<any, any> {
     } else {
       this.props.navigation.setParams({logout: this.logout})
     }
-    StatusBar.setBarStyle('default')
   }
 
   shouldComponentUpdate(nextProps, nextState) {

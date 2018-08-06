@@ -1,25 +1,10 @@
 /** @flow */
 import React, {Component} from "react"
-import {ScrollView, StatusBar, Text, View} from "react-native"
+import {ScrollView, Text, View} from "react-native"
 import style from "../styles/Login/LoginAgreement"
-import HeaderBackImage from "../../components/HeaderBackImage"
 
 
 class LoginAgreement extends Component<any, any> {
-
-  static navigationOptions = ({navigation}) => {
-    return {
-      headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
-    }
-  }
-
-  componentDidMount() {
-    StatusBar.setBarStyle('light-content')
-  }
-
-  componentWillUnmount() {
-    StatusBar.setBarStyle('default')
-  }
 
   render() {
     return (

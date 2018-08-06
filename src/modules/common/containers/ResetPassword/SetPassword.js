@@ -1,9 +1,9 @@
 /** @flow */
 import React, {Component} from "react"
-import {View} from "react-native"
+import {ScrollView} from "react-native"
 import style from "../styles/Register/Register"
 import Button from "../../components/Button"
-import {InputItem, List, Modal} from "antd-mobile-rn"
+import {InputItem, List, Modal, WhiteSpace} from "antd-mobile-rn"
 import * as actions from "../../actions/ResetPassword/SetPassword"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
@@ -61,10 +61,11 @@ class SetPassword extends Component<any, any> {
 
   render() {
     return (
-      <View style={style.view}>
+      <ScrollView keyboardShouldPersistTaps='handled'>
 
-        <List style={style.list}>
-          <InputItem type='password' maxLength={15} clear placeholder="8-15位数字、字母或下划线组成" style={{borderBottomWidth: 1}}
+        <WhiteSpace size="lg"/>
+        <List>
+          <InputItem type='password' maxLength={15} clear placeholder="8-15位数字、字母或下划线组成"
                      value={this.state.password1} onChange={(password1) => this.setState({password1})}>
             登录密码
           </InputItem>
@@ -73,9 +74,10 @@ class SetPassword extends Component<any, any> {
             确认密码
           </InputItem>
         </List>
+        <WhiteSpace size="lg"/>
 
         <Button text='提交' style={style.button} onPress={this.submit}/>
-      </View>
+      </ScrollView>
     )
   }
 }

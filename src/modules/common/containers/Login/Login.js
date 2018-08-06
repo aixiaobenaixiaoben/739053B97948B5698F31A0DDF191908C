@@ -125,7 +125,7 @@ class Login extends Component<any, any> {
             <Button text='忘记密码' style={style.forgetButton} textStyle={style.forgetButtonText}
                     onPress={this.resetPassword}/>
             {routeFrom !== undefined &&
-            <Button text='返回' style={[style.forgetButton, style.forgetButtonRight]}
+            <Button text='返回' style={style.forgetButton}
                     textStyle={style.forgetButtonText} onPress={() => this.jumpTo(routeFrom)}/>
             }
           </View>

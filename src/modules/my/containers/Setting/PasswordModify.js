@@ -59,7 +59,7 @@ class PasswordModify extends Component<any, any> {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps='handled'>
         <WhiteSpace size="lg"/>
         <List>
           <InputItem type='password' maxLength={15} clear placeholder="8-15位数字、字母或下划线组成"
@@ -73,7 +73,7 @@ class PasswordModify extends Component<any, any> {
         </List>
         <WhiteSpace size="lg"/>
 
-        <Button text='提交' style={{marginHorizontal: 20}} onPress={this.submit}/>
+        <Button text='提交' style={{margin: 10}} onPress={this.submit}/>
       </ScrollView>
     )
   }

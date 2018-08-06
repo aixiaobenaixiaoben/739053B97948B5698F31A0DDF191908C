@@ -1,13 +1,9 @@
 /** @flow */
 import React, {Component} from "react"
-import {Button, StatusBar, Text, View} from "react-native"
+import {Button, Text, View} from "react-native"
 
 
 class Main extends Component<any, any> {
-
-  componentWillMount() {
-    StatusBar.setBarStyle('default')
-  }
 
   render() {
     return (

@@ -54,7 +54,7 @@ class PasswordModifyCheck extends Component<any, any> {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps='handled'>
         <WhiteSpace size="lg"/>
         <List>
           <InputItem type='password' maxLength={15} clear placeholder="请输入"
@@ -64,7 +64,7 @@ class PasswordModifyCheck extends Component<any, any> {
         </List>
         <WhiteSpace size="lg"/>
 
-        <Button text='下一步' style={{marginHorizontal: 20}} onPress={this.submit}/>
+        <Button text='下一步' style={{margin: 10}} onPress={this.submit}/>
       </ScrollView>
     )
   }
