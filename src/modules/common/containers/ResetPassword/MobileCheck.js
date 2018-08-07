@@ -84,7 +84,6 @@ class MobileCheck extends Component<any, any> {
 
   next = () => {
     this.props.navigation.navigate('CommonResetPasswordSetPassword', {
-      backToLoginFunc: this.props.navigation.popToTop,
       mobile: this.props.mobile,
     })
   }

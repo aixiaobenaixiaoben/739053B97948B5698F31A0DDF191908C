@@ -52,7 +52,7 @@ class SetPassword extends Component<any, any> {
 
   next = () => {
     this.props.navigation.navigate('CommonRegisterResult', {
-      onPressFunc: this.props.navigation.getParam('backToLoginFunc'),
+      routeTo: 'RootTab',
       isSuccess: true,
       title: '注册成功',
       description: '您已经完成注册,请前往登录'

@@ -42,9 +42,8 @@ class Result extends Component<any, any> {
   }
 
   onPress = () => {
-    const onPressFunc = this.props.navigation.getParam('onPressFunc', () => {})
-    this.props.navigation.popToTop()
-    onPressFunc()
+    const routeTo = this.props.navigation.getParam('routeTo', '')
+    this.props.navigation.navigate(routeTo)
   }
 
   render() {
