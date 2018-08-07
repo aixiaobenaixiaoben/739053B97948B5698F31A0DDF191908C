@@ -77,6 +77,12 @@ const MyHomeStack = createStackNavigator(
         header: null
       }
     },
+    MyLoginTouchID: {
+      screen: common.LoginTouchID,
+      navigationOptions: {
+        header: null
+      }
+    },
   },
 )
 

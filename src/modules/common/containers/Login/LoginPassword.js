@@ -5,7 +5,7 @@ import {connect} from "react-redux"
 import {NavigationActions, StackActions} from "react-navigation"
 import PropTypes from "prop-types"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
-import {InputItem, List, WhiteSpace} from "antd-mobile-rn"
+import {InputItem, List} from "antd-mobile-rn"
 import {COLOR_GRAY_LIGHT} from "../../../../Style"
 import style from "../styles/Login/LoginPassword"
 import Button from "../../components/Button"
@@ -63,7 +63,14 @@ class LoginPassword extends Component<any, any> {
   showChoice = () => {
     let action = ['切换帐号', 'Cancel']
     if (this.props.isGestureEnabled) {
-      action = ['手势登录', '切换帐号', 'Cancel']
+      action = ['手势登录', ...action]
+    }
+    if (this.props.isTouchIDSupported && this.props.isTouchIDEnabled) {
+      if (this.props.touchIDType === 'FaceID') {
+        action = ['面容ID登录', ...action]
+      } else {
+        action = ['指纹登录', ...action]
+      }
     }
     ActionSheet.showActionSheetWithOptions(
       {
@@ -71,7 +78,9 @@ class LoginPassword extends Component<any, any> {
         cancelButtonIndex: action.length - 1,
       },
       (buttonIndex: any) => {
-        if (action[buttonIndex] === '手势登录') {
+        if (action[buttonIndex] === '面容ID登录' || action[buttonIndex] === '指纹登录') {
+          this.jumpTo('MyLoginTouchID')
+        } else if (action[buttonIndex] === '手势登录') {
           this.jumpTo('MyLoginGesture')
         } else if (action[buttonIndex] === '切换帐号') {
           this.jumpTo('MyLogin', 'MyLoginPassword')
@@ -125,6 +134,9 @@ LoginPassword.propTypes = {
   loginID: PropTypes.string.isRequired,
   mobile: PropTypes.string.isRequired,
   isGestureEnabled: PropTypes.bool.isRequired,
+  isTouchIDSupported: PropTypes.bool.isRequired,
+  isTouchIDEnabled: PropTypes.bool.isRequired,
+  touchIDType: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
 }
 
@@ -134,6 +146,9 @@ export default connect(
     loginID: state.common.login.loginID,
     mobile: state.common.login.mobile,
     isGestureEnabled: state.common.loginGesture.isGestureEnabled,
+    isTouchIDSupported: state.common.loginTouchID.isTouchIDSupported,
+    isTouchIDEnabled: state.common.loginTouchID.isTouchIDEnabled,
+    touchIDType: state.common.loginTouchID.touchIDType,
   }),
   dispatch => ({
     login: (data) => dispatch(actions.login(data)),

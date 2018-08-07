@@ -25,7 +25,9 @@ class Login extends Component<any, any> {
   componentWillMount() {
     const routeFrom = this.props.navigation.getParam('routeFrom')
     if (routeFrom === undefined && this.props.loginID.length > 0) {
-      if (this.props.isGestureEnabled) {
+      if (this.props.isTouchIDSupported && this.props.isTouchIDEnabled) {
+        this.jumpTo('MyLoginTouchID')
+      } else if (this.props.isGestureEnabled) {
         this.jumpTo('MyLoginGesture')
       } else {
         this.jumpTo('MyLoginPassword')
@@ -152,6 +154,8 @@ Login.propTypes = {
   isLogin: PropTypes.bool.isRequired,
   loginID: PropTypes.string.isRequired,
   isGestureEnabled: PropTypes.bool.isRequired,
+  isTouchIDSupported: PropTypes.bool.isRequired,
+  isTouchIDEnabled: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
 }
 
@@ -160,6 +164,8 @@ export default connect(
     isLogin: state.common.login.isLogin,
     loginID: state.common.login.loginID,
     isGestureEnabled: state.common.loginGesture.isGestureEnabled,
+    isTouchIDSupported: state.common.loginTouchID.isTouchIDSupported,
+    isTouchIDEnabled: state.common.loginTouchID.isTouchIDEnabled,
   }),
   dispatch => ({
     login: (data) => dispatch(actions.login(data)),

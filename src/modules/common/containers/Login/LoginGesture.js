@@ -34,15 +34,25 @@ class LoginGesture extends Component<any, any> {
   }
 
   showActionSheet = () => {
+    let action = ['密码登录', '切换帐号', 'Cancel']
+    if (this.props.isTouchIDSupported && this.props.isTouchIDEnabled) {
+      if (this.props.touchIDType === 'FaceID') {
+        action = ['面容ID登录', ...action]
+      } else {
+        action = ['指纹登录', ...action]
+      }
+    }
     ActionSheet.showActionSheetWithOptions(
       {
-        options: ['密码登录', '切换帐号', 'Cancel'],
-        cancelButtonIndex: 2,
+        options: action,
+        cancelButtonIndex: action.length - 1,
       },
       (buttonIndex: any) => {
-        if (buttonIndex === 0) {
+        if (action[buttonIndex] === '面容ID登录' || action[buttonIndex] === '指纹登录') {
+          this.jumpTo('MyLoginTouchID')
+        } else if (action[buttonIndex] === '密码登录') {
           this.jumpTo('MyLoginPassword')
-        } else if (buttonIndex === 1) {
+        } else if (action[buttonIndex] === '切换帐号') {
           this.jumpTo('MyLogin', 'MyLoginGesture')
         }
       }
@@ -110,6 +120,9 @@ LoginGesture.propTypes = {
   password: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired,
   gesturePassword: PropTypes.string.isRequired,
+  isTouchIDSupported: PropTypes.bool.isRequired,
+  isTouchIDEnabled: PropTypes.bool.isRequired,
+  touchIDType: PropTypes.string.isRequired,
 
   login: PropTypes.func.isRequired,
   gestureDisable: PropTypes.func.isRequired,
@@ -125,6 +138,9 @@ export default connect(
     password: state.common.login.password,
     count: state.common.loginGesture.count,
     gesturePassword: state.common.loginGesture.gesturePassword,
+    isTouchIDSupported: state.common.loginTouchID.isTouchIDSupported,
+    isTouchIDEnabled: state.common.loginTouchID.isTouchIDEnabled,
+    touchIDType: state.common.loginTouchID.touchIDType,
   }),
   dispatch => ({
     login: (data) => dispatch(LoginActions.login(data)),
