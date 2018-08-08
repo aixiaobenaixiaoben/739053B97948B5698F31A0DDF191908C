@@ -1225,6 +1225,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.forfreedomandlove.B2B2C;
 				PRODUCT_NAME = B2B2C;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1248,6 +1249,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.forfreedomandlove.B2B2C;
 				PRODUCT_NAME = B2B2C;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

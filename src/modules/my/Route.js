@@ -8,6 +8,7 @@ import GestureModify from "./containers/Setting/GestureModify"
 import GestureSetting from "./containers/Setting/GestureSetting"
 import HeaderBackImage from "../common/components/HeaderBackImage"
 import React from "react"
+import TouchIDSetting from "./containers/Setting/TouchIDSetting"
 
 
 export const MySettingRoute = createStackNavigator(
@@ -48,6 +49,9 @@ export const MySettingRoute = createStackNavigator(
       navigationOptions: {
         title: '设置手势密码',
       }
+    },
+    MyTouchIDSetting: {
+      screen: TouchIDSetting,
     },
   },
   {
