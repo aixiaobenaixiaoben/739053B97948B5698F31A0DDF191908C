@@ -1,5 +1,6 @@
 /** @flow */
 import React from 'react'
+import {StatusBar} from "react-native"
 import {Provider} from 'react-redux'
 import {PersistGate} from "redux-persist/integration/react"
 import Request from "axios/index"
@@ -24,6 +25,8 @@ Request.interceptors.response.use(
 const {store, persistor} = createStore()
 
 const Main = () => {
+
+  StatusBar.setBarStyle('light-content')
 
   return (
     <Provider store={store}>

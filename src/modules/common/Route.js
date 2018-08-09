@@ -8,6 +8,7 @@ import Result from "./containers/Result"
 import LoginAgreement from "./containers/Login/LoginAgreement"
 import HeaderBackImage from "./components/HeaderBackImage"
 import React from "react"
+import {COLOR_SYS, COLOR_WHITE} from "../../Style"
 
 
 export const CommonRegisterRoute = createStackNavigator(
@@ -34,6 +35,10 @@ export const CommonRegisterRoute = createStackNavigator(
   },
   {
     navigationOptions: ({navigation}) => ({
+      headerTintColor: COLOR_WHITE,
+      headerStyle: {
+        backgroundColor: COLOR_SYS,
+      },
       headerBackTitle: null,
       headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
     })
@@ -58,6 +63,10 @@ export const CommonResetPasswordRoute = createStackNavigator(
   {
     navigationOptions: ({navigation}) => ({
       title: '重置登录密码',
+      headerTintColor: COLOR_WHITE,
+      headerStyle: {
+        backgroundColor: COLOR_SYS,
+      },
       headerBackTitle: null,
       headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
     })
@@ -77,6 +86,10 @@ export const CommonLoginAgreementRoute = createStackNavigator(
   {
     navigationOptions: {
       headerBackTitle: null,
+      headerTintColor: COLOR_WHITE,
+      headerStyle: {
+        backgroundColor: COLOR_SYS,
+      },
     }
   }
 )

@@ -1,5 +1,5 @@
 import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_BLUE_SYS_08, COLOR_GRAY, COLOR_WHITE, FONT_SIZE_14, FONT_SIZE_20} from "../../../../Style"
+import {COLOR_GRAY, COLOR_WHITE, FONT_SIZE_14, FONT_SIZE_20} from "../../../../Style"
 
 const {width} = Dimensions.get('window')
 
@@ -20,7 +20,6 @@ export default StyleSheet.create({
     marginTop: 10,
   },
   button: {
-    backgroundColor: COLOR_BLUE_SYS_08,
     width: width - 20,
     marginTop: 10,
   }

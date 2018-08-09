@@ -1,6 +1,6 @@
 /** @flow */
 import {StyleSheet} from "react-native"
-import {COLOR, COLOR_BLACK_02, COLOR_BLACK_06, COLOR_WHITE} from "../../../../Style"
+import {COLOR_SYS, COLOR_WHITE} from "../../../../Style"
 
 
 export default StyleSheet.create({
@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
   up: {
     borderBottomWidth: 1,
-    borderBottomColor: COLOR_BLACK_02,
+    borderBottomColor: COLOR_SYS,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -21,10 +21,10 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
   },
   upText: {
-    color: COLOR_BLACK_06,
+    color: COLOR_SYS,
   },
   upNumber: {
-    color: COLOR,
+    color: COLOR_SYS,
   },
   downLeft: {
     flex: 1,
@@ -40,7 +40,7 @@ export default StyleSheet.create({
   },
   touch: {
     borderWidth: 1,
-    borderColor: COLOR,
+    borderColor: COLOR_SYS,
     height: 24,
     width: 60,
     justifyContent: 'center',
@@ -57,6 +57,6 @@ export default StyleSheet.create({
     borderBottomLeftRadius: 0,
   },
   touchText: {
-    color: COLOR,
+    color: COLOR_SYS,
   }
 })

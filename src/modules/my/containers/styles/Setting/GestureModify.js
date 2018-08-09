@@ -1,6 +1,13 @@
 /** @flow */
 import {StyleSheet} from "react-native"
-import {COLOR_BLACK_06, COLOR_RED, COLOR_RED_02, COLOR_RED_04, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
+import {
+  COLOR_BLACK_SYS,
+  COLOR_RED,
+  COLOR_RED_02,
+  COLOR_RED_04,
+  COLOR_WHITE,
+  FONT_SIZE_16
+} from "../../../../../Style"
 
 export default StyleSheet.create({
   view: {
@@ -11,7 +18,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: FONT_SIZE_16,
-    color: COLOR_BLACK_06,
+    color: COLOR_BLACK_SYS,
   },
   circle: {
     backgroundColor: COLOR_RED_02,

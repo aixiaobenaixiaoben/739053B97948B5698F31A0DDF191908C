@@ -1,6 +1,13 @@
 /** @flow */
 import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_BLACK_08, COLOR_GRAY, COLOR_WHITE, FONT_SIZE_12, FONT_SIZE_14, FONT_SIZE_16} from "../../../../../Style"
+import {
+  COLOR_BLACK_SYS,
+  COLOR_GRAY,
+  COLOR_WHITE,
+  FONT_SIZE_12,
+  FONT_SIZE_14,
+  FONT_SIZE_16
+} from "../../../../../Style"
 
 const {width} = Dimensions.get('window')
 
@@ -42,6 +49,6 @@ export default StyleSheet.create({
   h3: {
     lineHeight: 20,
     fontSize: FONT_SIZE_12,
-    color: COLOR_BLACK_08,
+    color: COLOR_BLACK_SYS,
   }
 })

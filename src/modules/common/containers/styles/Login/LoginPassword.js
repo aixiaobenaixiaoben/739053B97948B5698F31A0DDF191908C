@@ -1,6 +1,6 @@
 /** @flow */
 import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_BLUE_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
+import {COLOR_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
 
 const {width} = Dimensions.get('window')
 
@@ -53,7 +53,7 @@ export default StyleSheet.create({
     marginHorizontal: 12,
   },
   forgetButtonText: {
-    color: COLOR_BLUE_SYS,
+    color: COLOR_SYS,
     fontSize: FONT_SIZE_16,
   },
 })

@@ -4,13 +4,13 @@ import {StyleSheet, TouchableOpacity} from "react-native"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import PropTypes from "prop-types"
 
-import {COLOR_BLUE_SYS, COLOR_WHITE} from "../../../Style"
+import {COLOR_WHITE} from "../../../Style"
 
 class HeaderBackImage extends Component<any, any> {
 
   render() {
     const {
-      color = COLOR_BLUE_SYS,
+      color = COLOR_WHITE,
       name = 'ios-arrow-back',
       handler = () => {},
     } = this.props

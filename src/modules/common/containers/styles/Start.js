@@ -1,6 +1,6 @@
 /** @flow */
 import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_BLACK_08, COLOR_WHITE} from "../../../../Style"
+import {COLOR_BLACK_SYS, COLOR_WHITE} from "../../../../Style"
 
 const {width} = Dimensions.get('window')
 
@@ -19,7 +19,7 @@ export default StyleSheet.create({
     bottom: 10,
     width: 100,
     borderRadius: 20,
-    backgroundColor: COLOR_BLACK_08,
+    backgroundColor: COLOR_BLACK_SYS,
   },
   bottom: {
     flex: 1,

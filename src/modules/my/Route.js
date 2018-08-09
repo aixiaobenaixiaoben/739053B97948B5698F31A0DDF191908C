@@ -9,6 +9,7 @@ import GestureSetting from "./containers/Setting/GestureSetting"
 import HeaderBackImage from "../common/components/HeaderBackImage"
 import React from "react"
 import TouchIDSetting from "./containers/Setting/TouchIDSetting"
+import {COLOR_SYS, COLOR_WHITE} from "../../Style"
 
 
 export const MySettingRoute = createStackNavigator(
@@ -56,6 +57,10 @@ export const MySettingRoute = createStackNavigator(
   },
   {
     navigationOptions: ({navigation}) => ({
+      headerTintColor: COLOR_WHITE,
+      headerStyle: {
+        backgroundColor: COLOR_SYS,
+      },
       headerBackTitle: null,
       headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
     })

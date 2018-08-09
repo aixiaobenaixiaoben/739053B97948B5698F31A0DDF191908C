@@ -1,6 +1,6 @@
 /** @flow */
 import {StyleSheet} from "react-native"
-import {COLOR_BLUE_SYS, FONT_SIZE_16} from "../../../../../Style"
+import {COLOR_SYS, FONT_SIZE_16} from "../../../../../Style"
 
 export default StyleSheet.create({
   button: {
@@ -11,7 +11,7 @@ export default StyleSheet.create({
     height: null,
   },
   sendButtonText: {
-    color: COLOR_BLUE_SYS,
+    color: COLOR_SYS,
     fontSize: FONT_SIZE_16,
   }
 })

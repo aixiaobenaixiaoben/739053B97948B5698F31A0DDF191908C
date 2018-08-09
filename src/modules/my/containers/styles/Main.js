@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native"
-import {COLOR_BLUE_SYS} from "../../../../Style"
+import {COLOR_WHITE} from "../../../../Style"
 
 export default StyleSheet.create({
   view: {
@@ -11,14 +11,14 @@ export default StyleSheet.create({
     marginHorizontal: 10,
   },
   headerLeftText: {
-    color: COLOR_BLUE_SYS,
+    color: COLOR_WHITE,
     fontSize: 18,
   },
   headerRight: {
     marginHorizontal: 10,
   },
   headerRightText: {
-    color: COLOR_BLUE_SYS,
+    color: COLOR_WHITE,
     fontSize: 14,
   },
 })

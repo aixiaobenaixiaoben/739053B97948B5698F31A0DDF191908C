@@ -5,7 +5,7 @@ import Ionicons from "react-native-vector-icons/Ionicons"
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
 
 import {common, home, movie, music, my, read} from "./modules"
-import {COLOR_BLUE_SYS, COLOR_GRAY} from "./Style"
+import {COLOR_GRAY, COLOR_SYS, COLOR_WHITE} from "./Style"
 
 const TabBarBadge = common.TabBarBadge
 
@@ -15,6 +15,10 @@ const HomeHomeStack = createStackNavigator(
       screen: home.HomeMain,
       navigationOptions: {
         title: 'Home',
+        headerTintColor: COLOR_WHITE,
+        headerStyle: {
+          backgroundColor: COLOR_SYS,
+        },
       }
     },
   },
@@ -26,6 +30,10 @@ const MovieHomeStack = createStackNavigator(
       screen: movie.MovieMain,
       navigationOptions: {
         title: 'Movie',
+        headerTintColor: COLOR_WHITE,
+        headerStyle: {
+          backgroundColor: COLOR_SYS,
+        },
       }
     },
   },
@@ -37,6 +45,10 @@ const MusicHomeStack = createStackNavigator(
       screen: music.MusicMain,
       navigationOptions: {
         title: 'Music',
+        headerTintColor: COLOR_WHITE,
+        headerStyle: {
+          backgroundColor: COLOR_SYS,
+        },
       }
     },
   },
@@ -48,6 +60,10 @@ const ReadHomeStack = createStackNavigator(
       screen: read.ReadMain,
       navigationOptions: {
         title: 'Read',
+        headerTintColor: COLOR_WHITE,
+        headerStyle: {
+          backgroundColor: COLOR_SYS,
+        },
       }
     },
   },
@@ -57,33 +73,43 @@ const MyHomeStack = createStackNavigator(
   {
     MyHome: {
       screen: my.MyMain,
-      navigationOptions: {}
+      navigationOptions: {
+        title: '帐号',
+      }
     },
     MyLogin: {
       screen: common.Login,
       navigationOptions: {
-        header: null
+        title: '登录',
       }
     },
     MyLoginPassword: {
       screen: common.LoginPassword,
       navigationOptions: {
-        header: null
+        title: '密码登录'
       }
     },
     MyLoginGesture: {
       screen: common.LoginGesture,
       navigationOptions: {
-        header: null
+        title: '手势登录',
       }
     },
     MyLoginTouchID: {
       screen: common.LoginTouchID,
       navigationOptions: {
-        header: null
+        title: '登录',
       }
     },
   },
+  {
+    navigationOptions: {
+      headerTintColor: COLOR_WHITE,
+      headerStyle: {
+        backgroundColor: COLOR_SYS,
+      },
+    }
+  }
 )
 
 
@@ -142,7 +168,7 @@ const RootTab = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      activeTintColor: COLOR_BLUE_SYS,
+      activeTintColor: COLOR_SYS,
       inactiveTintColor: COLOR_GRAY,
     },
     lazy: true,

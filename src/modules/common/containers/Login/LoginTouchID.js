@@ -10,14 +10,14 @@ import TouchId from "react-native-touch-id"
 
 import style from "../styles/Login/LoginTouchID"
 import * as LoginActions from "../../actions/Login/Login"
-import {COLOR_BLACK_08, COLOR_BLUE_SYS, COLOR_GRAY_LIGHT} from "../../../../Style"
+import {COLOR_SYS, COLOR_GRAY_LIGHT, COLOR_BLACK_SYS} from "../../../../Style"
 import Button from "../../components/Button"
 
 
 class LoginTouchID extends Component<any, any> {
 
   state = {
-    color: COLOR_BLUE_SYS
+    color: COLOR_SYS
   }
 
   componentDidMount() {
@@ -100,8 +100,8 @@ class LoginTouchID extends Component<any, any> {
 
         <View style={style.middle}>
           <TouchableOpacity onPress={this.touchIDCheck}
-                            onPressIn={() => this.setState({color: COLOR_BLACK_08})}
-                            onPressOut={() => this.setState({color: COLOR_BLUE_SYS})}
+                            onPressIn={() => this.setState({color: COLOR_BLACK_SYS})}
+                            onPressOut={() => this.setState({color: COLOR_SYS})}
                             activeOpacity={1}>
             <Image source={require('../../../../../assets/touchid.png')}
                    style={[style.touchID, {tintColor: this.state.color}]}/>

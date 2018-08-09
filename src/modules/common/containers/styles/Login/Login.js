@@ -1,6 +1,6 @@
 /** @flow */
 import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_BLACK_06, COLOR_BLACK_SYS, COLOR_BLUE_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
+import {COLOR_BLACK_SYS, COLOR_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
 
 const {width} = Dimensions.get('window')
 
@@ -46,7 +46,7 @@ export default StyleSheet.create({
     marginHorizontal: 12,
   },
   forgetButtonText: {
-    color: COLOR_BLUE_SYS,
+    color: COLOR_SYS,
     fontSize: FONT_SIZE_16,
   },
   agreement: {
@@ -60,7 +60,7 @@ export default StyleSheet.create({
     paddingTop: 2,
   },
   agreementText: {
-    color: COLOR_BLACK_06,
+    color: COLOR_BLACK_SYS,
     fontSize: FONT_SIZE_16,
   },
   agreementButton: {
@@ -68,7 +68,7 @@ export default StyleSheet.create({
     height: null,
   },
   agreementButtonText: {
-    color: COLOR_BLACK_SYS,
+    color: COLOR_SYS,
     fontSize: FONT_SIZE_16,
   }
 })

@@ -1,6 +1,6 @@
 /** @flow */
 import {StyleSheet} from "react-native"
-import {COLOR_BLUE_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
+import {COLOR_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
 
 export default StyleSheet.create({
   view: {
@@ -36,7 +36,7 @@ export default StyleSheet.create({
     height: null,
   },
   buttonText: {
-    color: COLOR_BLUE_SYS,
+    color: COLOR_SYS,
     fontSize: FONT_SIZE_16,
   },
   touchID: {

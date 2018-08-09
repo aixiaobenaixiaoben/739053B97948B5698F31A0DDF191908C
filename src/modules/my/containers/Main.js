@@ -15,7 +15,6 @@ class Main extends Component<any, any> {
   static navigationOptions = ({navigation}) => {
     const logout = navigation.getParam('logout')
     return {
-      title: '个人中心',
       headerLeft:
         <TouchableOpacity onPress={() => navigation.navigate('MySetting')} style={style.headerLeft}>
           <Text style={style.headerLeftText}>设置</Text>
