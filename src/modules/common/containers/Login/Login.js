@@ -1,6 +1,6 @@
 /** @flow */
 import React, {Component} from "react"
-import {Text, TouchableOpacity, View} from "react-native"
+import {ScrollView, Text, TouchableOpacity, View} from "react-native"
 import {connect} from "react-redux"
 import {NavigationActions, StackActions} from "react-navigation"
 import PropTypes from "prop-types"
@@ -104,7 +104,8 @@ class Login extends Component<any, any> {
     const {agreement} = this.state
 
     return (
-      <View style={style.view}>
+      <View style={style.rootView}>
+      <ScrollView contentContainerStyle={style.view} keyboardShouldPersistTaps='handled'>
 
         <View style={style.top}>
           <FontAwesome name='user-circle' size={60} color={COLOR_GRAY_LIGHT}/>
@@ -145,6 +146,7 @@ class Login extends Component<any, any> {
           </View>
         </View>
 
+      </ScrollView>
       </View>
     )
   }

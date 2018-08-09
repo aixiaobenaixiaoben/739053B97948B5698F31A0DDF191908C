@@ -1,11 +1,12 @@
 /** @flow */
 import React, {Component} from "react"
-import {ScrollView} from "react-native"
+import {ScrollView, Text} from "react-native"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import {InputItem, List, Modal, WhiteSpace} from "antd-mobile-rn"
 import Button from "../../../common/components/Button"
 import * as actions from "../../actions/Setting/PasswordModify"
+import style from "../../../common/containers/styles/Register/Register"
 
 
 class PasswordModify extends Component<any, any> {
@@ -62,7 +63,7 @@ class PasswordModify extends Component<any, any> {
       <ScrollView keyboardShouldPersistTaps='handled'>
         <WhiteSpace size="lg"/>
         <List>
-          <InputItem type='password' maxLength={15} clear placeholder="8-15位数字、字母或下划线组成"
+          <InputItem type='password' maxLength={15} clear placeholder="请输入"
                      value={this.state.password1} onChange={(password1) => this.setState({password1})}>
             登录密码
           </InputItem>
@@ -73,6 +74,7 @@ class PasswordModify extends Component<any, any> {
         </List>
         <WhiteSpace size="lg"/>
 
+        <Text style={style.text}>密码组成: 8-15位数字、大小写字母或下划线的组合</Text>
         <Button text='提交' style={{margin: 10}} onPress={this.submit}/>
       </ScrollView>
     )

@@ -1,37 +1,25 @@
 /** @flow */
 import React, {Component} from "react"
-import {Text, TouchableOpacity, View} from "react-native"
+import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native"
 import {NavigationActions, StackActions} from "react-navigation"
 import {connect} from "react-redux"
-import {Modal} from "antd-mobile-rn"
+import {List, Modal, WhiteSpace} from "antd-mobile-rn"
 import PropTypes from "prop-types"
+import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
+import Ionicons from "react-native-vector-icons/Ionicons"
 
 import * as actions from "../../common/actions/Login/Login"
 import style from "./styles/Main"
+import {COLOR_GRAY, COLOR_GRAY_LIGHT} from "../../../Style"
+
+const Item = List.Item
 
 
 class Main extends Component<any, any> {
 
-  static navigationOptions = ({navigation}) => {
-    const logout = navigation.getParam('logout')
-    return {
-      headerLeft:
-        <TouchableOpacity onPress={() => navigation.navigate('MySetting')} style={style.headerLeft}>
-          <Text style={style.headerLeftText}>设置</Text>
-        </TouchableOpacity>,
-      headerRight:
-        <TouchableOpacity onPress={logout} style={style.headerRight}>
-          <Text style={style.headerRightText}>安全</Text>
-          <Text style={style.headerRightText}>退出</Text>
-        </TouchableOpacity>,
-    }
-  }
-
   componentWillMount() {
     if (!this.props.isLogin) {
       this.jumpToLogin()
-    } else {
-      this.props.navigation.setParams({logout: this.logout})
     }
   }
 
@@ -58,11 +46,35 @@ class Main extends Component<any, any> {
     this.props.navigation.dispatch(resetAction)
   }
 
+  goToSetting = () => {
+    this.props.navigation.navigate('MySetting')
+  }
+
   render() {
     return (
-      <View style={style.view}>
-        <Text>This Is My Main Page</Text>
-      </View>
+      <ScrollView>
+        <WhiteSpace/>
+        <TouchableOpacity onPress={() => alert(3)} style={style.profile}>
+          <Image source={require('../../../../assets/touchid.png')} style={style.image}/>
+          <View style={style.info}>
+            <Text numberOfLines={1} style={style.text1}>点点</Text>
+            <Text numberOfLines={1} style={style.text2}>357620917@qq.com</Text>
+          </View>
+          <Ionicons name='ios-arrow-forward' size={25} color={COLOR_GRAY_LIGHT} style={style.arrow}/>
+        </TouchableOpacity>
+
+        <WhiteSpace/>
+        <Item arrow="horizontal" onClick={this.goToSetting}
+              thumb={<MaterialIcon name='settings' size={25} color={COLOR_GRAY} style={style.icon}/>}>
+          设置
+        </Item>
+
+        <WhiteSpace/>
+        <Item onClick={this.logout}>
+          <Text style={style.logout}>退出登录</Text>
+        </Item>
+
+      </ScrollView>
     )
   }
 }

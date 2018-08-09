@@ -1,6 +1,6 @@
 /** @flow */
 import React, {Component} from "react"
-import {ScrollView} from "react-native"
+import {ScrollView, Text} from "react-native"
 import style from "../styles/Register/Register"
 import Button from "../../components/Button"
 import {InputItem, List, Modal, WhiteSpace} from "antd-mobile-rn"
@@ -14,6 +14,7 @@ class SetPassword extends Component<any, any> {
   state = {
     password1: '',
     password2: '',
+    username: '',
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -26,7 +27,16 @@ class SetPassword extends Component<any, any> {
   }
 
   submit = () => {
-    const {password1, password2} = this.state
+    const {username, password1, password2} = this.state
+    if (username.length === 0) {
+      Modal.alert('', '请输入用户名')
+      return
+    }
+    const regName = /^[\u4E00-\u9FA5A-Za-z0-9_]{2,16}$/
+    if (!regName.test(username)) {
+      Modal.alert('', '用户名格式不正确')
+      return
+    }
     if (password1.length === 0 || password2.length === 0) {
       Modal.alert('', '请输入登录密码和确认密码')
       return
@@ -47,6 +57,7 @@ class SetPassword extends Component<any, any> {
     this.props.register({
       mobile: this.props.navigation.getParam('mobile'),
       password: password1,
+      username,
     })
   }
 
@@ -65,7 +76,11 @@ class SetPassword extends Component<any, any> {
 
         <WhiteSpace size="lg"/>
         <List>
-          <InputItem type='password' maxLength={15} clear placeholder="8-15位数字、字母或下划线组成"
+          <InputItem maxLength={16} clear placeholder="请输入"
+                     value={this.state.username} onChange={(username) => this.setState({username})}>
+            用户名
+          </InputItem>
+          <InputItem type='password' maxLength={15} clear placeholder="请输入"
                      value={this.state.password1} onChange={(password1) => this.setState({password1})}>
             登录密码
           </InputItem>
@@ -76,6 +91,8 @@ class SetPassword extends Component<any, any> {
         </List>
         <WhiteSpace size="lg"/>
 
+        <Text style={style.text}>用户名组成: 2-16位中文、数字、大小写字母或下划线的组合</Text>
+        <Text style={style.text}>密码组成: 8-15位数字、大小写字母或下划线的组合</Text>
         <Button text='提交' style={style.button} onPress={this.submit}/>
       </ScrollView>
     )

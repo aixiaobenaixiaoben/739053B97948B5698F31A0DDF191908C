@@ -5,9 +5,12 @@ import {COLOR_BLACK_SYS, COLOR_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../..
 const {width} = Dimensions.get('window')
 
 export default StyleSheet.create({
-  view: {
+  rootView: {
     flex: 1,
     backgroundColor: COLOR_WHITE,
+  },
+  view: {
+    flex: 1,
   },
   top: {
     flex: 1,

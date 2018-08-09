@@ -1,11 +1,9 @@
 /** @flow */
 import React, {Component} from "react"
 import {ScrollView} from "react-native"
-import {List, Modal, WhiteSpace} from "antd-mobile-rn"
+import {List, WhiteSpace} from "antd-mobile-rn"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
-import Button from "../../../common/components/Button"
-import * as actions from "../../../common/actions/Login/Login"
 
 
 const Item = List.Item
@@ -23,18 +21,6 @@ class Setting extends Component<any, any> {
 
   gestureModify = () => {
     this.props.navigation.navigate('MyGestureSetting')
-  }
-
-  logout = () => {
-    Modal.alert('确认', '请确认是否退出当前登录帐号', [
-      {text: '取消'},
-      {
-        text: '确定', onPress: () => {
-          this.props.navigation.pop()
-          this.props.logout()
-        }
-      }
-    ])
   }
 
   render() {
@@ -58,9 +44,6 @@ class Setting extends Component<any, any> {
             手势登录
           </Item>
         </List>
-        <WhiteSpace size="lg"/>
-
-        <Button text='安全退出' onPress={this.logout} style={{margin: 10}}/>
       </ScrollView>
     )
   }
@@ -71,7 +54,6 @@ Setting.propTypes = {
   isTouchIDSupported: PropTypes.bool.isRequired,
   isTouchIDEnabled: PropTypes.bool.isRequired,
   touchIDType: PropTypes.string.isRequired,
-  logout: PropTypes.func.isRequired,
 }
 
 export default connect(
@@ -80,8 +62,5 @@ export default connect(
     isTouchIDSupported: state.common.loginTouchID.isTouchIDSupported,
     isTouchIDEnabled: state.common.loginTouchID.isTouchIDEnabled,
     touchIDType: state.common.loginTouchID.touchIDType,
-  }),
-  dispatch => ({
-    logout: () => dispatch(actions.logout()),
   })
 )(Setting)
