@@ -1,41 +1,41 @@
 /** @flow */
 import {handleActions} from "redux-actions"
-import {ACTION_LOGIN, ACTION_LOGOUT} from "../../Constants"
+import {ACTION_LOGIN, ACTION_LOGIN_UPDATE, ACTION_LOGOUT} from "../../Constants"
+import type {Syusrinf} from "../../interface/Syusrinf"
 
 
 type State = {
   isLogin: boolean,
-  loginID: string,
-  mobile: string,
-  password: string,
+  user: Syusrinf,
 }
 
 const initialState: State = {
   isLogin: false,
-  loginID: '',
-  mobile: '',
-  password: '',
+  user: {
+    suiseqcod: '',
+  },
 }
 
 export default handleActions(
   {
     [ACTION_LOGIN]: (state: State, action) => {
-      const {mobile, password} = action.payload
       return {
         ...state,
         isLogin: true,
-        loginID: '00000000000',
-        mobile,
-        password,
+        user: action.payload
       }
-
     },
     [ACTION_LOGOUT]: (state: State, action) => {
       return {
         ...state,
         isLogin: false,
       }
-
+    },
+    [ACTION_LOGIN_UPDATE]: (state: State, action) => {
+      return {
+        ...state,
+        user: action.payload,
+      }
     },
   },
   initialState)

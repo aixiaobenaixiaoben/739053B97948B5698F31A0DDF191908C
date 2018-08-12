@@ -2,7 +2,6 @@
 import {createStackNavigator} from "react-navigation"
 import Setting from "./containers/Setting/Setting"
 import PasswordModify from "./containers/Setting/PasswordModify"
-import PasswordModifyCheck from "./containers/Setting/PasswordModifyCheck"
 import Result from "../common/containers/Result"
 import GestureModify from "./containers/Setting/GestureModify"
 import GestureSetting from "./containers/Setting/GestureSetting"
@@ -21,16 +20,10 @@ export const MySettingRoute = createStackNavigator(
         title: '设置',
       })
     },
-    MyPasswordModifyCheck: {
-      screen: PasswordModifyCheck,
-      navigationOptions: {
-        title: '校验原登录密码',
-      }
-    },
     MyPasswordModify: {
       screen: PasswordModify,
       navigationOptions: {
-        title: '设置新登录密码',
+        title: '修改登录密码',
       }
     },
     MyPasswordModifyResult: {

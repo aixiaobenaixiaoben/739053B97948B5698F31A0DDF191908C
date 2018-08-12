@@ -23,7 +23,7 @@ export const CommonRegisterRoute = createStackNavigator(
     CommonRegisterSetPassword: {
       screen: RegisterSetPassword,
       navigationOptions: {
-        title: '设置登录密码',
+        title: '设置注册信息',
       }
     },
     CommonRegisterResult: {

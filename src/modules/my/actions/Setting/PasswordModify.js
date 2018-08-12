@@ -1,57 +1,35 @@
 /** @flow */
 import {Modal, Toast} from "antd-mobile-rn"
 import Request from "axios/index"
-import {
-  ACTION_PASSWORD_MODIFY_CHECK_RESET,
-  ACTION_PASSWORD_MODIFY_CHECK_SUC,
-  ACTION_PASSWORD_MODIFY_RESET,
-  ACTION_PASSWORD_MODIFY_SUC,
-  URL_PASSWORD_MODIFY,
-  URL_PASSWORD_MODIFY_CHECK,
-} from "../../Constants"
+import qs from "qs"
+import md5 from "crypto-js/md5"
+import {ACTION_PASSWORD_MODIFY_RESET, ACTION_PASSWORD_MODIFY_SUC, URL_PASSWORD_MODIFY,} from "../../Constants"
 import type {Action, ActionAsync} from "../../../common/Constants"
+import {ACTION_LOGIN_UPDATE} from "../../../common/Constants"
+import type {Syusrinf} from "../../../common/interface/Syusrinf"
 
 
-export const passwordModifyCheck = (data): ActionAsync => {
-  return (dispatch, getState) => {
-
-    Toast.loading('验证中', 0)
-
-    Request.get(URL_PASSWORD_MODIFY_CHECK, {params: data})
-      .then(response => {
-        const {COD, MSG} = response.data
-        if (COD === 'SUC') {
-          dispatch({type: ACTION_PASSWORD_MODIFY_CHECK_SUC})
-          Toast.hide()
-        } else {
-          Modal.alert('', MSG)
-        }
-      })
-      .catch(error => {
-        Modal.alert('', error.message)
-      })
-  }
-}
-
-export const passwordModifyCheckReset = (): Action => {
-  return {
-    type: ACTION_PASSWORD_MODIFY_CHECK_RESET,
-  }
-}
-
-export const passwordModify = (data): ActionAsync => {
+export const passwordModify = (data: Syusrinf): ActionAsync => {
   return (dispatch, getState) => {
 
     Toast.loading('提交中', 0)
+    let param: Syusrinf = {
+      suiseqcod: data.suiseqcod,
+      suipaswrd: md5(data.suipaswrd).toString().toUpperCase(),
+      newpaswrd: md5(data.newpaswrd).toString().toUpperCase(),
+      suiverson: data.suiverson,
+    }
 
-    Request.get(URL_PASSWORD_MODIFY, {params: data})
+    Request.post(URL_PASSWORD_MODIFY, qs.stringify(param))
       .then(response => {
-        const {COD, MSG} = response.data
-        if (COD === 'SUC') {
+        const {RTNCOD, RTNDTA, ERRMSG} = response.data
+        if (RTNCOD === 'SUC') {
+          RTNDTA.suipaswrd = param.newpaswrd
           dispatch({type: ACTION_PASSWORD_MODIFY_SUC})
+          dispatch({type: ACTION_LOGIN_UPDATE, payload: RTNDTA})
           Toast.hide()
         } else {
-          Modal.alert('', MSG)
+          Modal.alert('', ERRMSG)
         }
       })
       .catch(error => {

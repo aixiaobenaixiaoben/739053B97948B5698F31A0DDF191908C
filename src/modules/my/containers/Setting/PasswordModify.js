@@ -7,13 +7,19 @@ import {InputItem, List, Modal, WhiteSpace} from "antd-mobile-rn"
 import Button from "../../../common/components/Button"
 import * as actions from "../../actions/Setting/PasswordModify"
 import style from "../../../common/containers/styles/Register/Register"
+import type {Syusrinf} from "../../../common/interface/Syusrinf"
 
 
 class PasswordModify extends Component<any, any> {
 
   state = {
+    password: '',
     password1: '',
     password2: '',
+  }
+
+  componentDidMount() {
+    this.props.passwordModifyReset()
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -26,9 +32,24 @@ class PasswordModify extends Component<any, any> {
   }
 
   submit = () => {
-    const {password1, password2} = this.state
+    const {password, password1, password2} = this.state
+    const reg = /^[A-Za-z0-9_]{8,15}$/
+
+    if (password.length === 0) {
+      Modal.alert('', '请输入原密码')
+      return
+    }
+    if (password.length < 8) {
+      Modal.alert('', '原密码长度不能小于8位')
+      return
+    }
+    if (!reg.test(password)) {
+      Modal.alert('', '原密码格式不正确,必须为只包含数字、大小写字母或下划线的8-15位字符串')
+      return
+    }
+
     if (password1.length === 0 || password2.length === 0) {
-      Modal.alert('', '请输入登录密码和确认密码')
+      Modal.alert('', '请输入新密码和确认密码')
       return
     }
     if (password1.length < 8 || password2.length < 8) {
@@ -36,22 +57,23 @@ class PasswordModify extends Component<any, any> {
       return
     }
     if (password1 !== password2) {
-      Modal.alert('', '登录密码和确认密码不一致')
+      Modal.alert('', '新密码和确认密码不一致')
       return
     }
-    const reg = /^[A-Za-z0-9_]{8,15}$/
     if (!reg.test(password1)) {
-      Modal.alert('', '密码格式不正确,必须为只包含数字、大小写字母或下划线的8-15位字符串')
+      Modal.alert('', '新密码格式不正确,必须为只包含数字、大小写字母或下划线的8-15位字符串')
       return
     }
-    this.props.passwordModify({
-      mobile: this.props.mobile,
-      password: password1,
-    })
+
+    let user = this.props.user
+    user.suipaswrd = password
+    user.newpaswrd = password1
+    this.props.passwordModify(user)
   }
 
   next = () => {
     this.props.navigation.navigate('MyPasswordModifyResult', {
+      routeTo: 'MySetting',
       isSuccess: true,
       title: '修改成功',
       description: '您已经成功修改登录密码',
@@ -64,12 +86,16 @@ class PasswordModify extends Component<any, any> {
         <WhiteSpace size="lg"/>
         <List>
           <InputItem type='password' maxLength={15} clear placeholder="请输入"
-                     value={this.state.password1} onChange={(password1) => this.setState({password1})}>
-            登录密码
+                     value={this.state.password} onChange={(password) => this.setState({password})}>
+            原密码
           </InputItem>
-          <InputItem type='password' maxLength={15} clear placeholder="请再次输入登录密码"
+          <InputItem type='password' maxLength={15} clear placeholder="请输入"
+                     value={this.state.password1} onChange={(password1) => this.setState({password1})}>
+            新密码
+          </InputItem>
+          <InputItem type='password' maxLength={15} clear placeholder="请再次输入新密码"
                      value={this.state.password2} onChange={(password2) => this.setState({password2})}>
-            确认密码
+            确认新密码
           </InputItem>
         </List>
         <WhiteSpace size="lg"/>
@@ -83,7 +109,7 @@ class PasswordModify extends Component<any, any> {
 
 PasswordModify.propTypes = {
   isPasswordModifySuc: PropTypes.bool.isRequired,
-  mobile: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
 
   passwordModify: PropTypes.func.isRequired,
   passwordModifyReset: PropTypes.func.isRequired,
@@ -91,11 +117,11 @@ PasswordModify.propTypes = {
 
 export default connect(
   state => ({
-    mobile: state.common.login.mobile,
+    user: state.common.login.user,
     isPasswordModifySuc: state.my.passwordModify.isPasswordModifySuc,
   }),
   dispatch => ({
-    passwordModify: (data) => dispatch(actions.passwordModify(data)),
+    passwordModify: (data: Syusrinf) => dispatch(actions.passwordModify(data)),
     passwordModifyReset: () => dispatch(actions.passwordModifyReset()),
   })
 )(PasswordModify)

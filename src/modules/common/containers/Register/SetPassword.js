@@ -7,6 +7,7 @@ import {InputItem, List, Modal, WhiteSpace} from "antd-mobile-rn"
 import * as actions from "../../actions/Register/SetPassword"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
+import type {Syusrinf} from "../../interface/Syusrinf"
 
 
 class SetPassword extends Component<any, any> {
@@ -54,11 +55,12 @@ class SetPassword extends Component<any, any> {
       Modal.alert('', '密码格式不正确,必须为只包含数字、大小写字母或下划线的8-15位字符串')
       return
     }
-    this.props.register({
-      mobile: this.props.navigation.getParam('mobile'),
-      password: password1,
-      username,
-    })
+    let data: Syusrinf = {
+      suimobile: this.props.navigation.getParam('mobile'),
+      suipaswrd: password1,
+      suiusrnam: username,
+    }
+    this.props.register(data)
   }
 
   next = () => {
@@ -76,7 +78,7 @@ class SetPassword extends Component<any, any> {
 
         <WhiteSpace size="lg"/>
         <List>
-          <InputItem maxLength={16} clear placeholder="请输入"
+          <InputItem maxLength={16} clear placeholder="请输入" autoCapitalize='none'
                      value={this.state.username} onChange={(username) => this.setState({username})}>
             用户名
           </InputItem>
@@ -110,7 +112,7 @@ export default connect(
     isRegisterSuc: state.common.registerSetPassword.isRegisterSuc,
   }),
   dispatch => ({
-    register: (data) => dispatch(actions.register(data)),
+    register: (data: Syusrinf) => dispatch(actions.register(data)),
     registerReset: () => dispatch(actions.registerReset()),
   })
 )(SetPassword)

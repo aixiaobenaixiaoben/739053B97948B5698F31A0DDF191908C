@@ -12,6 +12,7 @@ import style from "../styles/Login/LoginTouchID"
 import * as LoginActions from "../../actions/Login/Login"
 import {COLOR_SYS, COLOR_GRAY_LIGHT, COLOR_BLACK_SYS} from "../../../../Style"
 import Button from "../../components/Button"
+import type {Syusrinf} from "../../interface/Syusrinf"
 
 
 class LoginTouchID extends Component<any, any> {
@@ -65,10 +66,7 @@ class LoginTouchID extends Component<any, any> {
   touchIDCheck = () => {
     TouchId.authenticate('通过Home键验证已有手机指纹', {fallbackLabel: ''})
       .then(success => {
-        this.props.login({
-          mobile: this.props.mobile,
-          password: this.props.password,
-        })
+        this.props.login(this.props.user)
       })
       .catch(error => {
         if (error.name === 'RCTTouchIDNotSupported') {
@@ -85,7 +83,7 @@ class LoginTouchID extends Component<any, any> {
   }
 
   render() {
-    const {mobile} = this.props
+    const mobile = this.props.user.suimobile
 
     return (
       <View style={style.view}>
@@ -120,8 +118,7 @@ class LoginTouchID extends Component<any, any> {
 
 LoginTouchID.propTypes = {
   isLogin: PropTypes.bool.isRequired,
-  mobile: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   isGestureEnabled: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
 }
@@ -129,11 +126,10 @@ LoginTouchID.propTypes = {
 export default connect(
   state => ({
     isLogin: state.common.login.isLogin,
-    mobile: state.common.login.mobile,
-    password: state.common.login.password,
+    user: state.common.login.user,
     isGestureEnabled: state.common.loginGesture.isGestureEnabled,
   }),
   dispatch => ({
-    login: (data) => dispatch(LoginActions.login(data)),
+    login: (data: Syusrinf) => dispatch(LoginActions.login(data)),
   })
 )(LoginTouchID)

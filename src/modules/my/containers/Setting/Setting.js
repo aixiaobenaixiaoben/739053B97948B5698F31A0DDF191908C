@@ -11,7 +11,7 @@ const Item = List.Item
 class Setting extends Component<any, any> {
 
   passwordModify = () => {
-    this.props.navigation.navigate('MyPasswordModifyCheck')
+    this.props.navigation.navigate('MyPasswordModify')
   }
 
   touchIDModify = () => {

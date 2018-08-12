@@ -11,6 +11,7 @@ import style from "../styles/Login/LoginPassword"
 import Button from "../../components/Button"
 import {ActionSheet, Modal} from "antd-mobile-rn/lib/index.native"
 import * as actions from "../../actions/Login/Login"
+import type {Syusrinf} from "../../interface/Syusrinf"
 
 
 class LoginPassword extends Component<any, any> {
@@ -55,8 +56,8 @@ class LoginPassword extends Component<any, any> {
       return
     }
     this.props.login({
-      mobile: this.props.mobile,
-      password,
+      suimobile: this.props.user.suimobile,
+      suipaswrd: password,
     })
   }
 
@@ -90,7 +91,7 @@ class LoginPassword extends Component<any, any> {
   }
 
   render() {
-    const {mobile} = this.props
+    const mobile = this.props.user.suimobile
 
     return (
       <View style={style.view}>
@@ -131,8 +132,7 @@ class LoginPassword extends Component<any, any> {
 
 LoginPassword.propTypes = {
   isLogin: PropTypes.bool.isRequired,
-  loginID: PropTypes.string.isRequired,
-  mobile: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   isGestureEnabled: PropTypes.bool.isRequired,
   isTouchIDSupported: PropTypes.bool.isRequired,
   isTouchIDEnabled: PropTypes.bool.isRequired,
@@ -143,14 +143,13 @@ LoginPassword.propTypes = {
 export default connect(
   state => ({
     isLogin: state.common.login.isLogin,
-    loginID: state.common.login.loginID,
-    mobile: state.common.login.mobile,
+    user: state.common.login.user,
     isGestureEnabled: state.common.loginGesture.isGestureEnabled,
     isTouchIDSupported: state.common.loginTouchID.isTouchIDSupported,
     isTouchIDEnabled: state.common.loginTouchID.isTouchIDEnabled,
     touchIDType: state.common.loginTouchID.touchIDType,
   }),
   dispatch => ({
-    login: (data) => dispatch(actions.login(data)),
+    login: (data: Syusrinf) => dispatch(actions.login(data)),
   })
 )(LoginPassword)

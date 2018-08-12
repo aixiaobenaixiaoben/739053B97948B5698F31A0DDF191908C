@@ -7,6 +7,7 @@ import {InputItem, List, Modal, WhiteSpace} from "antd-mobile-rn"
 import * as actions from "../../actions/ResetPassword/SetPassword"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
+import type {Syusrinf} from "../../interface/Syusrinf"
 
 
 class SetPassword extends Component<any, any> {
@@ -44,10 +45,10 @@ class SetPassword extends Component<any, any> {
       Modal.alert('', '密码格式不正确,必须为只包含数字、大小写字母或下划线的8-15位字符串')
       return
     }
-    this.props.resetPassword({
-      mobile: this.props.navigation.getParam('mobile'),
-      password: password1,
-    })
+
+    let user: Syusrinf = this.props.navigation.getParam('user')
+    user.suipaswrd = password1
+    this.props.resetPassword(user)
   }
 
   next = () => {

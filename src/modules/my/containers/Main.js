@@ -51,14 +51,16 @@ class Main extends Component<any, any> {
   }
 
   render() {
+    let {suiusrnam, suimobile} = this.props.user
+
     return (
       <ScrollView>
         <WhiteSpace/>
         <TouchableOpacity onPress={() => alert(3)} style={style.profile}>
           <Image source={require('../../../../assets/touchid.png')} style={style.image}/>
           <View style={style.info}>
-            <Text numberOfLines={1} style={style.text1}>点点</Text>
-            <Text numberOfLines={1} style={style.text2}>357620917@qq.com</Text>
+            <Text numberOfLines={1} style={style.text1}>{suiusrnam}</Text>
+            <Text numberOfLines={1} style={style.text2}>{suimobile}</Text>
           </View>
           <Ionicons name='ios-arrow-forward' size={25} color={COLOR_GRAY_LIGHT} style={style.arrow}/>
         </TouchableOpacity>
@@ -81,12 +83,14 @@ class Main extends Component<any, any> {
 
 Main.propTypes = {
   isLogin: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
 }
 
 export default connect(
   state => ({
     isLogin: state.common.login.isLogin,
+    user: state.common.login.user,
   }),
   dispatch => ({
     logout: () => dispatch(actions.logout()),

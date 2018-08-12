@@ -9,7 +9,16 @@ import createStore from './createStore'
 import Root from "./Route"
 
 
-Request.defaults.baseURL = 'http://localhost:3000'
+Request.defaults.baseURL = 'https://forfreedomandlove.com'
+
+Request.interceptors.request.use(
+  function (config) {
+    config.url += '.action'
+    return config
+  }, function (error) {
+    return Promise.reject(error)
+  })
+
 Request.interceptors.response.use(
   function (response) {
     return response

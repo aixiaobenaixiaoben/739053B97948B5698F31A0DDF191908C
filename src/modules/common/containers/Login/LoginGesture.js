@@ -13,6 +13,7 @@ import * as LoginActions from "../../actions/Login/Login"
 import * as actions from "../../actions/Login/LoginGesture"
 import {COLOR_GRAY_LIGHT} from "../../../../Style"
 import Button from "../../components/Button"
+import type {Syusrinf} from "../../interface/Syusrinf"
 
 
 class LoginGesture extends Component<any, any> {
@@ -65,11 +66,7 @@ class LoginGesture extends Component<any, any> {
       return
     }
     if (password === this.props.gesturePassword) {
-
-      this.props.login({
-        mobile: this.props.mobile,
-        password: this.props.password,
-      })
+      this.props.login(this.props.user)
       this.props.gestureCountReset()
 
     } else {
@@ -88,7 +85,7 @@ class LoginGesture extends Component<any, any> {
   }
 
   render() {
-    const {mobile} = this.props
+    const mobile = this.props.user.suimobile
 
     return (
       <View style={style.view}>
@@ -115,9 +112,7 @@ class LoginGesture extends Component<any, any> {
 
 LoginGesture.propTypes = {
   isLogin: PropTypes.bool.isRequired,
-  loginID: PropTypes.string.isRequired,
-  mobile: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   count: PropTypes.number.isRequired,
   gesturePassword: PropTypes.string.isRequired,
   isTouchIDSupported: PropTypes.bool.isRequired,
@@ -133,9 +128,7 @@ LoginGesture.propTypes = {
 export default connect(
   state => ({
     isLogin: state.common.login.isLogin,
-    loginID: state.common.login.loginID,
-    mobile: state.common.login.mobile,
-    password: state.common.login.password,
+    user: state.common.login.user,
     count: state.common.loginGesture.count,
     gesturePassword: state.common.loginGesture.gesturePassword,
     isTouchIDSupported: state.common.loginTouchID.isTouchIDSupported,
@@ -143,7 +136,7 @@ export default connect(
     touchIDType: state.common.loginTouchID.touchIDType,
   }),
   dispatch => ({
-    login: (data) => dispatch(LoginActions.login(data)),
+    login: (data: Syusrinf) => dispatch(LoginActions.login(data)),
     gestureDisable: () => dispatch(actions.gestureDisable()),
     gestureCountReset: () => dispatch(actions.gestureCountReset()),
     gestureCountDecrease: () => dispatch(actions.gestureCountDecrease()),

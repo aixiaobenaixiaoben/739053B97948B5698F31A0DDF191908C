@@ -7,16 +7,15 @@ import Button from "../../components/Button"
 import {InputItem, List, Modal, WhiteSpace} from "antd-mobile-rn"
 import PropTypes from "prop-types"
 import * as actions from "../../actions/Register/MobileCheck"
+import type {Syusrinf} from "../../interface/Syusrinf"
+import type {Syvrymbl} from "../../interface/Syvrymbl"
 
 
 class MobileCheck extends Component<any, any> {
 
-  timer: any
   state = {
     mobile: '',
     code: '',
-    disabled: false,
-    timerLeft: 0,
   }
 
   componentDidMount() {
@@ -43,17 +42,7 @@ class MobileCheck extends Component<any, any> {
       Modal.alert('', '手机号码格式不正确')
       return
     }
-    this.props.mobileCheckSend({mobile})
-
-    this.setState({disabled: true, timerLeft: 6})
-    this.timer = setInterval(() => {
-      let timerLeft = this.state.timerLeft - 1
-      this.setState({timerLeft})
-      if (timerLeft === -1) {
-        this.setState({disabled: false})
-        clearInterval(this.timer)
-      }
-    }, 1000)
+    this.props.mobileCheckSend({suimobile: mobile})
   }
 
   mobileCheck = () => {
@@ -75,11 +64,11 @@ class MobileCheck extends Component<any, any> {
       Modal.alert('', '验证码长度必须为6位')
       return
     }
-    if (mobile !== this.props.mobile || code !== this.props.code) {
+    if (mobile !== this.props.mobile) {
       Modal.alert('', '验证码错误')
       return
     }
-    this.props.mobileCheck({mobile, code})
+    this.props.mobileCheck({svmmobile: mobile, svmvrycod: code})
   }
 
   next = () => {
@@ -89,8 +78,9 @@ class MobileCheck extends Component<any, any> {
   }
 
   render() {
-    let {disabled, timerLeft} = this.state
-    let buttonText = disabled ? timerLeft + '秒后重新发送' : '发送验证码'
+    let {count} = this.props
+    let disabled = count > 0
+    let buttonText = disabled ? count + '秒后重新发送' : '发送验证码'
 
     return (
       <ScrollView keyboardShouldPersistTaps='handled'>
@@ -119,7 +109,7 @@ class MobileCheck extends Component<any, any> {
 MobileCheck.propTypes = {
   isMobileCheckSuc: PropTypes.bool.isRequired,
   mobile: PropTypes.string.isRequired,
-  code: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
   mobileCheckSend: PropTypes.func.isRequired,
   mobileCheck: PropTypes.func.isRequired,
   mobileCheckReset: PropTypes.func.isRequired,
@@ -129,11 +119,11 @@ export default connect(
   state => ({
     isMobileCheckSuc: state.common.registerMobileCheck.isMobileCheckSuc,
     mobile: state.common.registerMobileCheck.mobile,
-    code: state.common.registerMobileCheck.code,
+    count: state.common.registerMobileCheck.count,
   }),
   dispatch => ({
-    mobileCheckSend: (data) => dispatch(actions.mobileCheckSend(data)),
-    mobileCheck: (data) => dispatch(actions.mobileCheck(data)),
+    mobileCheckSend: (data: Syusrinf) => dispatch(actions.mobileCheckSend(data)),
+    mobileCheck: (data: Syvrymbl) => dispatch(actions.mobileCheck(data)),
     mobileCheckReset: () => dispatch(actions.mobileCheckReset()),
   })
 )(MobileCheck)

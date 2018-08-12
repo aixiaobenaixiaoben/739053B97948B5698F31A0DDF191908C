@@ -12,6 +12,7 @@ import * as actions from "../../actions/Login/Login"
 import {COLOR_BLACK_SYS, COLOR_GRAY_LIGHT} from "../../../../Style"
 import style from "../styles/Login/Login"
 import Button from "../../components/Button"
+import type {Syusrinf} from "../../interface/Syusrinf"
 
 
 class Login extends Component<any, any> {
@@ -24,7 +25,7 @@ class Login extends Component<any, any> {
 
   componentWillMount() {
     const routeFrom = this.props.navigation.getParam('routeFrom')
-    if (routeFrom === undefined && this.props.loginID.length > 0) {
+    if (routeFrom === undefined && this.props.user.suiseqcod.length > 0) {
       if (this.props.isTouchIDSupported && this.props.isTouchIDEnabled) {
         this.jumpTo('MyLoginTouchID')
       } else if (this.props.isGestureEnabled) {
@@ -96,7 +97,11 @@ class Login extends Component<any, any> {
       Modal.alert('', '密码格式不正确,必须为只包含数字、大小写字母或下划线的8-15位字符串')
       return
     }
-    this.props.login(this.state)
+    let data: Syusrinf = {
+      suimobile: mobile,
+      suipaswrd: password,
+    }
+    this.props.login(data)
   }
 
   render() {
@@ -154,7 +159,7 @@ class Login extends Component<any, any> {
 
 Login.propTypes = {
   isLogin: PropTypes.bool.isRequired,
-  loginID: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   isGestureEnabled: PropTypes.bool.isRequired,
   isTouchIDSupported: PropTypes.bool.isRequired,
   isTouchIDEnabled: PropTypes.bool.isRequired,
@@ -164,12 +169,12 @@ Login.propTypes = {
 export default connect(
   state => ({
     isLogin: state.common.login.isLogin,
-    loginID: state.common.login.loginID,
+    user: state.common.login.user,
     isGestureEnabled: state.common.loginGesture.isGestureEnabled,
     isTouchIDSupported: state.common.loginTouchID.isTouchIDSupported,
     isTouchIDEnabled: state.common.loginTouchID.isTouchIDEnabled,
   }),
   dispatch => ({
-    login: (data) => dispatch(actions.login(data)),
+    login: (data: Syusrinf) => dispatch(actions.login(data)),
   })
 )(Login)
