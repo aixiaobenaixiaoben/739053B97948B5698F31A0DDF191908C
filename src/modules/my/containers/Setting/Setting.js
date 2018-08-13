@@ -41,22 +41,26 @@ class Setting extends Component<any, any> {
     return (
       <ScrollView>
         <WhiteSpace size="lg"/>
-        <Item arrow="horizontal" onClick={this.mobileModify} extra={suimobile}>
-          手机号
-        </Item>
+        <List>
+          <Item arrow="horizontal" onClick={this.mobileModify} extra={suimobile}>
+            手机号
+          </Item>
+        </List>
 
         <WhiteSpace size="lg"/>
-        <Item arrow="horizontal" onClick={this.passwordModify}>
-          密码
-        </Item>
-        {isTouchIDSupported &&
-        <Item arrow="horizontal" onClick={this.touchIDModify} extra={touchID}>
-          {touchIDMethod}
-        </Item>
-        }
-        <Item arrow="horizontal" onClick={this.gestureModify} extra={gesture}>
-          手势登录
-        </Item>
+        <List>
+          <Item arrow="horizontal" onClick={this.passwordModify}>
+            密码
+          </Item>
+          {isTouchIDSupported &&
+          <Item arrow="horizontal" onClick={this.touchIDModify} extra={touchID}>
+            {touchIDMethod}
+          </Item>
+          }
+          <Item arrow="horizontal" onClick={this.gestureModify} extra={gesture}>
+            手势登录
+          </Item>
+        </List>
       </ScrollView>
     )
   }

@@ -1,16 +1,15 @@
 /** @flow */
 import React, {Component} from "react"
-import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native"
+import {Image, ScrollView, Text, View} from "react-native"
 import {NavigationActions, StackActions} from "react-navigation"
 import {connect} from "react-redux"
 import {List, Modal, WhiteSpace} from "antd-mobile-rn"
 import PropTypes from "prop-types"
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
-import Ionicons from "react-native-vector-icons/Ionicons"
 
 import * as actions from "../../common/actions/Login/Login"
 import style from "./styles/Main"
-import {COLOR_GRAY, COLOR_GRAY_LIGHT} from "../../../Style"
+import {COLOR_GRAY} from "../../../Style"
 
 const Item = List.Item
 
@@ -50,32 +49,39 @@ class Main extends Component<any, any> {
     this.props.navigation.navigate('MySetting')
   }
 
+  goToProfile = () => {
+    this.props.navigation.navigate('MyProfile')
+  }
+
   render() {
     let {suiusrnam, suimobile} = this.props.user
 
     return (
       <ScrollView>
         <WhiteSpace/>
-        <TouchableOpacity onPress={() => alert(3)} style={style.profile}>
-          <Image source={require('../../../../assets/touchid.png')} style={style.image}/>
-          <View style={style.info}>
-            <Text numberOfLines={1} style={style.text1}>{suiusrnam}</Text>
-            <Text numberOfLines={1} style={style.text2}>{suimobile}</Text>
-          </View>
-          <Ionicons name='ios-arrow-forward' size={25} color={COLOR_GRAY_LIGHT} style={style.arrow}/>
-        </TouchableOpacity>
+        <List>
+          <Item arrow="horizontal" onClick={this.goToProfile}
+                thumb={<Image source={require('../../../../assets/touchid.png')} style={style.image}/>}
+                extra={<View style={{height: 60}}/>}>
+            <Text numberOfLines={1} style={style.textName}>{suiusrnam}</Text>
+            <Text numberOfLines={1} style={style.textMobile}>{suimobile}</Text>
+          </Item>
+        </List>
 
         <WhiteSpace/>
-        <Item arrow="horizontal" onClick={this.goToSetting}
-              thumb={<MaterialIcon name='settings' size={25} color={COLOR_GRAY} style={style.icon}/>}>
-          设置
-        </Item>
+        <List>
+          <Item arrow="horizontal" onClick={this.goToSetting}
+                thumb={<MaterialIcon name='settings' size={25} color={COLOR_GRAY} style={style.settingIcon}/>}>
+            设置
+          </Item>
+        </List>
 
         <WhiteSpace/>
-        <Item onClick={this.logout}>
-          <Text style={style.logout}>退出登录</Text>
-        </Item>
-
+        <List>
+          <Item onClick={this.logout}>
+            <Text style={style.logout}>退出登录</Text>
+          </Item>
+        </List>
       </ScrollView>
     )
   }

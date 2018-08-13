@@ -10,6 +10,7 @@ import React from "react"
 import TouchIDSetting from "./containers/Setting/TouchIDSetting"
 import {COLOR_SYS, COLOR_WHITE} from "../../Style"
 import MobileModify from "./containers/Setting/MobileModify"
+import Profile from "./containers/Profile/Profile"
 
 
 export const MySettingRoute = createStackNavigator(
@@ -53,6 +54,28 @@ export const MySettingRoute = createStackNavigator(
       navigationOptions: {
         title: '操作结果',
       }
+    },
+  },
+  {
+    navigationOptions: ({navigation}) => ({
+      headerTintColor: COLOR_WHITE,
+      headerStyle: {
+        backgroundColor: COLOR_SYS,
+      },
+      headerBackTitle: null,
+      headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
+    })
+  }
+)
+
+export const MyProfileRoute = createStackNavigator(
+  {
+    MyProfile: {
+      screen: Profile,
+      navigationOptions: ({navigation}) => ({
+        headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
+        title: '个人信息',
+      })
     },
   },
   {

@@ -188,6 +188,7 @@ export default createStackNavigator(
     Music: music.MusicDetailRoute,
     Read: read.ReadDetailRoute,
     MySetting: my.MySettingRoute,
+    MyProfile: my.MyProfileRoute,
   },
   {
     headerMode: 'none',
