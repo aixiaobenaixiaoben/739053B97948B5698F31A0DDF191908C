@@ -10,6 +10,10 @@ const Item = List.Item
 
 class Setting extends Component<any, any> {
 
+  mobileModify = () => {
+    this.props.navigation.navigate('MyMobileModify')
+  }
+
   passwordModify = () => {
     this.props.navigation.navigate('MyPasswordModify')
   }
@@ -24,32 +28,42 @@ class Setting extends Component<any, any> {
   }
 
   render() {
-    const {isGestureEnabled, isTouchIDSupported, isTouchIDEnabled, touchIDType} = this.props
+    const {
+      user: {suimobile},
+      isGestureEnabled,
+      isTouchIDSupported,
+      isTouchIDEnabled,
+      touchIDType,
+    } = this.props
     let gesture = isGestureEnabled ? '已启用' : '未启用'
     let touchID = isTouchIDEnabled ? '已启用' : '未启用'
     let touchIDMethod = touchIDType === 'FaceID' ? '面容ID登录' : '指纹ID登录'
     return (
       <ScrollView>
         <WhiteSpace size="lg"/>
-        <List>
-          <Item arrow="horizontal" onClick={this.passwordModify}>
-            修改登录密码
-          </Item>
-          {isTouchIDSupported &&
-          <Item arrow="horizontal" onClick={this.touchIDModify} extra={touchID}>
-            {touchIDMethod}
-          </Item>
-          }
-          <Item arrow="horizontal" onClick={this.gestureModify} extra={gesture}>
-            手势登录
-          </Item>
-        </List>
+        <Item arrow="horizontal" onClick={this.mobileModify} extra={suimobile}>
+          手机号
+        </Item>
+
+        <WhiteSpace size="lg"/>
+        <Item arrow="horizontal" onClick={this.passwordModify}>
+          密码
+        </Item>
+        {isTouchIDSupported &&
+        <Item arrow="horizontal" onClick={this.touchIDModify} extra={touchID}>
+          {touchIDMethod}
+        </Item>
+        }
+        <Item arrow="horizontal" onClick={this.gestureModify} extra={gesture}>
+          手势登录
+        </Item>
       </ScrollView>
     )
   }
 }
 
 Setting.propTypes = {
+  user: PropTypes.object.isRequired,
   isGestureEnabled: PropTypes.bool.isRequired,
   isTouchIDSupported: PropTypes.bool.isRequired,
   isTouchIDEnabled: PropTypes.bool.isRequired,
@@ -58,6 +72,7 @@ Setting.propTypes = {
 
 export default connect(
   state => ({
+    user: state.common.login.user,
     isGestureEnabled: state.common.loginGesture.isGestureEnabled,
     isTouchIDSupported: state.common.loginTouchID.isTouchIDSupported,
     isTouchIDEnabled: state.common.loginTouchID.isTouchIDEnabled,

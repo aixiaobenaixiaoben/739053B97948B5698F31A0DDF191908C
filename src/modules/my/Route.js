@@ -9,6 +9,7 @@ import HeaderBackImage from "../common/components/HeaderBackImage"
 import React from "react"
 import TouchIDSetting from "./containers/Setting/TouchIDSetting"
 import {COLOR_SYS, COLOR_WHITE} from "../../Style"
+import MobileModify from "./containers/Setting/MobileModify"
 
 
 export const MySettingRoute = createStackNavigator(
@@ -20,32 +21,38 @@ export const MySettingRoute = createStackNavigator(
         title: '设置',
       })
     },
+    MyMobileModify: {
+      screen: MobileModify,
+      navigationOptions: {
+        title: '手机号修改',
+      }
+    },
     MyPasswordModify: {
       screen: PasswordModify,
       navigationOptions: {
-        title: '修改登录密码',
-      }
-    },
-    MyPasswordModifyResult: {
-      screen: Result,
-      navigationOptions: {
-        title: '密码修改结果',
+        title: '密码修改',
       }
     },
     MyGestureSetting: {
       screen: GestureSetting,
       navigationOptions: {
-        title: '设置手势密码',
+        title: '手势密码设置',
       }
     },
     MyGestureModify: {
       screen: GestureModify,
       navigationOptions: {
-        title: '设置手势密码',
+        title: '手势密码设置',
       }
     },
     MyTouchIDSetting: {
       screen: TouchIDSetting,
+    },
+    MySettingResult: {
+      screen: Result,
+      navigationOptions: {
+        title: '操作结果',
+      }
     },
   },
   {

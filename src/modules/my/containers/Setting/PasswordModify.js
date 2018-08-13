@@ -13,7 +13,6 @@ import type {Syusrinf} from "../../../common/interface/Syusrinf"
 class PasswordModify extends Component<any, any> {
 
   state = {
-    password: '',
     password1: '',
     password2: '',
   }
@@ -32,21 +31,8 @@ class PasswordModify extends Component<any, any> {
   }
 
   submit = () => {
-    const {password, password1, password2} = this.state
+    const {password1, password2} = this.state
     const reg = /^[A-Za-z0-9_]{8,15}$/
-
-    if (password.length === 0) {
-      Modal.alert('', '请输入原密码')
-      return
-    }
-    if (password.length < 8) {
-      Modal.alert('', '原密码长度不能小于8位')
-      return
-    }
-    if (!reg.test(password)) {
-      Modal.alert('', '原密码格式不正确,必须为只包含数字、大小写字母或下划线的8-15位字符串')
-      return
-    }
 
     if (password1.length === 0 || password2.length === 0) {
       Modal.alert('', '请输入新密码和确认密码')
@@ -57,22 +43,18 @@ class PasswordModify extends Component<any, any> {
       return
     }
     if (password1 !== password2) {
-      Modal.alert('', '新密码和确认密码不一致')
+      Modal.alert('', '新密码两次输入不一致')
       return
     }
     if (!reg.test(password1)) {
       Modal.alert('', '新密码格式不正确,必须为只包含数字、大小写字母或下划线的8-15位字符串')
       return
     }
-
-    let user = this.props.user
-    user.suipaswrd = password
-    user.newpaswrd = password1
-    this.props.passwordModify(user)
+    this.props.passwordModify({...this.props.user, newpaswrd: password1})
   }
 
   next = () => {
-    this.props.navigation.navigate('MyPasswordModifyResult', {
+    this.props.navigation.navigate('MySettingResult', {
       routeTo: 'MySetting',
       isSuccess: true,
       title: '修改成功',
@@ -85,17 +67,13 @@ class PasswordModify extends Component<any, any> {
       <ScrollView keyboardShouldPersistTaps='handled'>
         <WhiteSpace size="lg"/>
         <List>
-          <InputItem type='password' maxLength={15} clear placeholder="请输入"
-                     value={this.state.password} onChange={(password) => this.setState({password})}>
-            原密码
-          </InputItem>
-          <InputItem type='password' maxLength={15} clear placeholder="请输入"
+          <InputItem type='password' maxLength={15} clear placeholder="新密码"
                      value={this.state.password1} onChange={(password1) => this.setState({password1})}>
             新密码
           </InputItem>
-          <InputItem type='password' maxLength={15} clear placeholder="请再次输入新密码"
+          <InputItem type='password' maxLength={15} clear placeholder="再次输入"
                      value={this.state.password2} onChange={(password2) => this.setState({password2})}>
-            确认新密码
+            再次输入
           </InputItem>
         </List>
         <WhiteSpace size="lg"/>
