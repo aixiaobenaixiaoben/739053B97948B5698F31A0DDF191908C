@@ -7,6 +7,9 @@ export default StyleSheet.create({
     width: 60,
     marginRight: 10,
   },
+  imageIcon: {
+    lineHeight: 60,
+  },
   textName: {
     fontSize: FONT_SIZE_18,
     color: COLOR_BLACK_SYS,

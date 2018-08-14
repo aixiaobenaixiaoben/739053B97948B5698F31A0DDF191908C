@@ -12,6 +12,7 @@ export type Action = {
 export type ActionAsync = (dispatch: Function, getState: Function) => void
 
 /** action type */
+export const ACTION_CACHE_CLEAR = `${NAME}/ACTION_CACHE_CLEAR`
 export const ACTION_GUIDE_READ = `${NAME}/ACTION_GUIDE_READ`
 export const ACTION_GUIDE_RESET = `${NAME}/ACTION_GUIDE_RESET`
 export const ACTION_TAB_BAR_BADGE_SET = `${NAME}/ACTION_TAB_BAR_BADGE_SET`
@@ -40,6 +41,8 @@ export const ACTION_TOUCH_ID_ENABLE = `${NAME}/ACTION_TOUCH_ID_ENABLE`
 export const ACTION_TOUCH_ID_DISABLE = `${NAME}/ACTION_TOUCH_ID_DISABLE`
 
 /** URL type */
+export const URL_DOWNLOAD = '/attachment/download.action'
+export const URL_UPLOAD = '/attachment/upload.action'
 export const URL_LOGIN = '/user/login'
 export const URL_LOGOUT = '/user/logout'
 export const URL_REGISTER_MOBILE_CHECK_SEND = '/user/sendRegisterVerifyCode'
@@ -51,3 +54,9 @@ export const URL_RESET_PASSWORD = '/user/resetPassword'
 
 /** 验证码失效时间(s) */
 export const DURATION_MOBILE_CODE_EXPIRED = 12
+
+/** FTP状态码 */
+export const FTP_CODE_READY = 1
+export const FTP_CODE_DOING = 2
+export const FTP_CODE_SUC = 3
+export const FTP_CODE_FAIL = 4

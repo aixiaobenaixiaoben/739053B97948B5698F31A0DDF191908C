@@ -6,6 +6,7 @@ import qs from "qs"
 import type {ActionAsync} from "../../Constants"
 import {ACTION_LOGIN, ACTION_LOGOUT, URL_LOGIN, URL_LOGOUT} from "../../Constants"
 import type {Syusrinf} from "../../interface/Syusrinf"
+import {ACTION_PROFILE_INIT} from "../../../my/Constants"
 
 
 export const login = (data: Syusrinf): ActionAsync => {
@@ -25,6 +26,7 @@ export const login = (data: Syusrinf): ActionAsync => {
         if (RTNCOD === 'SUC') {
           RTNDTA.suipaswrd = param.suipaswrd
           dispatch({type: ACTION_LOGIN, payload: RTNDTA})
+          dispatch({type: ACTION_PROFILE_INIT, payload: RTNDTA.suiseqcod})
           Toast.hide()
         } else {
           Modal.alert('', ERRMSG)
