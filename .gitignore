@@ -6,6 +6,8 @@
 
 /ios/build/
 
+/package-lock.json
+/yarn.lock
 
 
 
