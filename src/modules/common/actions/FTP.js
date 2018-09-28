@@ -2,7 +2,7 @@
 import RNFetchBlob from "rn-fetch-blob"
 import Request from "axios/index"
 import type {ActionAsync} from "../Constants"
-import {ACTION_CACHE_CLEAR, FTP_CODE_DOING, FTP_CODE_FAIL, FTP_CODE_SUC, URL_DOWNLOAD, URL_UPLOAD} from "../Constants"
+import {ACTION_CACHE_CLEAR, FTP_CODE_FAIL, FTP_CODE_SUC, URL_DOWNLOAD, URL_UPLOAD} from "../Constants"
 import {ACTION_PROFILE_PATH_CLEAR} from "../../my/Constants"
 
 
@@ -16,7 +16,6 @@ export const download = (action: string, fileName: string): ActionAsync => {
         dispatch({type: action, payload: {CODE: FTP_CODE_SUC, INFO: path}})
 
       } else {
-        dispatch({type: action, payload: {CODE: FTP_CODE_DOING}})
         RNFetchBlob
           .config({path: path})
           .fetch('POST', Request.defaults.baseURL + URL_DOWNLOAD + '?remote=' + fileName)
@@ -40,7 +39,6 @@ export const upload = (action: string, path: string, MIMEType: string): ActionAs
         dispatch({type: action, payload: {CODE: FTP_CODE_FAIL, INFO: 'FILE NOT FOUND'}})
 
       } else {
-        dispatch({type: action, payload: {CODE: FTP_CODE_DOING}})
         let fileName = path.substring(path.lastIndexOf('/') + 1)
 
         RNFetchBlob
@@ -69,7 +67,6 @@ export const upload = (action: string, path: string, MIMEType: string): ActionAs
 export const cacheClear = (): ActionAsync => {
   return (dispatch, getState) => {
 
-    dispatch({type: ACTION_CACHE_CLEAR, payload: {CODE: FTP_CODE_DOING}})
     let path = RNFetchBlob.fs.dirs.DocumentDir + '/cache/'
 
     RNFetchBlob.fs.unlink(path)
