@@ -1,10 +1,8 @@
 /** @flow */
 import common from "./common"
-import home from "./home"
-import movie from "./movie"
-import music from "./music"
-import read from "./read"
+import memory from "./memory"
+import future from "./future"
 import my from "./my"
 
 
-export {common, home, movie, music, read, my}
+export {common, memory, future, my}

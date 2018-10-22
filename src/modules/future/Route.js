@@ -3,9 +3,9 @@ import {createStackNavigator} from "react-navigation"
 import Detail from "./containers/Detail"
 
 
-export const HomeDetailRoute = createStackNavigator(
+export const FutureRoute = createStackNavigator(
   {
-    HomeDetail: {
+    FutureDetail: {
       screen: Detail,
       navigationOptions: {
         title: 'Detail',

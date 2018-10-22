@@ -3,19 +3,19 @@ import React, {Component} from "react"
 import {Button, Text, View} from "react-native"
 
 
-class Main extends Component<any, any> {
+class Detail extends Component<any, any> {
 
   render() {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>This Is Music Main Page</Text>
+        <Text>This Is Detail Of Memory</Text>
         <Button
-          title='Go To Detail'
-          onPress={() => this.props.navigation.navigate('Music')}
+          title='Go Back'
+          onPress={() => this.props.navigation.pop()}
         />
       </View>
     )
   }
 }
 
-export default Main
+export default Detail

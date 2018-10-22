@@ -3,9 +3,9 @@ import {createStackNavigator} from "react-navigation"
 import Detail from "./containers/Detail"
 
 
-export const MovieDetailRoute = createStackNavigator(
+export const MemoryRoute = createStackNavigator(
   {
-    MovieDetail: {
+    MemoryDetail: {
       screen: Detail,
       navigationOptions: {
         title: 'Detail',

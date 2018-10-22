@@ -8,7 +8,7 @@ class Detail extends Component<any, any> {
   render() {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>This Is Detail Of Movie</Text>
+        <Text>This Is Detail Of future</Text>
         <Button
           title='Go Back'
           onPress={() => this.props.navigation.pop()}
