@@ -1,77 +1,56 @@
 /** @flow */
-import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_BLACK_SYS, COLOR_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
+import {Dimensions, Platform, StyleSheet} from "react-native"
+import {COLOR_FONT_BLACK, COLOR_WHITE, COLOR_WHITE_MORE_DARK, FONT_SIZE_16} from "../../../../../Style"
 
 const {width} = Dimensions.get('window')
 
 export default StyleSheet.create({
-  rootView: {
-    flex: 1,
-    backgroundColor: COLOR_WHITE,
-  },
   view: {
-    flex: 1,
+    backgroundColor: COLOR_WHITE_MORE_DARK,
   },
-  top: {
-    flex: 1,
+  view1: {
+    height: 80,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 50,
   },
-  middle: {
-    flex: 1,
-    justifyContent: 'space-between',
-  },
-  bottom: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+  view1Image: {
+    width: 64,
+    height: 64,
+    resizeMode: 'contain',
+    ...Platform.select({
+      ios: {
+        backgroundColor: COLOR_WHITE,
+        borderRadius: 32,
+      },
+      android: {
+        borderRadius: 200,
+      }
+    })
   },
   list: {
-    width: width,
-    paddingHorizontal: 20,
-    marginTop: 1,
+    marginHorizontal: 20,
+    marginTop: 60,
   },
-  submitView: {
+  view2: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    marginHorizontal: 20,
+    marginTop: 20,
   },
-  forgetView: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+  view2Button: {
+    width: width * 0.5 - 40,
   },
-  submitButton: {
-    width: width * 0.4,
-  },
-  forgetButton: {
-    backgroundColor: 'transparent',
-    height: null,
-    marginHorizontal: 12,
-  },
-  forgetButtonText: {
-    color: COLOR_SYS,
-    fontSize: FONT_SIZE_16,
-  },
-  agreement: {
-    width: 240,
-    paddingBottom: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  view3: {
     alignItems: 'center',
+    marginTop: 30,
   },
-  agreementCheck: {
-    paddingTop: 2,
-  },
-  agreementText: {
-    color: COLOR_BLACK_SYS,
-    fontSize: FONT_SIZE_16,
-  },
-  agreementButton: {
-    backgroundColor: 'transparent',
+  view3Button: {
     height: null,
+    backgroundColor: 'transparent',
   },
-  agreementButtonText: {
-    color: COLOR_SYS,
+  view3ButtonText: {
+    color: COLOR_FONT_BLACK,
     fontSize: FONT_SIZE_16,
-  }
+  },
 })

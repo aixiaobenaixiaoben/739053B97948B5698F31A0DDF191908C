@@ -15,7 +15,6 @@ export const COLOR_FONT_PINK = '#FF6666'
 export const COLOR_FONT_PINK_02 = 'rgba(255, 102, 102, 0.2)'
 
 /** font */
-export const FONT_SIZE_12 = 12
 export const FONT_SIZE_14 = 14
 export const FONT_SIZE_16 = 16
 export const FONT_SIZE_18 = 18

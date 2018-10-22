@@ -45,12 +45,12 @@ export default StyleSheet.create({
   view3: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: 30,
   },
   view3Button: {
     height: null,
     backgroundColor: 'transparent',
-    margin: 10,
+    marginHorizontal: 10,
   },
   view3ButtonText: {
     color: COLOR_FONT_BLACK,
