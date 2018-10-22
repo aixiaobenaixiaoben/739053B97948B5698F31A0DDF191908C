@@ -48,6 +48,11 @@ export const MySettingRoute = createStackNavigator(
     },
     MyTouchIDSetting: {
       screen: TouchIDSetting,
+      navigationOptions: ({navigation}) => {
+        return {
+          title: navigation.getParam('title'),
+        }
+      }
     },
     MySettingResult: {
       screen: Result,

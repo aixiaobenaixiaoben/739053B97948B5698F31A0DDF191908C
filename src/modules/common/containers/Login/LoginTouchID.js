@@ -1,31 +1,20 @@
 /** @flow */
 import React, {Component} from "react"
-import {Image, Text, TouchableOpacity, View} from "react-native"
+import {Image, Platform, Text, TouchableOpacity, View} from "react-native"
 import {connect} from "react-redux"
 import {NavigationActions, StackActions} from "react-navigation"
 import PropTypes from "prop-types"
-import FontAwesome from "react-native-vector-icons/FontAwesome"
-import {ActionSheet, Modal} from "antd-mobile-rn"
+import {ActionSheet, Modal, Toast} from "antd-mobile-rn"
 import TouchId from "react-native-touch-id"
 
 import style from "../styles/Login/LoginTouchID"
 import * as LoginActions from "../../actions/Login/Login"
-import {COLOR_SYS, COLOR_GRAY_LIGHT, COLOR_BLACK_SYS} from "../../../../Style"
-import Button from "../../components/Button"
 import type {Syusrinf} from "../../interface/Syusrinf"
 
 
 class LoginTouchID extends Component<any, any> {
 
-  state = {
-    color: COLOR_SYS
-  }
-
-  componentDidMount() {
-    this.touchIDCheck()
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (nextProps.isLogin) {
       this.jumpTo('MyHome')
       return false
@@ -64,53 +53,93 @@ class LoginTouchID extends Component<any, any> {
   }
 
   touchIDCheck = () => {
-    TouchId.authenticate('通过Home键验证已有手机指纹', {fallbackLabel: ''})
-      .then(success => {
+    let touchID = this.props.touchIDType === 'FaceID' ? '面容ID' : '指纹ID'
+    let config = {
+      title: touchID + '验证',//android
+      sensorDescription: touchID,//android
+      cancelText: '取消',//android
+      fallbackLabel: '',//ios only
+    }
+
+    TouchId.authenticate('通过指纹按键验证已有手机指纹', config)
+      .then(() => {
         this.props.login(this.props.user)
       })
       .catch(error => {
-        if (error.name === 'RCTTouchIDNotSupported') {
-          /** 错误次数太多指纹识别被系统锁定 */
-          Modal.alert('', '指纹验证错误次数超限,请使用其它方式登录.')
-        } else if (error.name === 'LAErrorAuthenticationFailed') {
-          /** 连续3次错误 */
-          Modal.alert('', '指纹验证失败')
-        } else if (error.name === 'RCTTouchIDUnknownError') {
-          /** 累计5次错误、指纹识别关闭 */
-          Modal.alert('', '指纹验证错误次数超限,请使用其它方式登录.')
-        }
+        Platform.OS === 'ios' ? this.touchIDErrorIOS(error, touchID) : this.touchIDErrorAndroid(error, touchID)
       })
+  }
+
+  touchIDErrorIOS = (error, touchID) => {
+    if (error.name === 'LAErrorUserCancel') {
+      return
+    }
+    if (error.name === 'LAErrorTouchIDNotAvailable') {
+      Modal.alert('提示', touchID + '未启用,请先到手机设置中开启.')
+      return
+    }
+    if (error.name === 'RCTTouchIDNotSupported') {
+      if (this.props.touchIDType === 'FaceID') {
+        Modal.alert('提示', touchID + '未启用,请先到手机设置中开启.')
+      } else {
+        Modal.alert('提示', touchID + '未启用或者验证错误次数超限,请先到手机设置中开启.')
+      }
+      return
+    }
+    Toast.fail(touchID + '验证失败.', 2)
+  }
+
+  touchIDErrorAndroid = (error, touchID) => {
+    if (error.details === 'cancelled') {
+      return
+    }
+    if (error.details === 'Not supported') {
+      Modal.alert('提示', touchID + '未启用,请先到手机设置中开启.')
+      return
+    }
+    if (error.details === 'Too many attempts. Try again later.' || error.details === '尝试次数过多，请稍后重试。') {
+      Modal.alert('提示', touchID + '尝试次数过多，请稍后重试。')
+      return
+    }
+    if (error.details.indexOf('sensor disabled') !== -1 || error.details.indexOf('传感器已停用') !== -1) {
+      Modal.alert('提示', touchID + '尝试次数过多。' + touchID + '传感器已停用。')
+      return
+    }
+    if (error.details === 'failed') {
+      Modal.alert('提示', touchID + '验证失败.')
+    }
+  }
+
+  getPhoto = () => {
+    //TODO
+    const {photoPath = ''} = this.props
+    if (photoPath && photoPath.length > 0) {
+      return <Image style={style.image} source={{uri: photoPath}}/>
+    }
+    return <Image style={style.image} source={require('../../../../../assets/my/profile/logo01.png')}/>
   }
 
   render() {
     const mobile = this.props.user.suimobile
+    const {touchIDType} = this.props
+    let touchID = touchIDType === 'FaceID' ? '面容ID' : '指纹ID'
 
     return (
       <View style={style.view}>
 
-        <View style={style.top}>
-          <FontAwesome name='user-circle' size={60} color={COLOR_GRAY_LIGHT}/>
-          <View style={style.info}>
-            <Text style={style.infoText}>用户手机号</Text>
-            <Text style={style.infoText}>{mobile}</Text>
-          </View>
-        </View>
+        {this.getPhoto()}
 
-        <View style={style.middle}>
-          <TouchableOpacity onPress={this.touchIDCheck}
-                            onPressIn={() => this.setState({color: COLOR_BLACK_SYS})}
-                            onPressOut={() => this.setState({color: COLOR_SYS})}
-                            activeOpacity={1}>
-            <Image source={require('../../../../../assets/touchid.png')}
-                   style={[style.touchID, {tintColor: this.state.color}]}/>
-          </TouchableOpacity>
-          <Button text='点击进行指纹登录' style={style.button}
-                  textStyle={style.buttonText} onPress={this.touchIDCheck}/>
-        </View>
+        <Text style={style.mobile}>{mobile}</Text>
 
-        <View style={style.bottom}>
-          <Button text='更多' style={style.button} textStyle={style.buttonText} onPress={this.showActionSheet}/>
-        </View>
+        <TouchableOpacity style={style.view2} onPress={this.touchIDCheck} activeOpacity={0.8}>
+          <Image source={require('../../../../../assets/common/login/touchid.png')} style={style.view2TouchID}/>
+          <Text style={style.view2Text}>点击进行{touchID}登录</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this.showActionSheet}>
+          <Text style={style.moreText}>更多</Text>
+        </TouchableOpacity>
+
       </View>
     )
   }
@@ -120,6 +149,7 @@ LoginTouchID.propTypes = {
   isLogin: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   isGestureEnabled: PropTypes.bool.isRequired,
+  touchIDType: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
 }
 
@@ -128,6 +158,7 @@ export default connect(
     isLogin: state.common.login.isLogin,
     user: state.common.login.user,
     isGestureEnabled: state.common.loginGesture.isGestureEnabled,
+    touchIDType: state.common.loginTouchID.touchIDType,
   }),
   dispatch => ({
     login: (data: Syusrinf) => dispatch(LoginActions.login(data)),

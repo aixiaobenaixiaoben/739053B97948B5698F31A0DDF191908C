@@ -1,6 +1,6 @@
 /** @flow */
 import React, {Component} from "react"
-import {ScrollView} from "react-native"
+import {Platform, ScrollView} from "react-native"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import {List, Switch, WhiteSpace} from "antd-mobile-rn"
@@ -8,22 +8,11 @@ import TouchId from "react-native-touch-id"
 import {Modal, Toast} from "antd-mobile-rn/lib/index.native"
 
 import * as actions from "../../../common/actions/Login/LoginTouchID"
+import style from "../styles/Setting/GestureSetting"
 
 const Item = List.Item
 
 class TouchIDSetting extends Component<any, any> {
-
-  touchID
-  touchMethod
-
-  static navigationOptions = ({navigation}) => ({
-    title: navigation.getParam('title')
-  })
-
-  componentWillMount() {
-    this.touchID = this.props.touchIDType === 'FaceID' ? '面容ID' : '指纹ID'
-    this.touchMethod = this.touchID + '登录'
-  }
 
   onSwitchChange = (checked) => {
     if (checked) {
@@ -34,34 +23,74 @@ class TouchIDSetting extends Component<any, any> {
   }
 
   checkTouchID = () => {
-    TouchId.authenticate('通过Home键验证已有手机' + this.touchID, {fallbackLabel: ''})
-      .then(success => {
+    let touchID = this.props.touchIDType === 'FaceID' ? '面容ID' : '指纹ID'
+    let config = {
+      title: touchID + '验证',//android
+      sensorDescription: touchID,//android
+      cancelText: '取消',//android
+      fallbackLabel: '',//ios only
+    }
+
+    TouchId.authenticate('通过指纹按键验证已有手机指纹', config)
+      .then(() => {
         this.props.touchIDEnabled()
-        Toast.info(this.touchMethod + '已启用.', 2)
+        Toast.success(touchID + '登录已启用.', 2)
       })
       .catch(error => {
-        if (error.name === 'RCTTouchIDNotSupported') {
-          /** 错误次数太多指纹识别被系统锁定 */
-          Modal.alert('', this.touchID + '验证错误次数超限.')
-        } else if (error.name === 'LAErrorAuthenticationFailed') {
-          /** 连续3次错误 */
-          Modal.alert('', this.touchID + '验证失败')
-        } else if (error.name === 'RCTTouchIDUnknownError') {
-          /** 累计5次错误、指纹识别关闭 */
-          Modal.alert('', this.touchID + '验证错误次数超限.')
-        }
+        Platform.OS === 'ios' ? this.touchIDErrorIOS(error, touchID) : this.touchIDErrorAndroid(error, touchID)
       })
   }
 
+  touchIDErrorIOS = (error, touchID) => {
+    if (error.name === 'LAErrorUserCancel') {
+      return
+    }
+    if (error.name === 'LAErrorTouchIDNotAvailable') {
+      Modal.alert('提示', touchID + '未启用,请先到手机设置中开启.')
+      return
+    }
+    if (error.name === 'RCTTouchIDNotSupported') {
+      if (this.props.touchIDType === 'FaceID') {
+        Modal.alert('提示', touchID + '未启用,请先到手机设置中开启.')
+      } else {
+        Modal.alert('提示', touchID + '未启用或者验证错误次数超限,请先到手机设置中开启.')
+      }
+      return
+    }
+    Toast.fail(touchID + '验证失败.', 2)
+  }
+
+  touchIDErrorAndroid = (error, touchID) => {
+    if (error.details === 'cancelled') {
+      return
+    }
+    if (error.details === 'Not supported') {
+      Modal.alert('提示', touchID + '未启用,请先到手机设置中开启.')
+      return
+    }
+    if (error.details === 'Too many attempts. Try again later.' || error.details === '尝试次数过多，请稍后重试。') {
+      Modal.alert('提示', touchID + '尝试次数过多，请稍后重试。')
+      return
+    }
+    if (error.details.indexOf('sensor disabled') !== -1 || error.details.indexOf('传感器已停用') !== -1) {
+      Modal.alert('提示', touchID + '尝试次数过多。' + touchID + '传感器已停用。')
+      return
+    }
+    if (error.details === 'failed') {
+      Modal.alert('提示', touchID + '验证失败.')
+    }
+  }
+
   render() {
-    const {isTouchIDEnabled} = this.props
+    const {isTouchIDEnabled, touchIDType} = this.props
+    let touchMethod = touchIDType === 'FaceID' ? '面容ID登录' : '指纹ID登录'
 
     return (
-      <ScrollView>
+      <ScrollView style={style.scroll}>
         <WhiteSpace size="lg"/>
         <List>
-          <Item extra={<Switch checked={isTouchIDEnabled} onChange={this.onSwitchChange}/>}>
-            {this.touchMethod}
+          <Item style={style.listItem} extra={<Switch checked={isTouchIDEnabled} onChange={this.onSwitchChange}/>}>
+            {touchMethod}
           </Item>
         </List>
       </ScrollView>
@@ -71,7 +100,7 @@ class TouchIDSetting extends Component<any, any> {
 
 TouchIDSetting.propTypes = {
   isTouchIDEnabled: PropTypes.bool.isRequired,
-  touchIDType: PropTypes.string.isRequired,
+  touchIDType: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.bool.isRequired]),
   touchIDEnabled: PropTypes.func.isRequired,
   touchIDDisabled: PropTypes.func.isRequired,
 }

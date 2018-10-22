@@ -1,47 +1,51 @@
 /** @flow */
-import {StyleSheet} from "react-native"
-import {COLOR_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
+import {Dimensions, Platform, StyleSheet} from "react-native"
+import {COLOR_FONT_BLACK, COLOR_SYS, COLOR_WHITE, COLOR_WHITE_MORE_DARK, FONT_SIZE_14} from "../../../../../Style"
+
+const {height} = Dimensions.get('window')
 
 export default StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: COLOR_WHITE,
+    alignItems: 'center',
+    backgroundColor: COLOR_WHITE_MORE_DARK,
   },
-  top: {
-    flex: 1,
-    justifyContent: 'center',
+  image: {
+    width: 64,
+    height: 64,
+    resizeMode: 'contain',
+    marginTop: height >= 800 ? 64 : 36,
+    ...Platform.select({
+      ios: {
+        backgroundColor: COLOR_WHITE,
+        borderRadius: 32,
+      },
+      android: {
+        borderRadius: 200,
+      }
+    })
+  },
+  mobile: {
+    color: COLOR_FONT_BLACK,
+    fontSize: FONT_SIZE_14,
+    marginTop: 10,
+  },
+  view2: {
+    marginVertical: 120,
     alignItems: 'center',
   },
-  middle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  bottom: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  info: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: 200,
-    marginTop: 20,
-  },
-  infoText: {
-    fontSize: FONT_SIZE_16,
-  },
-  button: {
-    backgroundColor: 'transparent',
-    height: null,
-  },
-  buttonText: {
-    color: COLOR_SYS,
-    fontSize: FONT_SIZE_16,
-  },
-  touchID: {
+  view2TouchID: {
     width: 60,
     height: 60,
-    margin: 10,
-  }
+    resizeMode: 'contain',
+    tintColor: COLOR_SYS,
+    marginBottom: 10,
+  },
+  view2Text: {
+    color: COLOR_SYS,
+    fontSize: FONT_SIZE_14,
+  },
+  moreText: {
+    fontSize: FONT_SIZE_14,
+  },
 })
