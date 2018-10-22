@@ -1,7 +1,7 @@
 /** @flow */
 import React from "react"
 import {createBottomTabNavigator, createStackNavigator} from "react-navigation"
-import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
+import AntDesign from "react-native-vector-icons/AntDesign"
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 
 import {common, future, memory, my} from "./modules"
@@ -110,7 +110,7 @@ const RootTab = createBottomTabNavigator(
       navigationOptions: {
         title: '我的',
         tabBarIcon: ({focused, tintColor}) => {
-          const icon = <MaterialIcon name={`account${focused ? '' : '-outline'}`} size={25} color={tintColor}/>
+          const icon = <AntDesign name='user' size={25} color={tintColor}/>
           return (<TabBarBadge tab='my' icon={icon}/>)
         },
       }
