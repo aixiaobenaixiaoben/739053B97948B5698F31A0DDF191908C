@@ -1,6 +1,6 @@
 /** @flow */
 import {StyleSheet} from "react-native"
-import {COLOR_RED, COLOR_WHITE, FONT_SIZE_14} from "../../../../Style"
+import {COLOR_FONT_PINK, COLOR_WHITE, FONT_SIZE_14} from "../../../../Style"
 
 
 export default StyleSheet.create({
@@ -13,7 +13,7 @@ export default StyleSheet.create({
   badge: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLOR_RED,
+    backgroundColor: COLOR_FONT_PINK,
     position: 'absolute',
     top: 2,
     right: 0,

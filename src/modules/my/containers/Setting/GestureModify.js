@@ -3,8 +3,8 @@ import React, {Component} from "react"
 import {Text, View} from "react-native"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
-import {Toast} from "antd-mobile-rn"
 import {Gesture, GesturePad} from "react-native-gesture-login"
+import {Toast} from "antd-mobile-rn"
 
 import style from "../styles/Setting/GestureModify"
 import * as actions from "../../../common/actions/Login/LoginGesture"
@@ -21,13 +21,10 @@ class GestureModify extends Component<any, any> {
 
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState.modified && nextProps.isGestureEnabled && nextProps.gesturePassword === this.state.password) {
-      Toast.success('手势密码设置成功', 0)
-      setTimeout(() => {
-        Toast.hide()
-        this.props.navigation.pop()
-      }, 1000)
+      Toast.success('手势密码设置成功', 1, () => {
+        this.props.navigation.navigate('MyGestureSetting')
+      })
     }
-
     return true
   }
 
@@ -79,26 +76,40 @@ class GestureModify extends Component<any, any> {
 
   render() {
     const {password, title, isWrong} = this.state
-    let textStyle, circleStyle, centerStyle, lineStyle
-    if (isWrong) {
-      textStyle = style.text
-      circleStyle = style.circle
-      centerStyle = style.center
-      lineStyle = style.line
-    }
+
+    let linedCircleStyle = isWrong ? style.linedCircleWrong : style.linedCircle
+    let linedCenterStyle = isWrong ? style.linedCenterWrong : style.linedCenter
+    let lineStyle = isWrong ? style.lineWrong : style.line
 
     return (
       <View style={style.view}>
-        <GesturePad sequence={password}/>
-        <Text style={[style.title, textStyle]}>{title}</Text>
-        <Gesture
-          clearTime={1000}
-          linedCircleStyle={circleStyle}
-          linedCenterStyle={centerStyle}
-          lineStyle={lineStyle}
-          onRelease={this.onRelease}
-          onClear={this.onClear}
-        />
+
+        <View style={style.view1}>
+          <GesturePad
+            sequence={password}
+            circleStyle={style.circle}
+            linedCircleStyle={style.linedCircle}
+            linedCenterStyle={style.linedCenter}
+          />
+        </View>
+
+        <View style={style.view2}>
+          <Text style={[style.title, isWrong && style.titleWrong]}>{title}</Text>
+        </View>
+
+        <View style={style.view3}>
+          <Gesture
+            clearTime={1500}
+            lineStyle={lineStyle}
+            circleStyle={style.circle}
+            centerStyle={style.center}
+            linedCircleStyle={linedCircleStyle}
+            linedCenterStyle={linedCenterStyle}
+            onRelease={this.onRelease}
+            onClear={this.onClear}
+          />
+        </View>
+
       </View>
     )
   }

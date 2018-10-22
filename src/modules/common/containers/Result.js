@@ -5,7 +5,7 @@ import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 
 import Button from "../components/Button"
 import style from "./styles/Result"
-import {COLOR_GREEN, COLOR_RED} from "../../../Style"
+import {COLOR_FONT_PINK, COLOR_GREEN} from "../../../Style"
 
 
 class Result extends Component<any, any> {
@@ -53,7 +53,7 @@ class Result extends Component<any, any> {
     const description = navigation.getParam('description', '所提交内容已成功完成验证')
 
     const icon = isSuccess ? <SimpleLineIcons name='check' size={60} color={COLOR_GREEN}/> :
-      <SimpleLineIcons name='close' size={60} color={COLOR_RED}/>
+      <SimpleLineIcons name='close' size={60} color={COLOR_FONT_PINK}/>
 
     return (
       <View {...this._panResponder.panHandlers} style={style.view}>

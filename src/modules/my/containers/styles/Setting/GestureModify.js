@@ -1,36 +1,62 @@
 /** @flow */
 import {StyleSheet} from "react-native"
 import {
-  COLOR_BLACK_SYS,
-  COLOR_RED,
-  COLOR_RED_02,
-  COLOR_RED_04,
-  COLOR_WHITE,
-  FONT_SIZE_16
+  COLOR_FONT_BLACK,
+  COLOR_FONT_PINK,
+  COLOR_FONT_PINK_02,
+  COLOR_WHITE_MORE_DARK,
+  FONT_SIZE_14
 } from "../../../../../Style"
 
 export default StyleSheet.create({
   view: {
     flex: 1,
-    justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: COLOR_WHITE,
+    backgroundColor: COLOR_WHITE_MORE_DARK,
+  },
+  view1: {
+    marginTop: 40,
+  },
+  view2: {
+    marginTop: 20,
+    height: 20,
+  },
+  view3: {
+    marginTop: 30,
   },
   title: {
-    fontSize: FONT_SIZE_16,
-    color: COLOR_BLACK_SYS,
+    fontSize: FONT_SIZE_14,
+    color: COLOR_FONT_BLACK,
   },
-  circle: {
-    backgroundColor: COLOR_RED_02,
-    borderColor: COLOR_RED_04,
-  },
-  center: {
-    backgroundColor: COLOR_RED,
+  titleWrong: {
+    color: COLOR_FONT_PINK,
   },
   line: {
-    backgroundColor: COLOR_RED,
+    // backgroundColor: COLOR_SYS,
+    height: 2,
   },
-  text: {
-    color: COLOR_RED,
-  }
+  lineWrong: {
+    backgroundColor: COLOR_FONT_PINK,
+    height: 2,
+  },
+  circle: {
+    borderColor: 'transparent',
+  },
+  center: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+  },
+  linedCircle: {
+    // backgroundColor: COLOR_SYS_LIGHT,
+  },
+  linedCircleWrong: {
+    backgroundColor: COLOR_FONT_PINK_02,
+  },
+  linedCenter: {
+    // backgroundColor: COLOR_SYS,
+  },
+  linedCenterWrong: {
+    backgroundColor: COLOR_FONT_PINK,
+  },
 })

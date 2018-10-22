@@ -1,45 +1,64 @@
 /** @flow */
-import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
+import {Dimensions, Platform, StyleSheet} from "react-native"
+import {COLOR_FONT_BLACK, COLOR_FONT_PINK, COLOR_WHITE, COLOR_WHITE_MORE_DARK, FONT_SIZE_14} from "../../../../../Style"
 
-const {width} = Dimensions.get('window')
+const {height} = Dimensions.get('window')
 
 export default StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: COLOR_WHITE,
-  },
-  top: {
-    flex: 2,
-    justifyContent: 'flex-end',
     alignItems: 'center',
+    backgroundColor: COLOR_WHITE_MORE_DARK,
   },
-  middle: {
-    width: width,
-    height: width * 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  image: {
+    width: 64,
+    height: 64,
+    resizeMode: 'contain',
+    marginTop: height >= 800 ? 64 : 36,
+    ...Platform.select({
+      ios: {
+        backgroundColor: COLOR_WHITE,
+        borderRadius: 32,
+      },
+      android: {
+        borderRadius: 200,
+      }
+    })
   },
-  bottom: {
-    flex: 1,
-    alignItems: 'center',
+  mobile: {
+    color: COLOR_FONT_BLACK,
+    fontSize: FONT_SIZE_14,
+    marginTop: 10,
   },
-  info: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: 200,
-    marginTop: 20,
+  message: {
+    height: 20,
+    color: COLOR_FONT_PINK,
+    fontSize: FONT_SIZE_14,
+    marginTop: height >= 800 ? 20 : 10,
   },
-  infoText: {
-    fontSize: FONT_SIZE_16,
+  view2: {
+    marginTop: height >= 800 ? 20 : 0,
   },
-  moreButton: {
-    backgroundColor: 'transparent',
-    height: null,
+  more: {
+    fontSize: FONT_SIZE_14,
+    marginTop: height >= 800 ? 20 : 0,
   },
-  moreButtonText: {
-    color: COLOR_SYS,
-    fontSize: FONT_SIZE_16,
+  line: {
+    // backgroundColor: COLOR_SYS,
+    height: 2,
+  },
+  circle: {
+    borderColor: 'transparent',
+  },
+  center: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+  },
+  linedCircle: {
+    // backgroundColor: COLOR_SYS_LIGHT,
+  },
+  linedCenter: {
+    // backgroundColor: COLOR_SYS,
   },
 })
