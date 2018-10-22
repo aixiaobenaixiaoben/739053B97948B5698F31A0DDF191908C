@@ -5,7 +5,6 @@ import RegisterSetPassword from "./containers/Register/SetPassword"
 import ResetPasswordMobileCheck from "./containers/ResetPassword/MobileCheck"
 import ResetPasswordSetPassword from "./containers/ResetPassword/SetPassword"
 import Result from "./containers/Result"
-import LoginAgreement from "./containers/Login/LoginAgreement"
 import HeaderBackImage from "./components/HeaderBackImage"
 import React from "react"
 import {COLOR_SYS, COLOR_WHITE} from "../../Style"
@@ -70,26 +69,5 @@ export const CommonResetPasswordRoute = createStackNavigator(
       headerBackTitle: null,
       headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
     })
-  }
-)
-
-export const CommonLoginAgreementRoute = createStackNavigator(
-  {
-    CommonLoginAgreementRoute: {
-      screen: LoginAgreement,
-      navigationOptions: ({navigation}) => ({
-        headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
-        title: 'App服务协议',
-      })
-    },
-  },
-  {
-    navigationOptions: {
-      headerBackTitle: null,
-      headerTintColor: COLOR_WHITE,
-      headerStyle: {
-        backgroundColor: COLOR_SYS,
-      },
-    }
   }
 )

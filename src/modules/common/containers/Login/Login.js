@@ -1,15 +1,14 @@
 /** @flow */
 import React, {Component} from "react"
-import {ScrollView, Text, TouchableOpacity, View} from "react-native"
+import {ScrollView, View} from "react-native"
 import {connect} from "react-redux"
 import {NavigationActions, StackActions} from "react-navigation"
 import PropTypes from "prop-types"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
-import Material from "react-native-vector-icons/MaterialCommunityIcons"
 import {InputItem, List, Modal} from "antd-mobile-rn"
 
 import * as actions from "../../actions/Login/Login"
-import {COLOR_BLACK_SYS, COLOR_GRAY_LIGHT} from "../../../../Style"
+import {COLOR_GRAY_LIGHT} from "../../../../Style"
 import style from "../styles/Login/Login"
 import Button from "../../components/Button"
 import type {Syusrinf} from "../../interface/Syusrinf"
@@ -20,7 +19,6 @@ class Login extends Component<any, any> {
   state = {
     mobile: '',
     password: '',
-    agreement: true,
   }
 
   componentWillMount() {
@@ -36,7 +34,7 @@ class Login extends Component<any, any> {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (nextProps.isLogin) {
       this.jumpTo('MyHome')
       return false
@@ -52,15 +50,6 @@ class Login extends Component<any, any> {
     this.props.navigation.dispatch(resetAction)
   }
 
-  agreement = () => {
-    const {agreement} = this.state
-    this.setState({agreement: !agreement})
-  }
-
-  showAgreement = () => {
-    this.props.navigation.navigate('CommonLoginAgreement')
-  }
-
   register = () => {
     this.props.navigation.navigate('CommonRegister')
   }
@@ -70,11 +59,7 @@ class Login extends Component<any, any> {
   }
 
   login = () => {
-    const {mobile, password, agreement} = this.state
-    if (!agreement) {
-      Modal.alert('', '请先勾选同意《App服务协议》')
-      return
-    }
+    const {mobile, password} = this.state
     if (mobile.length === 0 || password.length === 0) {
       Modal.alert('', '手机号或者密码不能为空')
       return
@@ -106,52 +91,39 @@ class Login extends Component<any, any> {
 
   render() {
     const routeFrom = this.props.navigation.getParam('routeFrom')
-    const {agreement} = this.state
 
     return (
       <View style={style.rootView}>
-      <ScrollView contentContainerStyle={style.view} keyboardShouldPersistTaps='handled'>
+        <ScrollView contentContainerStyle={style.view} keyboardShouldPersistTaps='handled'>
 
-        <View style={style.top}>
-          <FontAwesome name='user-circle' size={60} color={COLOR_GRAY_LIGHT}/>
-        </View>
-
-        <View style={style.middle}>
-          <List style={style.list}>
-            <InputItem type='number' maxLength={11} clear placeholder="手机号"
-                       value={this.state.mobile} onChange={(mobile) => this.setState({mobile})}/>
-            <InputItem type='password' maxLength={15} clear placeholder="请输入登录密码"
-                       value={this.state.password} onChange={(password) => this.setState({password})}/>
-          </List>
-
-          <View style={style.submitView}>
-            <Button text='注册' style={style.submitButton} onPress={this.register}/>
-            <Button text='登录' style={style.submitButton} onPress={this.login}/>
+          <View style={style.top}>
+            <FontAwesome name='user-circle' size={60} color={COLOR_GRAY_LIGHT}/>
           </View>
 
-          <View style={style.forgetView}>
-            <Button text='忘记密码' style={style.forgetButton} textStyle={style.forgetButtonText}
-                    onPress={this.resetPassword}/>
-            {routeFrom !== undefined &&
-            <Button text='返回' style={style.forgetButton}
-                    textStyle={style.forgetButtonText} onPress={() => this.jumpTo(routeFrom)}/>
-            }
-          </View>
-        </View>
+          <View style={style.middle}>
+            <List style={style.list}>
+              <InputItem type='number' maxLength={11} clear placeholder="手机号"
+                         value={this.state.mobile} onChange={(mobile) => this.setState({mobile})}/>
+              <InputItem type='password' maxLength={15} clear placeholder="请输入登录密码"
+                         value={this.state.password} onChange={(password) => this.setState({password})}/>
+            </List>
 
-        <View style={style.bottom}>
-          <View style={style.agreement}>
-            <TouchableOpacity style={style.agreementCheck} onPress={this.agreement}>
-              {agreement && <Material name='checkbox-marked' size={24} color={COLOR_BLACK_SYS}/>}
-              {!agreement && <Material name='checkbox-blank-outline' size={24} color={COLOR_BLACK_SYS}/>}
-            </TouchableOpacity>
-            <Text style={style.agreementText}>我已同意</Text>
-            <Button text='《App服务协议》' onPress={this.showAgreement} style={style.agreementButton}
-                    textStyle={style.agreementButtonText}/>
-          </View>
-        </View>
+            <View style={style.submitView}>
+              <Button text='注册' style={style.submitButton} onPress={this.register}/>
+              <Button text='登录' style={style.submitButton} onPress={this.login}/>
+            </View>
 
-      </ScrollView>
+            <View style={style.forgetView}>
+              <Button text='忘记密码' style={style.forgetButton} textStyle={style.forgetButtonText}
+                      onPress={this.resetPassword}/>
+              {routeFrom !== undefined &&
+              <Button text='返回' style={style.forgetButton}
+                      textStyle={style.forgetButtonText} onPress={() => this.jumpTo(routeFrom)}/>
+              }
+            </View>
+          </View>
+
+        </ScrollView>
       </View>
     )
   }

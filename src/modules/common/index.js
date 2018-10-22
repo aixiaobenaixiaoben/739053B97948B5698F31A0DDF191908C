@@ -8,7 +8,7 @@ import Login from "./containers/Login/Login"
 import LoginPassword from "./containers/Login/LoginPassword"
 import LoginGesture from "./containers/Login/LoginGesture"
 import LoginTouchID from "./containers/Login/LoginTouchID"
-import {CommonLoginAgreementRoute, CommonRegisterRoute, CommonResetPasswordRoute} from "./Route"
+import {CommonRegisterRoute, CommonResetPasswordRoute} from "./Route"
 
 export default {
   NAME,
@@ -22,5 +22,4 @@ export default {
   LoginTouchID,
   CommonRegisterRoute,
   CommonResetPasswordRoute,
-  CommonLoginAgreementRoute
 }
