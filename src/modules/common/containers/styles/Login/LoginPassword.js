@@ -7,10 +7,8 @@ export default StyleSheet.create({
     backgroundColor: COLOR_WHITE_MORE_DARK,
   },
   view1: {
-    height: 80,
-    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 64,
   },
   view1Image: {
     width: 64,
@@ -27,9 +25,8 @@ export default StyleSheet.create({
     })
   },
   view2: {
-    flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 10,
   },
   view2Text: {
     fontSize: FONT_SIZE_16,

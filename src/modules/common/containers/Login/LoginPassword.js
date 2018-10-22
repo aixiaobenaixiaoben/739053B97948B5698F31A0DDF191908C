@@ -100,7 +100,6 @@ class LoginPassword extends Component<any, any> {
         </View>
 
         <View style={style.view2}>
-          <Text style={style.view2Text}>用户手机号: </Text>
           <Text style={style.view2Text}>{mobile}</Text>
         </View>
 

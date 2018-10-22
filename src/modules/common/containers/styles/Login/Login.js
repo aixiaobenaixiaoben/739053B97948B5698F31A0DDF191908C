@@ -9,10 +9,8 @@ export default StyleSheet.create({
     backgroundColor: COLOR_WHITE_MORE_DARK,
   },
   view1: {
-    height: 80,
-    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 64,
   },
   view1Image: {
     width: 64,
