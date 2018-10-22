@@ -1,59 +1,59 @@
 /** @flow */
-import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_SYS, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
-
-const {width} = Dimensions.get('window')
+import {Platform, StyleSheet} from "react-native"
+import {COLOR_FONT_BLACK, COLOR_WHITE, COLOR_WHITE_MORE_DARK, FONT_SIZE_16} from "../../../../../Style"
 
 export default StyleSheet.create({
   view: {
-    flex: 1,
-    backgroundColor: COLOR_WHITE,
+    backgroundColor: COLOR_WHITE_MORE_DARK,
   },
-  top: {
-    flex: 1,
+  view1: {
+    height: 80,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 50,
   },
-  middle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  view1Image: {
+    width: 64,
+    height: 64,
+    resizeMode: 'contain',
+    ...Platform.select({
+      ios: {
+        backgroundColor: COLOR_WHITE,
+        borderRadius: 32,
+      },
+      android: {
+        borderRadius: 200,
+      }
+    })
   },
-  bottom: {
-    flex: 1,
-  },
-  info: {
+  view2: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    width: 200,
-    marginTop: 20,
   },
-  infoText: {
+  view2Text: {
     fontSize: FONT_SIZE_16,
   },
   list: {
-    width: width - 40,
-  },
-  submitView: {
-    alignItems: 'center',
-    paddingTop: 20,
-    paddingBottom: 40,
-  },
-  forgetView: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    marginHorizontal: 20,
+    marginTop: 80,
   },
   submitButton: {
-    width: width - 40,
+    marginHorizontal: 20,
+    marginTop: 20,
   },
-  forgetButton: {
-    backgroundColor: 'transparent',
+  view3: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  view3Button: {
     height: null,
-    marginHorizontal: 12,
+    backgroundColor: 'transparent',
+    margin: 10,
   },
-  forgetButtonText: {
-    color: COLOR_SYS,
+  view3ButtonText: {
+    color: COLOR_FONT_BLACK,
     fontSize: FONT_SIZE_16,
   },
 })

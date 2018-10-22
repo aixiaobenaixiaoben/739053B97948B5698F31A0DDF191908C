@@ -7,7 +7,7 @@ export default StyleSheet.create({
   touch: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 40,
+    height: 44,
     borderRadius: 4,
     backgroundColor: COLOR_SYS,
   },

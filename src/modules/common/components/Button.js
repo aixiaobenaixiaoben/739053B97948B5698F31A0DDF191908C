@@ -1,6 +1,6 @@
 /** @flow */
 import React, {Component} from "react"
-import {Text, TouchableOpacity, View, ViewPropTypes} from "react-native"
+import {Text, TouchableOpacity, ViewPropTypes} from "react-native"
 import PropTypes from "prop-types"
 
 import defaultStyle from "./styles/Button"
@@ -28,12 +28,10 @@ class Button extends Component<any, any> {
     const disableStyle = disable ? defaultStyle.disable : {}
 
     return (
-      <View>
-        <TouchableOpacity onPress={this.press} style={[defaultStyle.touch, style, disableStyle]} activeOpacity={0.6}
-                          disabled={disable}>
-          <Text style={[defaultStyle.touchText, textStyle]}>{title}</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={[defaultStyle.touch, style, disableStyle]}
+                        onPress={this.press} activeOpacity={0.6} disabled={disable}>
+        <Text style={[defaultStyle.touchText, textStyle]}>{title}</Text>
+      </TouchableOpacity>
     )
   }
 

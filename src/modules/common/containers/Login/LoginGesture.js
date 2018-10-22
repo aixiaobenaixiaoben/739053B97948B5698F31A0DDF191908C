@@ -128,7 +128,6 @@ LoginGesture.propTypes = {
   user: PropTypes.object.isRequired,
   count: PropTypes.number.isRequired,
   gesturePassword: PropTypes.string.isRequired,
-  isTouchIDSupported: PropTypes.bool.isRequired,
   isTouchIDEnabled: PropTypes.bool.isRequired,
   touchIDType: PropTypes.string.isRequired,
 
@@ -144,7 +143,6 @@ export default connect(
     user: state.common.login.user,
     count: state.common.loginGesture.count,
     gesturePassword: state.common.loginGesture.gesturePassword,
-    isTouchIDSupported: state.common.loginTouchID.isTouchIDSupported,
     isTouchIDEnabled: state.common.loginTouchID.isTouchIDEnabled,
     touchIDType: state.common.loginTouchID.touchIDType,
   }),
