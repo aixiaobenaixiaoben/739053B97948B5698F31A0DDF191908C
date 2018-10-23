@@ -1,5 +1,5 @@
 /** @flow */
-import {Dimensions, Platform, StyleSheet} from "react-native"
+import {Platform, StyleSheet} from "react-native"
 import {
   COLOR_FONT_BLACK,
   COLOR_SYS,
@@ -8,8 +8,6 @@ import {
   FONT_SIZE_14,
   FONT_SIZE_16
 } from "../../../../../Style"
-
-const {height} = Dimensions.get('window')
 
 export default StyleSheet.create({
   view: {

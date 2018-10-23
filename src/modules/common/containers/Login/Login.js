@@ -23,7 +23,7 @@ class Login extends Component<any, any> {
   static navigationOptions = ({navigation}) => {
     const routeFrom = navigation.getParam('routeFrom')
     const jumpTo = navigation.getParam('jumpTo')
-    let headerLeft = <HeaderBackImage handler={() => jumpTo(routeFrom)} mode='LIGHT'/>
+    let headerLeft = <HeaderBackImage handler={() => jumpTo(routeFrom)}/>
     return {
       headerLeft: routeFrom === undefined ? null : headerLeft,
     }

@@ -1,39 +1,43 @@
 /** @flow */
 import React, {Component} from "react"
-import {StyleSheet, TouchableOpacity} from "react-native"
-import Ionicons from "react-native-vector-icons/Ionicons"
+import {Image, StyleSheet, TouchableOpacity} from "react-native"
 import PropTypes from "prop-types"
 
-import {COLOR_WHITE} from "../../../Style"
+const style = StyleSheet.create({
+  touch: {
+    marginLeft: 20,
+  },
+  image: {
+    width: 22,
+    height: 22,
+    resizeMode: 'contain',
+  },
+})
 
 class HeaderBackImage extends Component<any, any> {
 
   render() {
     const {
-      color = COLOR_WHITE,
-      name = 'ios-arrow-back',
-      handler = () => {},
+      mode = 'LIGHT',
+      handler = () => {
+      },
     } = this.props
 
+    let image = <Image style={style.image} source={require('../../../../assets/common/HeaderBackImage/back1.png')}/>
+    if (mode === 'DARK') {
+      image = <Image style={style.image} source={require('../../../../assets/common/HeaderBackImage/back2.png')}/>
+    }
+
     return (
-      <TouchableOpacity onPress={handler} style={style.view}>
-        <Ionicons name={name} size={36} color={color}/>
+      <TouchableOpacity onPress={handler} style={style.touch}>
+        {image}
       </TouchableOpacity>
     )
   }
 }
 
-const style = StyleSheet.create({
-  view: {
-    width: 44,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-})
-
 HeaderBackImage.propTypes = {
-  color: PropTypes.string,
-  name: PropTypes.string,
+  mode: PropTypes.string,
   handler: PropTypes.func.isRequired,
 }
 
