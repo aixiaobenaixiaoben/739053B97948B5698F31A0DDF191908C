@@ -42,12 +42,17 @@ class SetPassword extends Component<any, any> {
     this.props.resetPassword(user)
   }
 
+  backFunc = () => {
+    this.props.navigation.navigate('RootTab')
+  }
+
   next = () => {
     this.props.navigation.navigate('CommonResetPasswordResult', {
-      routeTo: 'RootTab',
-      isSuccess: true,
-      title: '重置成功',
-      description: '您已经成功重置登录密码'
+      success: true,
+      title: '操作成功',
+      description: '您已成功重置登录密码',
+      buttonText: '前往登录',
+      backFunc: this.backFunc,
     })
   }
 

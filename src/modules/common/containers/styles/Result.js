@@ -1,26 +1,35 @@
-import {Dimensions, StyleSheet} from "react-native"
-import {COLOR_GRAY, COLOR_WHITE, FONT_SIZE_14, FONT_SIZE_20} from "../../../../Style"
-
-const {width} = Dimensions.get('window')
+import {StyleSheet} from "react-native"
+import {
+  COLOR_FONT_BLACK,
+  COLOR_FONT_GRAY_DARK,
+  COLOR_WHITE_MORE_DARK,
+  FONT_SIZE_14,
+  FONT_SIZE_20
+} from "../../../../Style"
 
 export default StyleSheet.create({
-  view: {
+  outline: {
     flex: 1,
+    backgroundColor: COLOR_WHITE_MORE_DARK,
+    paddingHorizontal: 20,
+  },
+  view: {
+    marginTop: 40,
     alignItems: 'center',
-    backgroundColor: COLOR_WHITE,
-    paddingTop: 20,
   },
   title: {
     fontSize: FONT_SIZE_20,
-    marginTop: 10,
+    color: COLOR_FONT_BLACK,
+    textAlign: 'center',
+    marginTop: 20,
   },
   description: {
     fontSize: FONT_SIZE_14,
-    color: COLOR_GRAY,
+    color: COLOR_FONT_GRAY_DARK,
+    textAlign: 'center',
     marginTop: 10,
   },
   button: {
-    width: width - 20,
-    marginTop: 10,
+    marginTop: 40,
   }
 })

@@ -10,30 +10,42 @@ import {COLOR_FONT_PINK, COLOR_GREEN} from "../../../Style"
 
 class Result extends Component<any, any> {
 
-  _panResponder: any
+  panResponder: {}
 
   constructor(props: any) {
     super(props)
-    this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onMoveShouldSetPanResponder: (evt, gestureState) => true,
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => false,
-      onPanResponderTerminationRequest: (evt, gestureState) => false,
+    this.panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponderCapture: () => false,
+      onMoveShouldSetPanResponderCapture: () => false,
+      onPanResponderTerminationRequest: () => false,
     })
   }
 
   static navigationOptions = () => {
     return {
       headerLeft: null,
+      gesturesEnabled: false,
     }
   }
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+    this.subs = [
+      this.props.navigation.addListener('willFocus', this.willFocus),
+      this.props.navigation.addListener('willBlur', this.willBlur),
+    ]
   }
 
   componentWillUnmount() {
+    this.subs.forEach(sub => sub.remove())
+  }
+
+  willFocus = () => {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+  }
+
+  willBlur = () => {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
   }
 
@@ -41,29 +53,44 @@ class Result extends Component<any, any> {
     return true
   }
 
-  onPress = () => {
-    const routeTo = this.props.navigation.getParam('routeTo', '')
-    this.props.navigation.navigate(routeTo)
+  backFunc = () => {
+    const backFunc = this.props.navigation.getParam('backFunc', () => {
+    })
+    backFunc()
   }
 
   render() {
-    const {navigation} = this.props
-    const isSuccess = navigation.getParam('isSuccess', true)
-    const title = navigation.getParam('title', '验证成功')
-    const description = navigation.getParam('description', '所提交内容已成功完成验证')
+    const {
+      success = true,
+      title = '',
+      description = '',
+      buttonText = '确定',
+    } = this.props.navigation.state.params
 
-    const icon = isSuccess ? <SimpleLineIcons name='check' size={60} color={COLOR_GREEN}/> :
-      <SimpleLineIcons name='close' size={60} color={COLOR_FONT_PINK}/>
+    let icon = <SimpleLineIcons name='check' size={60} color={COLOR_GREEN}/>
+    if (!success) {
+      icon = <SimpleLineIcons name='close' size={60} color={COLOR_FONT_PINK}/>
+    }
 
     return (
-      <View {...this._panResponder.panHandlers} style={style.view}>
-        {icon}
+      <View {...this.panResponder.panHandlers} style={style.outline}>
+        <View style={style.view}>
+          {icon}
+        </View>
         <Text style={style.title}>{title}</Text>
         <Text style={style.description}>{description}</Text>
-        <Button text='完成' onPress={this.onPress} style={style.button}/>
+        <Button text={buttonText} onPress={this.backFunc} style={style.button}/>
       </View>
     )
   }
 }
 
+/** 以下为跳转到本结果页面时需要传递的路由参数及其默认值 */
+/**
+ success = true,
+ title = '',
+ description = '',
+ buttonText = '确定',
+ backFunc = () => {},
+ */
 export default Result
