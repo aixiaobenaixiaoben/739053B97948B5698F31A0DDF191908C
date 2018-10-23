@@ -21,7 +21,7 @@ const initialState: State = {
   isMobileCheckSuc: false,
   mobile: '',
   user: {},
-  count: 0,
+  count: -1,
 }
 
 export default handleActions(
@@ -29,7 +29,6 @@ export default handleActions(
     [ACTION_RESET_PASSWORD_MOBILE_CHECK_SEND]: (state: State, action) => {
       return {
         ...state,
-        isMobileCheckSuc: false,
         mobile: action.payload.suimobile,
         count: DURATION_MOBILE_CODE_EXPIRED,
       }
@@ -47,7 +46,7 @@ export default handleActions(
         isMobileCheckSuc: false,
         user: {},
         mobile: '',
-        count: 0,
+        count: -1,
       }
     },
     [ACTION_RESET_PASSWORD_MOBILE_CHECK_COUNT]: (state: State, action) => {

@@ -11,6 +11,7 @@ export const COLOR_GREEN = '#008000'
 
 /** font-color */
 export const COLOR_FONT_BLACK = '#333333'
+export const COLOR_FONT_GRAY_DARK = '#999999'
 export const COLOR_FONT_PINK = '#FF6666'
 export const COLOR_FONT_PINK_02 = 'rgba(255, 102, 102, 0.2)'
 
