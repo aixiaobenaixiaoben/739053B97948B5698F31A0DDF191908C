@@ -25,40 +25,38 @@ export const MySettingRoute = createStackNavigator(
     MyMobileModify: {
       screen: MobileModify,
       navigationOptions: {
-        title: '手机号修改',
+        title: '修改手机号码',
       }
     },
     MyPasswordModify: {
       screen: PasswordModify,
       navigationOptions: {
-        title: '密码修改',
+        title: '修改登录密码',
       }
     },
     MyGestureSetting: {
       screen: GestureSetting,
       navigationOptions: {
-        title: '手势密码设置',
+        title: '设置手势密码',
       }
     },
     MyGestureModify: {
       screen: GestureModify,
       navigationOptions: {
-        title: '手势密码设置',
+        title: '设置手势密码',
       }
     },
     MyTouchIDSetting: {
       screen: TouchIDSetting,
-      navigationOptions: ({navigation}) => {
-        return {
-          title: navigation.getParam('title'),
-        }
-      }
+      navigationOptions: ({navigation}) => ({
+        title: navigation.getParam('title'),
+      })
     },
     MySettingResult: {
       screen: Result,
-      navigationOptions: {
-        title: '操作结果',
-      }
+      navigationOptions: ({navigation}) => ({
+        title: navigation.getParam('title'),
+      })
     },
   },
   {

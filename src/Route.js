@@ -3,6 +3,7 @@ import React from "react"
 import {createBottomTabNavigator, createStackNavigator} from "react-navigation"
 import AntDesign from "react-native-vector-icons/AntDesign"
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
+import FontAwesome from "react-native-vector-icons/FontAwesome"
 
 import {common, future, memory, my} from "./modules"
 import {COLOR_GRAY, COLOR_SYS, COLOR_WHITE} from "./Style"
@@ -44,7 +45,7 @@ const MyHomeStack = createStackNavigator(
     MyHome: {
       screen: my.MyMain,
       navigationOptions: {
-        title: '帐号',
+        title: '个人中心',
       }
     },
     MyLogin: {
@@ -100,7 +101,7 @@ const RootTab = createBottomTabNavigator(
       navigationOptions: {
         title: '未来',
         tabBarIcon: ({focused, tintColor}) => {
-          const icon = <SimpleLineIcons name='calendar' size={25} color={tintColor}/>
+          const icon = <FontAwesome name='paper-plane' size={25} color={tintColor}/>
           return (<TabBarBadge tab='movie' icon={icon}/>)
         }
       }

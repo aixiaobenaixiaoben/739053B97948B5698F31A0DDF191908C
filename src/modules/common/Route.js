@@ -16,24 +16,18 @@ export const CommonRegisterRoute = createStackNavigator(
       screen: RegisterMobileCheck,
       navigationOptions: ({navigation}) => ({
         headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
-        title: '手机注册',
       })
     },
     CommonRegisterSetPassword: {
       screen: RegisterSetPassword,
-      navigationOptions: {
-        title: '设置注册信息',
-      }
     },
     CommonRegisterResult: {
       screen: Result,
-      navigationOptions: {
-        title: '注册结果',
-      }
     },
   },
   {
     navigationOptions: ({navigation}) => ({
+      title: '注册',
       headerTintColor: COLOR_WHITE,
       headerStyle: {
         backgroundColor: COLOR_SYS,
