@@ -76,7 +76,7 @@ class SetPassword extends Component<any, any> {
         <Button text='提交' style={style.button} onPress={this.submit} disabled={!canSubmit}/>
 
         <Text style={style.comment}>
-          温馨提示：{'\n'}登录密码支持8-15位数字、字母(区分大小写)的组合
+          温馨提示：{'\n\n'}登录密码支持8-15位数字、字母(区分大小写)的组合
         </Text>
       </ScrollView>
     )

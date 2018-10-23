@@ -113,8 +113,8 @@ class Login extends Component<any, any> {
         </List>
 
         <View style={style.view2}>
-          <Button text='注册' style={style.view2Button} onPress={this.register}/>
-          <Button text='登录' style={style.view2Button} onPress={this.login}/>
+          <Button text='注册' style={style.view2Register} textStyle={style.view2RegisterText} onPress={this.register}/>
+          <Button text='登录' style={style.view2Login} onPress={this.login}/>
         </View>
 
         <View style={style.view3}>

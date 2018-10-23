@@ -18,7 +18,7 @@ type State = {
 const initialState: State = {
   isMobileCheckSuc: false,
   mobile: '',
-  count: 0,
+  count: -1,
 }
 
 export default handleActions(
@@ -26,7 +26,6 @@ export default handleActions(
     [ACTION_REGISTER_MOBILE_CHECK_SEND]: (state: State, action) => {
       return {
         ...state,
-        isMobileCheckSuc: false,
         mobile: action.payload.suimobile,
         count: DURATION_MOBILE_CODE_EXPIRED,
       }
@@ -42,7 +41,7 @@ export default handleActions(
         ...state,
         isMobileCheckSuc: false,
         mobile: '',
-        count: 0,
+        count: -1,
       }
     },
     [ACTION_REGISTER_MOBILE_CHECK_COUNT]: (state: State, action) => {

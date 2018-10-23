@@ -22,7 +22,7 @@ class MobileCheck extends Component<any, any> {
     this.props.mobileCheckReset()
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (nextProps.isMobileCheckSuc) {
       this.next()
       this.props.mobileCheckReset()
@@ -33,10 +33,6 @@ class MobileCheck extends Component<any, any> {
 
   mobileCheckSend = () => {
     let {mobile} = this.state
-    if (mobile.length !== 11) {
-      Modal.alert('', '请输入11位手机号')
-      return
-    }
     const regular = /^[0-9]{11}$/
     if (!regular.test(mobile)) {
       Modal.alert('', '手机号码格式不正确')
@@ -47,21 +43,14 @@ class MobileCheck extends Component<any, any> {
 
   mobileCheck = () => {
     let {mobile, code} = this.state
-    if (mobile.length === 0 || code.length === 0) {
-      Modal.alert('', '手机号或者验证码不能为空')
-      return
-    }
-    if (mobile.length !== 11) {
-      Modal.alert('', '请输入11位手机号')
-      return
-    }
-    const regular = /^[0-9]{11}$/
-    if (!regular.test(mobile)) {
+    const regularMobile = /^[0-9]{11}$/
+    if (!regularMobile.test(mobile)) {
       Modal.alert('', '手机号码格式不正确')
       return
     }
-    if (code.length !== 6) {
-      Modal.alert('', '验证码长度必须为6位')
+    const regularCode = /^[0-9]{6}$/
+    if (!regularCode.test(code)) {
+      Modal.alert('', '验证码格式不正确')
       return
     }
     if (mobile !== this.props.mobile) {
@@ -78,29 +67,33 @@ class MobileCheck extends Component<any, any> {
   }
 
   render() {
+    const {mobile, code} = this.state
+    let canSubmit = mobile.length > 0 && code.length > 0
+
     let {count} = this.props
-    let disabled = count > 0
-    let buttonText = disabled ? count + '秒后重新发送' : '发送验证码'
+    let executing = count > 0
+
+    let text = count === -1 ? '发送验证码' : '重新发送'
+    let executingText = count + 'S重新发送'
+    let extraButton = <Button style={style.extraButton} textStyle={style.extraButtonText}
+                              executing={executing} executingText={executingText}
+                              text={text} onPress={this.mobileCheckSend}/>
 
     return (
-      <ScrollView keyboardShouldPersistTaps='handled'>
-
+      <ScrollView keyboardShouldPersistTaps='handled' style={style.scroll}>
         <WhiteSpace size="lg"/>
         <List>
-          <InputItem type='number' maxLength={11} clear placeholder="请输入本人手机号"
-                     value={this.state.mobile} onChange={(mobile) => this.setState({mobile})}>
-            手机号
+          <InputItem style={style.inputItem} type='number' maxLength={11} clear placeholder="请输入本人手机号"
+                     value={mobile} onChange={(mobile) => this.setState({mobile})}>
           </InputItem>
-          <InputItem type='number' maxLength={6} clear placeholder="请输入" value={this.state.code}
-                     onChange={(code) => this.setState({code})}
-                     extra={<Button text={buttonText} style={style.sendButton} textStyle={style.sendButtonText}
-                                    disabled={disabled} onPress={this.mobileCheckSend}/>}>
-            验证码
+          <InputItem style={style.inputItem} type='number' maxLength={6} clear placeholder="请输入验证码"
+                     value={code} onChange={(code) => this.setState({code})}
+                     extra={extraButton}>
           </InputItem>
         </List>
         <WhiteSpace size="lg"/>
 
-        <Button text='下一步' style={style.button} onPress={this.mobileCheck}/>
+        <Button text='下一步' style={style.button} onPress={this.mobileCheck} disabled={!canSubmit}/>
       </ScrollView>
     )
   }

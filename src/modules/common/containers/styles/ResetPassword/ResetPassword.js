@@ -1,6 +1,6 @@
 /** @flow */
 import {StyleSheet} from "react-native"
-import {COLOR_FONT_GRAY_DARK, COLOR_SYS, COLOR_WHITE_MORE_DARK, FONT_SIZE_14, FONT_SIZE_20} from "../../../../../Style"
+import {COLOR_FONT_GRAY_DARK, COLOR_SYS, COLOR_WHITE_MORE_DARK, FONT_SIZE_14, FONT_SIZE_16} from "../../../../../Style"
 
 export default StyleSheet.create({
   scroll: {
@@ -16,7 +16,7 @@ export default StyleSheet.create({
   },
   extraButtonText: {
     color: COLOR_SYS,
-    fontSize: FONT_SIZE_14,
+    fontSize: FONT_SIZE_16,
   },
   button: {
     marginHorizontal: 20,
@@ -26,6 +26,5 @@ export default StyleSheet.create({
     padding: 20,
     color: COLOR_FONT_GRAY_DARK,
     fontSize: FONT_SIZE_14,
-    lineHeight: FONT_SIZE_20,
   },
 })
