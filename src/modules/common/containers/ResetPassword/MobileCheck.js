@@ -38,6 +38,10 @@ class MobileCheck extends Component<any, any> {
       Modal.alert('', '手机号码格式不正确')
       return
     }
+    if (this.props.isLogin && this.props.loginUser && this.props.loginUser.suimobile !== mobile) {
+      Modal.alert('', '登录状态下只能重置当前账户的登录密码!')
+      return
+    }
     this.props.mobileCheckSend({suimobile: mobile})
   }
 
@@ -99,6 +103,8 @@ class MobileCheck extends Component<any, any> {
 }
 
 MobileCheck.propTypes = {
+  isLogin: PropTypes.bool.isRequired,
+  loginUser: PropTypes.object.isRequired,
   isMobileCheckSuc: PropTypes.bool.isRequired,
   mobile: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
@@ -110,6 +116,8 @@ MobileCheck.propTypes = {
 
 export default connect(
   state => ({
+    isLogin: state.common.login.isLogin,
+    loginUser: state.common.login.user,
     isMobileCheckSuc: state.common.resetPasswordMobileCheck.isMobileCheckSuc,
     mobile: state.common.resetPasswordMobileCheck.mobile,
     user: state.common.resetPasswordMobileCheck.user,

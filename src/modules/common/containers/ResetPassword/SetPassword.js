@@ -8,6 +8,7 @@ import * as actions from "../../actions/ResetPassword/SetPassword"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import type {Syusrinf} from "../../interface/Syusrinf"
+import * as loginActions from "../../actions/Login/Login"
 
 
 class SetPassword extends Component<any, any> {
@@ -44,13 +45,20 @@ class SetPassword extends Component<any, any> {
 
   backFunc = () => {
     this.props.navigation.navigate('RootTab')
+    if (this.props.isLogin) {
+      this.props.logout()
+    }
   }
 
   next = () => {
+    let description = '您已成功重置登录密码'
+    if (this.props.isLogin) {
+      description += '，为保证账户安全，请重新登录。'
+    }
     this.props.navigation.navigate('CommonResetPasswordResult', {
       success: true,
-      title: '操作成功',
-      description: '您已成功重置登录密码',
+      title: '重置成功',
+      description,
       buttonText: '前往登录',
       backFunc: this.backFunc,
     })
@@ -84,17 +92,21 @@ class SetPassword extends Component<any, any> {
 }
 
 SetPassword.propTypes = {
+  isLogin: PropTypes.bool.isRequired,
   isResetPasswordSuc: PropTypes.bool.isRequired,
   resetPassword: PropTypes.func.isRequired,
   resetPasswordReset: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
 }
 
 export default connect(
   state => ({
+    isLogin: state.common.login.isLogin,
     isResetPasswordSuc: state.common.resetPasswordSetPassword.isResetPasswordSuc,
   }),
   dispatch => ({
     resetPassword: (data) => dispatch(actions.resetPassword(data)),
     resetPasswordReset: () => dispatch(actions.resetPasswordReset()),
+    logout: () => dispatch(loginActions.logout()),
   })
 )(SetPassword)

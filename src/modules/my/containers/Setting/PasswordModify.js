@@ -1,11 +1,12 @@
 /** @flow */
 import React, {Component} from "react"
-import {ScrollView, Text} from "react-native"
+import {ScrollView, Text, TouchableOpacity, View} from "react-native"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import {InputItem, List, Modal, WhiteSpace} from "antd-mobile-rn"
 import Button from "../../../common/components/Button"
 import * as actions from "../../actions/Setting/PasswordModify"
+import * as loginActions from "../../../common/actions/Login/Login"
 import style from "../styles/Setting/PasswordModify"
 import type {Syusrinf} from "../../../common/interface/Syusrinf"
 
@@ -53,16 +54,21 @@ class PasswordModify extends Component<any, any> {
     })
   }
 
+  goToResetPassword = () => {
+    this.props.navigation.navigate('CommonResetPassword')
+  }
+
   backFunc = () => {
-    this.props.navigation.navigate('MySetting')
+    this.props.navigation.navigate('RootTab')
+    this.props.logout()
   }
 
   next = () => {
     this.props.navigation.navigate('MySettingResult', {
       success: true,
       title: '修改成功',
-      description: '您已成功修改登录密码',
-      buttonText: '完成',
+      description: '您已成功修改登录密码，为保证账户安全，请重新登录。',
+      buttonText: '前往登录',
       backFunc: this.backFunc,
       navigationTitle: '修改登录密码',
     })
@@ -81,7 +87,12 @@ class PasswordModify extends Component<any, any> {
           </InputItem>
         </List>
 
-        <WhiteSpace size="lg"/>
+        <View style={style.forgetView}>
+          <TouchableOpacity onPress={this.goToResetPassword}>
+            <Text style={style.forgetViewText}>忘记密码</Text>
+          </TouchableOpacity>
+        </View>
+
         <List>
           <InputItem style={style.inputItem} type='password' maxLength={15} clear placeholder="请输入新登录密码"
                      value={password1} onChange={(password1) => this.setState({password1})}>
@@ -107,6 +118,7 @@ PasswordModify.propTypes = {
 
   passwordModify: PropTypes.func.isRequired,
   passwordModifyReset: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
 }
 
 export default connect(
@@ -117,5 +129,6 @@ export default connect(
   dispatch => ({
     passwordModify: (data: Syusrinf) => dispatch(actions.passwordModify(data)),
     passwordModifyReset: () => dispatch(actions.passwordModifyReset()),
+    logout: () => dispatch(loginActions.logout()),
   })
 )(PasswordModify)

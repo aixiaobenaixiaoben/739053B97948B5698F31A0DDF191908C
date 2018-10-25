@@ -50,7 +50,7 @@ class Setting extends Component<any, any> {
 
         <WhiteSpace size="lg"/>
         <List>
-          <Item style={style.listItem} arrow="horizontal" onClick={this.passwordModify}>
+          <Item style={style.listItem} arrow="horizontal" onClick={this.passwordModify} extra='修改'>
             登录密码
           </Item>
           {isTouchIDSupported &&
