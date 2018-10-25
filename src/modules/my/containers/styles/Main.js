@@ -1,30 +1,40 @@
 import {StyleSheet} from "react-native"
-import {COLOR_BLACK_SYS, COLOR_GRAY, COLOR_SYS, FONT_SIZE_16, FONT_SIZE_18} from "../../../../Style"
+import {COLOR_FONT_BLACK, COLOR_FONT_GRAY_DARK, COLOR_SYS, COLOR_WHITE_MORE_DARK, FONT_SIZE_18} from "../../../../Style"
 
 export default StyleSheet.create({
-  image: {
-    height: 60,
-    width: 60,
+  scroll: {
+    backgroundColor: COLOR_WHITE_MORE_DARK,
+  },
+  listItem: {
+    paddingLeft: 20,
+    paddingRight: 5,
+  },
+  view1Name: {
+    color: COLOR_FONT_BLACK,
+    fontSize: FONT_SIZE_18,
+  },
+  view1Mobile: {
+    color: COLOR_FONT_GRAY_DARK,
+    marginTop: 5,
+  },
+  view1Image: {
+    width: 64,
+    height: 64,
+    resizeMode: 'contain',
+    borderRadius: 32,
+    marginVertical: 8,
     marginRight: 10,
   },
-  imageIcon: {
-    lineHeight: 60,
+  view2Setting: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+    tintColor: COLOR_FONT_BLACK,
+    marginRight: 10,
   },
-  textName: {
-    fontSize: FONT_SIZE_18,
-    color: COLOR_BLACK_SYS,
-    marginVertical: 5,
-  },
-  textMobile: {
-    fontSize: FONT_SIZE_16,
-    color: COLOR_GRAY,
-  },
-  logout: {
+  view3Text: {
     textAlign: 'center',
     color: COLOR_SYS,
     fontSize: FONT_SIZE_18,
-  },
-  settingIcon: {
-    marginRight: 8,
   },
 })

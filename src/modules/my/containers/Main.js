@@ -5,14 +5,11 @@ import {NavigationActions, StackActions} from "react-navigation"
 import {connect} from "react-redux"
 import {List, Modal, WhiteSpace} from "antd-mobile-rn"
 import PropTypes from "prop-types"
-import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
-import FontAwesome from "react-native-vector-icons/FontAwesome"
 
 import * as actions from "../../common/actions/Login/Login"
 import * as ftpActions from "../../common/actions/FTP"
 import * as profileActions from "../../my/actions/Profile"
 import style from "./styles/Main"
-import {COLOR_GRAY, COLOR_GRAY_LIGHT} from "../../../Style"
 import {ACTION_PROFILE_PATH_UPDATE} from "../Constants"
 import type {Syusrinf} from "../../common/interface/Syusrinf"
 
@@ -29,7 +26,7 @@ class Main extends Component<any, any> {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (!nextProps.isLogin) {
       this.jumpToLogin()
       return false
@@ -66,37 +63,37 @@ class Main extends Component<any, any> {
       this.props.download(ACTION_PROFILE_PATH_UPDATE, spfphotog)
     }
     if (photoPath.length > 0) {
-      return <Image source={{uri: photoPath}} style={style.image}/>
+      return <Image style={style.view1Image} source={{uri: photoPath}}/>
     }
-    return <FontAwesome name='user-circle' size={50} color={COLOR_GRAY_LIGHT} style={[style.image, style.imageIcon]}/>
+    return <Image style={style.view1Image} source={require('../../../../assets/my/profile/logo01.png')}/>
   }
 
   render() {
     let {suiusrnam, suimobile} = this.props.user
 
     return (
-      <ScrollView>
-        <WhiteSpace/>
+      <ScrollView style={style.scroll}>
+        <WhiteSpace size="lg"/>
         <List>
-          <Item arrow="horizontal" onClick={this.goToProfile} thumb={this.getPhoto()}
-                extra={<View style={{height: 60}}/>}>
-            <Text numberOfLines={1} style={style.textName}>{suiusrnam}</Text>
-            <Text numberOfLines={1} style={style.textMobile}>{suimobile}</Text>
+          <Item style={style.listItem} arrow="horizontal" onClick={this.goToProfile}
+                thumb={this.getPhoto()} extra={<View style={{height: 66}}/>}>
+            <Text numberOfLines={1} style={style.view1Name}>{suiusrnam}</Text>
+            <Text numberOfLines={1} style={style.view1Mobile}>{suimobile}</Text>
           </Item>
         </List>
 
-        <WhiteSpace/>
+        <WhiteSpace size="lg"/>
         <List>
-          <Item arrow="horizontal" onClick={this.goToSetting}
-                thumb={<MaterialIcon name='settings' size={25} color={COLOR_GRAY} style={style.settingIcon}/>}>
+          <Item style={style.listItem} arrow="horizontal" onClick={this.goToSetting}
+                thumb={<Image style={style.view2Setting} source={require('../../../../assets/my/main/set.png')}/>}>
             设置
           </Item>
         </List>
 
-        <WhiteSpace/>
+        <WhiteSpace size="lg"/>
         <List>
-          <Item onClick={this.logout}>
-            <Text style={style.logout}>退出登录</Text>
+          <Item style={style.listItem} onClick={this.logout}>
+            <Text style={style.view3Text}>退出登录</Text>
           </Item>
         </List>
       </ScrollView>
