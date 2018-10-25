@@ -4,7 +4,7 @@ import {ScrollView} from "react-native"
 import {connect} from "react-redux"
 import {InputItem, List, Modal, WhiteSpace} from "antd-mobile-rn"
 import PropTypes from "prop-types"
-import style from "../../../common/containers/styles/Register/Register"
+import style from "../styles/Setting/MobileModify"
 import Button from "../../../common/components/Button"
 import * as actions from "../../actions/Setting/MobileModify"
 import type {Syusrinf} from "../../../common/interface/Syusrinf"
@@ -22,7 +22,7 @@ class MobileModify extends Component<any, any> {
     this.props.mobileModifyReset()
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (nextProps.isMobileModifySuc) {
       this.next()
       this.props.mobileModifyReset()
@@ -33,10 +33,6 @@ class MobileModify extends Component<any, any> {
 
   mobileModifySend = () => {
     let {mobile} = this.state
-    if (mobile.length !== 11) {
-      Modal.alert('', '请输入11位手机号')
-      return
-    }
     const regular = /^[0-9]{11}$/
     if (!regular.test(mobile)) {
       Modal.alert('', '手机号码格式不正确')
@@ -47,21 +43,14 @@ class MobileModify extends Component<any, any> {
 
   mobileModify = () => {
     let {mobile, code} = this.state
-    if (mobile.length === 0 || code.length === 0) {
-      Modal.alert('', '手机号或者验证码不能为空')
-      return
-    }
-    if (mobile.length !== 11) {
-      Modal.alert('', '请输入11位手机号')
-      return
-    }
-    const regular = /^[0-9]{11}$/
-    if (!regular.test(mobile)) {
+    const regularMobile = /^[0-9]{11}$/
+    if (!regularMobile.test(mobile)) {
       Modal.alert('', '手机号码格式不正确')
       return
     }
-    if (code.length !== 6) {
-      Modal.alert('', '验证码长度必须为6位')
+    const regularCode = /^[0-9]{6}$/
+    if (!regularCode.test(code)) {
+      Modal.alert('', '验证码格式不正确')
       return
     }
     if (mobile !== this.props.mobile) {
@@ -71,39 +60,49 @@ class MobileModify extends Component<any, any> {
     this.props.mobileModify(this.props.user, {svmmobile: mobile, svmvrycod: code})
   }
 
+  backFunc = () => {
+    this.props.navigation.navigate('MySetting')
+  }
+
   next = () => {
     this.props.navigation.navigate('MySettingResult', {
-      routeTo: 'MySetting',
-      isSuccess: true,
+      success: true,
       title: '修改成功',
-      description: '您已经成功修改手机号',
+      description: '您已成功修改手机号码',
+      buttonText: '完成',
+      backFunc: this.backFunc,
+      navigationTitle: '修改手机号码',
     })
   }
 
   render() {
+    const {mobile, code} = this.state
+    let canSubmit = mobile.length > 0 && code.length > 0
+
     let {count} = this.props
-    let disabled = count > 0
-    let buttonText = disabled ? count + '秒后重新发送' : '发送验证码'
+    let executing = count > 0
+
+    let text = count === -1 ? '发送验证码' : '重新发送'
+    let executingText = count + 'S重新发送'
+    let extraButton = <Button style={style.extraButton} textStyle={style.extraButtonText}
+                              executing={executing} executingText={executingText}
+                              text={text} onPress={this.mobileModifySend}/>
 
     return (
-      <ScrollView keyboardShouldPersistTaps='handled'>
-
+      <ScrollView keyboardShouldPersistTaps='handled' style={style.scroll}>
         <WhiteSpace size="lg"/>
         <List>
-          <InputItem type='number' maxLength={11} clear placeholder="手机号"
-                     value={this.state.mobile} onChange={(mobile) => this.setState({mobile})}>
-            手机号
+          <InputItem style={style.inputItem} type='number' maxLength={11} clear placeholder="请输入本人手机号码"
+                     value={mobile} onChange={(mobile) => this.setState({mobile})}>
           </InputItem>
-          <InputItem type='number' maxLength={6} clear placeholder="验证码" value={this.state.code}
-                     onChange={(code) => this.setState({code})}
-                     extra={<Button text={buttonText} style={style.sendButton} textStyle={style.sendButtonText}
-                                    disabled={disabled} onPress={this.mobileModifySend}/>}>
-            验证码
+          <InputItem style={style.inputItem} type='number' maxLength={6} clear placeholder="请输入验证码"
+                     value={code} onChange={(code) => this.setState({code})}
+                     extra={extraButton}>
           </InputItem>
         </List>
         <WhiteSpace size="lg"/>
 
-        <Button text='提交' style={style.button} onPress={this.mobileModify}/>
+        <Button text='提交' style={style.button} onPress={this.mobileModify} disabled={!canSubmit}/>
       </ScrollView>
     )
   }

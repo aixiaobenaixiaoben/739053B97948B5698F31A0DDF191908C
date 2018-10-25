@@ -6,13 +6,14 @@ import PropTypes from "prop-types"
 import {InputItem, List, Modal, WhiteSpace} from "antd-mobile-rn"
 import Button from "../../../common/components/Button"
 import * as actions from "../../actions/Setting/PasswordModify"
-import style from "../../../common/containers/styles/Register/Register"
+import style from "../styles/Setting/PasswordModify"
 import type {Syusrinf} from "../../../common/interface/Syusrinf"
 
 
 class PasswordModify extends Component<any, any> {
 
   state = {
+    password: '',
     password1: '',
     password2: '',
   }
@@ -21,7 +22,7 @@ class PasswordModify extends Component<any, any> {
     this.props.passwordModifyReset()
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (nextProps.isPasswordModifySuc) {
       this.props.passwordModifyReset()
       this.next()
@@ -31,55 +32,70 @@ class PasswordModify extends Component<any, any> {
   }
 
   submit = () => {
-    const {password1, password2} = this.state
-    const reg = /^[A-Za-z0-9_]{8,15}$/
-
-    if (password1.length === 0 || password2.length === 0) {
-      Modal.alert('', '请输入新密码和确认密码')
+    const {password, password1, password2} = this.state
+    const regular = /^[A-Za-z0-9]{8,15}$/
+    if (!regular.test(password)) {
+      Modal.alert('', '原登录密码格式不正确')
       return
     }
-    if (password1.length < 8 || password2.length < 8) {
-      Modal.alert('', '密码长度不能小于8位')
+    if (!regular.test(password1)) {
+      Modal.alert('', '新登录密码格式不正确')
       return
     }
     if (password1 !== password2) {
-      Modal.alert('', '新密码两次输入不一致')
+      Modal.alert('', '确认密码和新登录密码不一致')
       return
     }
-    if (!reg.test(password1)) {
-      Modal.alert('', '新密码格式不正确,必须为只包含数字、大小写字母或下划线的8-15位字符串')
-      return
-    }
-    this.props.passwordModify({...this.props.user, newpaswrd: password1})
+    this.props.passwordModify({
+      ...this.props.user,
+      suipaswrd: password,
+      newpaswrd: password1
+    })
+  }
+
+  backFunc = () => {
+    this.props.navigation.navigate('MySetting')
   }
 
   next = () => {
     this.props.navigation.navigate('MySettingResult', {
-      routeTo: 'MySetting',
-      isSuccess: true,
+      success: true,
       title: '修改成功',
-      description: '您已经成功修改登录密码',
+      description: '您已成功修改登录密码',
+      buttonText: '完成',
+      backFunc: this.backFunc,
+      navigationTitle: '修改登录密码',
     })
   }
 
   render() {
+    const {password, password1, password2} = this.state
+    let canSubmit = password.length > 0 && password1.length > 0 && password2.length > 0
+
     return (
-      <ScrollView keyboardShouldPersistTaps='handled'>
+      <ScrollView keyboardShouldPersistTaps='handled' style={style.scroll}>
         <WhiteSpace size="lg"/>
         <List>
-          <InputItem type='password' maxLength={15} clear placeholder="新密码"
-                     value={this.state.password1} onChange={(password1) => this.setState({password1})}>
-            新密码
-          </InputItem>
-          <InputItem type='password' maxLength={15} clear placeholder="再次输入"
-                     value={this.state.password2} onChange={(password2) => this.setState({password2})}>
-            再次输入
+          <InputItem style={style.inputItem} type='password' maxLength={15} clear placeholder="请输入原登录密码"
+                     value={password} onChange={(password) => this.setState({password})}>
           </InputItem>
         </List>
-        <WhiteSpace size="lg"/>
 
-        <Text style={style.text}>密码组成: 8-15位数字、大小写字母或下划线的组合</Text>
-        <Button text='提交' style={{margin: 10}} onPress={this.submit}/>
+        <WhiteSpace size="lg"/>
+        <List>
+          <InputItem style={style.inputItem} type='password' maxLength={15} clear placeholder="请输入新登录密码"
+                     value={password1} onChange={(password1) => this.setState({password1})}>
+          </InputItem>
+          <InputItem style={style.inputItem} type='password' maxLength={15} clear placeholder="请再次输入新登录密码"
+                     value={password2} onChange={(password2) => this.setState({password2})}>
+          </InputItem>
+        </List>
+
+        <Button text='提交' style={style.button} onPress={this.submit} disabled={!canSubmit}/>
+
+        <Text style={style.comment}>
+          温馨提示：{'\n\n'}登录密码支持8-15位数字、字母(区分大小写)的组合
+        </Text>
       </ScrollView>
     )
   }

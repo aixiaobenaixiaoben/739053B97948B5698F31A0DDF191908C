@@ -5,6 +5,7 @@ import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import * as actions from "../../../common/actions/Login/LoginGesture"
 import {List, Switch, WhiteSpace} from "antd-mobile-rn"
+import style from "../styles/Setting/GestureSetting"
 
 const Item = List.Item
 
@@ -26,18 +27,18 @@ class GestureSetting extends Component<any, any> {
     const {isGestureEnabled} = this.props
 
     return (
-      <ScrollView>
+      <ScrollView style={style.scroll}>
         <WhiteSpace size="lg"/>
         <List>
-          <Item extra={<Switch checked={isGestureEnabled} onChange={this.onSwitchChange}/>}>
-            使用手势密码登录
+          <Item style={style.listItem} extra={<Switch checked={isGestureEnabled} onChange={this.onSwitchChange}/>}>
+            手势密码登录
           </Item>
         </List>
 
         <WhiteSpace size="lg"/>
         {isGestureEnabled &&
         <List>
-          <Item arrow="horizontal" onClick={this.gestureModify}>
+          <Item style={style.listItem} arrow="horizontal" onClick={this.gestureModify}>
             修改手势密码
           </Item>
         </List>

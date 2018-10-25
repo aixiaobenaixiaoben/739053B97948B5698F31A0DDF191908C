@@ -54,7 +54,7 @@ export const MySettingRoute = createStackNavigator(
     MySettingResult: {
       screen: Result,
       navigationOptions: ({navigation}) => ({
-        title: navigation.getParam('title'),
+        title: navigation.getParam('navigationTitle'),
       })
     },
   },

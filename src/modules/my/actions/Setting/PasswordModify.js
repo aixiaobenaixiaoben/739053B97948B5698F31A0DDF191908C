@@ -15,7 +15,7 @@ export const passwordModify = (data: Syusrinf): ActionAsync => {
     Toast.loading('提交中', 0)
     let param: Syusrinf = {
       suiseqcod: data.suiseqcod,
-      suipaswrd: data.suipaswrd,
+      suipaswrd: md5(data.suipaswrd).toString().toUpperCase(),
       newpaswrd: md5(data.newpaswrd).toString().toUpperCase(),
       suiverson: data.suiverson,
     }

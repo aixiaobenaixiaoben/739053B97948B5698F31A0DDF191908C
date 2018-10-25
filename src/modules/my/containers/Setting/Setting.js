@@ -4,6 +4,7 @@ import {ScrollView} from "react-native"
 import {List, WhiteSpace} from "antd-mobile-rn"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
+import style from "../styles/Setting/Setting"
 
 
 const Item = List.Item
@@ -39,25 +40,25 @@ class Setting extends Component<any, any> {
     let touchID = isTouchIDEnabled ? '已启用' : '未启用'
     let touchIDMethod = touchIDType === 'FaceID' ? '面容ID登录' : '指纹ID登录'
     return (
-      <ScrollView>
+      <ScrollView style={style.scroll}>
         <WhiteSpace size="lg"/>
         <List>
-          <Item arrow="horizontal" onClick={this.mobileModify} extra={suimobile}>
+          <Item style={style.listItem} arrow="horizontal" onClick={this.mobileModify} extra={suimobile}>
             手机号
           </Item>
         </List>
 
         <WhiteSpace size="lg"/>
         <List>
-          <Item arrow="horizontal" onClick={this.passwordModify}>
-            密码
+          <Item style={style.listItem} arrow="horizontal" onClick={this.passwordModify}>
+            登录密码
           </Item>
           {isTouchIDSupported &&
-          <Item arrow="horizontal" onClick={this.touchIDModify} extra={touchID}>
+          <Item style={style.listItem} arrow="horizontal" onClick={this.touchIDModify} extra={touchID}>
             {touchIDMethod}
           </Item>
           }
-          <Item arrow="horizontal" onClick={this.gestureModify} extra={gesture}>
+          <Item style={style.listItem} arrow="horizontal" onClick={this.gestureModify} extra={gesture}>
             手势登录
           </Item>
         </List>
