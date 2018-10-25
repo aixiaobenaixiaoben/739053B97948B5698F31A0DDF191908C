@@ -17,10 +17,9 @@ export const MySettingRoute = createStackNavigator(
   {
     MySetting: {
       screen: Setting,
-      navigationOptions: ({navigation}) => ({
-        headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
+      navigationOptions: {
         title: '设置',
-      })
+      }
     },
     MyMobileModify: {
       screen: MobileModify,
@@ -65,8 +64,7 @@ export const MySettingRoute = createStackNavigator(
       headerStyle: {
         backgroundColor: COLOR_SYS,
       },
-      headerBackTitle: null,
-      headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
+      headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
     })
   }
 )
@@ -75,10 +73,9 @@ export const MyProfileRoute = createStackNavigator(
   {
     MyProfile: {
       screen: Profile,
-      navigationOptions: ({navigation}) => ({
-        headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
+      navigationOptions: {
         title: '个人信息',
-      })
+      }
     },
   },
   {
@@ -87,8 +84,7 @@ export const MyProfileRoute = createStackNavigator(
       headerStyle: {
         backgroundColor: COLOR_SYS,
       },
-      headerBackTitle: null,
-      headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
+      headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
     })
   }
 )

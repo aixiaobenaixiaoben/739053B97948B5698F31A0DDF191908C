@@ -11,10 +11,5 @@ export const MemoryRoute = createStackNavigator(
         title: 'Detail',
       }
     },
-  },
-  {
-    navigationOptions: {
-      headerBackTitle: null,
-    }
   }
 )

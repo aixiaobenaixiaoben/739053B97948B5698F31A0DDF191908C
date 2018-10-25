@@ -14,9 +14,6 @@ export const CommonRegisterRoute = createStackNavigator(
   {
     CommonRegisterMobileCheck: {
       screen: RegisterMobileCheck,
-      navigationOptions: ({navigation}) => ({
-        headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
-      })
     },
     CommonRegisterSetPassword: {
       screen: RegisterSetPassword,
@@ -32,8 +29,7 @@ export const CommonRegisterRoute = createStackNavigator(
       headerStyle: {
         backgroundColor: COLOR_SYS,
       },
-      headerBackTitle: null,
-      headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
+      headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
     })
   }
 )
@@ -42,9 +38,6 @@ export const CommonResetPasswordRoute = createStackNavigator(
   {
     CommonResetPasswordMobileCheck: {
       screen: ResetPasswordMobileCheck,
-      navigationOptions: ({navigation}) => ({
-        headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
-      })
     },
     CommonResetPasswordSetPassword: {
       screen: ResetPasswordSetPassword,
@@ -60,8 +53,7 @@ export const CommonResetPasswordRoute = createStackNavigator(
       headerStyle: {
         backgroundColor: COLOR_SYS,
       },
-      headerBackTitle: null,
-      headerBackImage: <HeaderBackImage handler={() => navigation.pop()}/>,
+      headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
     })
   }
 )

@@ -11,10 +11,5 @@ export const FutureRoute = createStackNavigator(
         title: 'Detail',
       }
     },
-  },
-  {
-    navigationOptions: {
-      headerBackTitle: null,
-    }
   }
 )
