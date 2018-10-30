@@ -54,7 +54,3 @@ export const URL_RESET_PASSWORD = '/user/resetPassword'
 
 /** 验证码失效时间(s) */
 export const DURATION_MOBILE_CODE_EXPIRED = 12
-
-/** FTP状态码 */
-export const FTP_CODE_SUC = 3
-export const FTP_CODE_FAIL = 4
