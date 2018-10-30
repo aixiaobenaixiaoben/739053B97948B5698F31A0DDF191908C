@@ -6,7 +6,7 @@ import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 
 import {common, future, memory, my} from "./modules"
-import {COLOR_GRAY, COLOR_SYS, COLOR_WHITE} from "./Style"
+import {COLOR_FONT_GRAY_DARK, COLOR_SYS, COLOR_WHITE} from "./Style"
 
 const TabBarBadge = common.TabBarBadge
 
@@ -120,7 +120,7 @@ const RootTab = createBottomTabNavigator(
   {
     tabBarOptions: {
       activeTintColor: COLOR_SYS,
-      inactiveTintColor: COLOR_GRAY,
+      inactiveTintColor: COLOR_FONT_GRAY_DARK,
     },
     lazy: true,
   }

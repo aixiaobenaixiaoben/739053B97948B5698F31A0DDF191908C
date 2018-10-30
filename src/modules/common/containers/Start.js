@@ -52,12 +52,12 @@ class Start extends Component<any, any> {
     const {count} = this.state
     return (
       <View style={style.view}>
-        <ImageBackground source={require('../../../../assets/4.png')} style={style.imageBack}>
+        <ImageBackground source={require('../../../../assets/my/profile/logo01.png')} style={style.imageBack}>
           <Button style={style.button} text={`${count} | 跳过`} onPress={this.goHome}/>
         </ImageBackground>
 
         <View style={style.bottom}>
-          <Image source={require('../../../../assets/5.png')} style={style.bottomImage}/>
+          <Image source={require('../../../../assets/my/profile/logo01.png')} style={style.bottomImage}/>
         </View>
       </View>
     )

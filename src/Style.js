@@ -2,9 +2,6 @@
 
 /** color */
 export const COLOR_SYS = '#E83535'
-export const COLOR_BLACK_SYS = '#3A3A3A'
-export const COLOR_GRAY = '#808080'
-export const COLOR_GRAY_LIGHT = '#D3D3D3'
 export const COLOR_WHITE_MORE_DARK = '#F1F1F1'
 export const COLOR_WHITE = '#FFFFFF'
 export const COLOR_GREEN = '#008000'

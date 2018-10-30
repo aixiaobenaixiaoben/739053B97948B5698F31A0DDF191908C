@@ -83,9 +83,8 @@ class LoginGesture extends Component<any, any> {
   }
 
   getPhoto = () => {
-    //TODO
-    const {photoPath = ''} = this.props
-    if (photoPath && photoPath.length > 0) {
+    const {photoPath} = this.props
+    if (photoPath.length > 0) {
       return <Image style={style.image} source={{uri: photoPath}}/>
     }
     return <Image style={style.image} source={require('../../../../../assets/my/profile/logo01.png')}/>
@@ -130,6 +129,7 @@ LoginGesture.propTypes = {
   gesturePassword: PropTypes.string.isRequired,
   isTouchIDEnabled: PropTypes.bool.isRequired,
   touchIDType: PropTypes.string.isRequired,
+  photoPath: PropTypes.string.isRequired,
 
   login: PropTypes.func.isRequired,
   gestureDisable: PropTypes.func.isRequired,
@@ -145,6 +145,7 @@ export default connect(
     gesturePassword: state.common.loginGesture.gesturePassword,
     isTouchIDEnabled: state.common.loginTouchID.isTouchIDEnabled,
     touchIDType: state.common.loginTouchID.touchIDType,
+    photoPath: state.my.profile.photoPath,
   }),
   dispatch => ({
     login: (data: Syusrinf) => dispatch(LoginActions.login(data)),

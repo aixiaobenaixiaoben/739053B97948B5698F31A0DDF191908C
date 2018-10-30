@@ -1,9 +1,8 @@
 /** @flow */
-import {Dimensions, Platform, StyleSheet} from "react-native"
+import {Dimensions, StyleSheet} from "react-native"
 import {
   COLOR_FONT_BLACK,
   COLOR_FONT_PINK,
-  COLOR_WHITE,
   COLOR_WHITE_MORE_DARK,
   FONT_SIZE_14,
   FONT_SIZE_16
@@ -21,16 +20,8 @@ export default StyleSheet.create({
     width: 64,
     height: 64,
     resizeMode: 'contain',
-    marginTop: 64,
-    ...Platform.select({
-      ios: {
-        backgroundColor: COLOR_WHITE,
-        borderRadius: 32,
-      },
-      android: {
-        borderRadius: 200,
-      }
-    })
+    marginTop: 24,
+    borderRadius: 32,
   },
   mobile: {
     color: COLOR_FONT_BLACK,

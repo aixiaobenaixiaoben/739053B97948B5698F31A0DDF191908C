@@ -1,13 +1,6 @@
 /** @flow */
-import {Platform, StyleSheet} from "react-native"
-import {
-  COLOR_FONT_BLACK,
-  COLOR_SYS,
-  COLOR_WHITE,
-  COLOR_WHITE_MORE_DARK,
-  FONT_SIZE_14,
-  FONT_SIZE_16
-} from "../../../../../Style"
+import {StyleSheet} from "react-native"
+import {COLOR_FONT_BLACK, COLOR_SYS, COLOR_WHITE_MORE_DARK, FONT_SIZE_14, FONT_SIZE_16} from "../../../../../Style"
 
 export default StyleSheet.create({
   view: {
@@ -19,16 +12,8 @@ export default StyleSheet.create({
     width: 64,
     height: 64,
     resizeMode: 'contain',
-    marginTop: 64,
-    ...Platform.select({
-      ios: {
-        backgroundColor: COLOR_WHITE,
-        borderRadius: 32,
-      },
-      android: {
-        borderRadius: 200,
-      }
-    })
+    marginTop: 24,
+    borderRadius: 32,
   },
   mobile: {
     color: COLOR_FONT_BLACK,

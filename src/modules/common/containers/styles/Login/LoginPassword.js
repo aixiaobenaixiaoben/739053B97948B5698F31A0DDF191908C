@@ -1,6 +1,6 @@
 /** @flow */
-import {Platform, StyleSheet} from "react-native"
-import {COLOR_FONT_BLACK, COLOR_WHITE, COLOR_WHITE_MORE_DARK, FONT_SIZE_16} from "../../../../../Style"
+import {StyleSheet} from "react-native"
+import {COLOR_FONT_BLACK, COLOR_WHITE_MORE_DARK, FONT_SIZE_16} from "../../../../../Style"
 
 export default StyleSheet.create({
   view: {
@@ -8,21 +8,13 @@ export default StyleSheet.create({
   },
   view1: {
     alignItems: 'center',
-    marginTop: 64,
+    marginTop: 24,
   },
   view1Image: {
     width: 64,
     height: 64,
     resizeMode: 'contain',
-    ...Platform.select({
-      ios: {
-        backgroundColor: COLOR_WHITE,
-        borderRadius: 32,
-      },
-      android: {
-        borderRadius: 200,
-      }
-    })
+    borderRadius: 32,
   },
   view2: {
     alignItems: 'center',
