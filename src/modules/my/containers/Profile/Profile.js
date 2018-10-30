@@ -5,7 +5,6 @@ import {List, WhiteSpace} from "antd-mobile-rn"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import style from "../styles/Profile/Profile"
-import {ACTION_PROFILE_PATH_UPDATE} from "../../Constants"
 import * as ftpActions from "../../../common/actions/FTP"
 
 const Item = List.Item
@@ -13,7 +12,7 @@ const Item = List.Item
 class Profile extends Component<any, any> {
 
   modifyPhoto = () => {
-    alert(1)
+    this.props.navigation.navigate('MyProfilePhoto')
   }
 
   modifyName = () => {
@@ -25,10 +24,7 @@ class Profile extends Component<any, any> {
   }
 
   getPhoto = () => {
-    const {profile: {spfphotog = ''}, photoPath} = this.props
-    if (spfphotog != null && spfphotog.length > 0 && photoPath.indexOf(spfphotog) === -1) {
-      this.props.download(ACTION_PROFILE_PATH_UPDATE, spfphotog)
-    }
+    const {photoPath} = this.props
     if (photoPath.length > 0) {
       return <Image style={style.image} source={{uri: photoPath}}/>
     }

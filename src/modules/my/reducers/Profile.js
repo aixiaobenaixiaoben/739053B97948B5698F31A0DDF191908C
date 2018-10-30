@@ -4,6 +4,7 @@ import {
   ACTION_PROFILE_INIT,
   ACTION_PROFILE_PATH_CLEAR,
   ACTION_PROFILE_PATH_UPDATE,
+  ACTION_PROFILE_PHOTO_UPLOADED,
   ACTION_PROFILE_UPDATE
 } from "../Constants"
 import type {Syprofil} from "../interface/Syprofil"
@@ -13,11 +14,13 @@ import {FTP_CODE_SUC} from "../../common/Constants"
 type State = {
   profile: Syprofil,
   photoPath: string,
+  photoRemoteID: string,
 }
 
 const initialState: State = {
   profile: {},
   photoPath: '',
+  photoRemoteID: '',
 }
 
 export default handleActions(
@@ -48,6 +51,15 @@ export default handleActions(
       return {
         ...state,
         photoPath: '',
+      }
+    },
+    [ACTION_PROFILE_PHOTO_UPLOADED]: (state: State, action) => {
+      const {CODE, INFO} = action.payload
+      if (CODE !== FTP_CODE_SUC) return {...state}
+
+      return {
+        ...state,
+        photoRemoteID: INFO,
       }
     },
   },

@@ -11,6 +11,7 @@ import TouchIDSetting from "./containers/Setting/TouchIDSetting"
 import {COLOR_SYS, COLOR_WHITE} from "../../Style"
 import MobileModify from "./containers/Setting/MobileModify"
 import Profile from "./containers/Profile/Profile"
+import Photo from "./containers/Profile/Photo"
 
 
 export const MySettingRoute = createStackNavigator(
@@ -75,6 +76,12 @@ export const MyProfileRoute = createStackNavigator(
       screen: Profile,
       navigationOptions: {
         title: '个人信息',
+      }
+    },
+    MyProfilePhoto: {
+      screen: Photo,
+      navigationOptions: {
+        title: '设置头像',
       }
     },
   },

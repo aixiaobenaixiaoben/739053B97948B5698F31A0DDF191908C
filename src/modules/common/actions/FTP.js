@@ -49,9 +49,10 @@ export const upload = (action: string, path: string, MIMEType: string): ActionAs
             data: RNFetchBlob.wrap(path)
           }])
           .then((response) => {
-            const {RTNCOD, ERRMSG} = JSON.parse(response.data)
+            const {RTNCOD, RTNDTA, ERRMSG} = JSON.parse(response.data)
             if (RTNCOD === 'SUC') {
-              dispatch({type: action, payload: {CODE: FTP_CODE_SUC}})
+              dispatch({type: action, payload: {CODE: FTP_CODE_SUC, INFO: RTNDTA}})
+
             } else {
               dispatch({type: action, payload: {CODE: FTP_CODE_FAIL, INFO: ERRMSG}})
             }

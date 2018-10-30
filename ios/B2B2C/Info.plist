@@ -41,6 +41,12 @@
 	<string>使用面容ID安全快速地登录您的账户.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>需要使用相机</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要使用照片</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>需要存储照片</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
