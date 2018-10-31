@@ -94,7 +94,6 @@ export const cacheSync = (action: string, fileName: string): ActionAsync => {
     RNFetchBlob.fs.exists(path).then((exist) => {
       if (!exist) {
         dispatch({type: action})
-        Toast.info(action)
       }
     })
   }

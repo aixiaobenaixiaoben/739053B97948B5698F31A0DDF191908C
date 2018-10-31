@@ -105,7 +105,7 @@ class Login extends Component<any, any> {
         </View>
 
         <List style={style.list}>
-          <InputItem type='number' maxLength={11} clear placeholder="手机号"
+          <InputItem type='number-pad' maxLength={11} clear placeholder="手机号"
                      value={mobile} onChange={(mobile) => this.setState({mobile})}/>
           <InputItem type='password' maxLength={15} clear placeholder="请输入登录密码"
                      value={password} onChange={(password) => this.setState({password})}/>

@@ -83,10 +83,10 @@ class MobileCheck extends Component<any, any> {
       <ScrollView keyboardShouldPersistTaps='handled' style={style.scroll}>
         <WhiteSpace size="lg"/>
         <List>
-          <InputItem style={style.inputItem} type='number' maxLength={11} clear placeholder="请输入本人手机号"
+          <InputItem style={style.inputItem} type='number-pad' maxLength={11} clear placeholder="请输入本人手机号"
                      value={mobile} onChange={(mobile) => this.setState({mobile})}>
           </InputItem>
-          <InputItem style={style.inputItem} type='number' maxLength={6} clear placeholder="请输入验证码"
+          <InputItem style={style.inputItem} type='number-pad' maxLength={6} clear placeholder="请输入验证码"
                      value={code} onChange={(code) => this.setState({code})}
                      extra={extraButton}>
           </InputItem>
