@@ -11,14 +11,12 @@ import type {Syusrinf} from "../../interface/Syusrinf"
 
 
 type State = {
-  isMobileCheckSuc: boolean,
   mobile: string,
   user: Syusrinf,
   count: number,
 }
 
 const initialState: State = {
-  isMobileCheckSuc: false,
   mobile: '',
   user: {},
   count: -1,
@@ -36,14 +34,12 @@ export default handleActions(
     [ACTION_RESET_PASSWORD_MOBILE_CHECK_SUC]: (state: State, action) => {
       return {
         ...state,
-        isMobileCheckSuc: true,
         user: action.payload,
       }
     },
     [ACTION_RESET_PASSWORD_MOBILE_CHECK_RESET]: (state: State, action) => {
       return {
         ...state,
-        isMobileCheckSuc: false,
         user: {},
         mobile: '',
         count: -1,

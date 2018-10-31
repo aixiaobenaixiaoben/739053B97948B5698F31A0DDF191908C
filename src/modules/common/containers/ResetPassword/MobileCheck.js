@@ -23,7 +23,7 @@ class MobileCheck extends Component<any, any> {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.isMobileCheckSuc) {
+    if (!!nextProps.user.suiseqcod) {
       this.next(nextProps)
       this.props.mobileCheckReset()
       return false
@@ -105,7 +105,6 @@ class MobileCheck extends Component<any, any> {
 MobileCheck.propTypes = {
   isLogin: PropTypes.bool.isRequired,
   loginUser: PropTypes.object.isRequired,
-  isMobileCheckSuc: PropTypes.bool.isRequired,
   mobile: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
   count: PropTypes.number.isRequired,
@@ -118,7 +117,6 @@ export default connect(
   state => ({
     isLogin: state.common.login.isLogin,
     loginUser: state.common.login.user,
-    isMobileCheckSuc: state.common.resetPasswordMobileCheck.isMobileCheckSuc,
     mobile: state.common.resetPasswordMobileCheck.mobile,
     user: state.common.resetPasswordMobileCheck.user,
     count: state.common.resetPasswordMobileCheck.count,
