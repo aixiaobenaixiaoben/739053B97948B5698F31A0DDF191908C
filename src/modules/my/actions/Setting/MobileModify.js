@@ -8,7 +8,6 @@ import {
   ACTION_MOBILE_MODIFY_COUNT,
   ACTION_MOBILE_MODIFY_RESET,
   ACTION_MOBILE_MODIFY_SEND,
-  ACTION_MOBILE_MODIFY_SUC,
   URL_MOBILE_MODIFY,
   URL_MOBILE_MODIFY_SEND
 } from "../../Constants"
@@ -63,7 +62,6 @@ export const mobileModify = (syusrinf: Syusrinf, syvrymbl: Syvrymbl): ActionAsyn
         const {RTNCOD, RTNDTA, ERRMSG} = response.data
         if (RTNCOD === 'SUC') {
           RTNDTA.suipaswrd = syusrinf.suipaswrd
-          dispatch({type: ACTION_MOBILE_MODIFY_SUC})
           dispatch({type: ACTION_LOGIN_UPDATE, payload: RTNDTA})
           Toast.hide()
         } else {

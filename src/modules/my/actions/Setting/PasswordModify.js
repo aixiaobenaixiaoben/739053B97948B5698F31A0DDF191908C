@@ -3,8 +3,8 @@ import {Modal, Toast} from "antd-mobile-rn"
 import Request from "axios/index"
 import qs from "qs"
 import md5 from "crypto-js/md5"
-import {ACTION_PASSWORD_MODIFY_RESET, ACTION_PASSWORD_MODIFY_SUC, URL_PASSWORD_MODIFY,} from "../../Constants"
-import type {Action, ActionAsync} from "../../../common/Constants"
+import {URL_PASSWORD_MODIFY} from "../../Constants"
+import type {ActionAsync} from "../../../common/Constants"
 import {ACTION_LOGIN_UPDATE} from "../../../common/Constants"
 import type {Syusrinf} from "../../../common/interface/Syusrinf"
 
@@ -25,7 +25,6 @@ export const passwordModify = (data: Syusrinf): ActionAsync => {
         const {RTNCOD, RTNDTA, ERRMSG} = response.data
         if (RTNCOD === 'SUC') {
           RTNDTA.suipaswrd = param.newpaswrd
-          dispatch({type: ACTION_PASSWORD_MODIFY_SUC})
           dispatch({type: ACTION_LOGIN_UPDATE, payload: RTNDTA})
           Toast.hide()
         } else {
@@ -38,10 +37,5 @@ export const passwordModify = (data: Syusrinf): ActionAsync => {
   }
 }
 
-export const passwordModifyReset = (): Action => {
-  return {
-    type: ACTION_PASSWORD_MODIFY_RESET,
-  }
-}
 
 

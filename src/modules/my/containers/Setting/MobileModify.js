@@ -23,7 +23,7 @@ class MobileModify extends Component<any, any> {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.isMobileModifySuc) {
+    if (nextProps.user.suimobile !== this.props.user.suimobile) {
       this.next()
       this.props.mobileModifyReset()
       return false
@@ -110,7 +110,6 @@ class MobileModify extends Component<any, any> {
 
 MobileModify.propTypes = {
   user: PropTypes.object.isRequired,
-  isMobileModifySuc: PropTypes.bool.isRequired,
   mobile: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired,
   mobileModifySend: PropTypes.func.isRequired,
@@ -121,7 +120,6 @@ MobileModify.propTypes = {
 export default connect(
   state => ({
     user: state.common.login.user,
-    isMobileModifySuc: state.my.mobileModify.isMobileModifySuc,
     mobile: state.my.mobileModify.mobile,
     count: state.my.mobileModify.count,
   }),

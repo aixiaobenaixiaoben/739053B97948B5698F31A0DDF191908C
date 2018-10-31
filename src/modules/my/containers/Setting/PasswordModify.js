@@ -19,13 +19,8 @@ class PasswordModify extends Component<any, any> {
     password2: '',
   }
 
-  componentDidMount() {
-    this.props.passwordModifyReset()
-  }
-
   shouldComponentUpdate(nextProps) {
-    if (nextProps.isPasswordModifySuc) {
-      this.props.passwordModifyReset()
+    if (nextProps.user.suipaswrd !== this.props.user.suipaswrd) {
       this.next()
       return false
     }
@@ -113,22 +108,17 @@ class PasswordModify extends Component<any, any> {
 }
 
 PasswordModify.propTypes = {
-  isPasswordModifySuc: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
-
   passwordModify: PropTypes.func.isRequired,
-  passwordModifyReset: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
 }
 
 export default connect(
   state => ({
     user: state.common.login.user,
-    isPasswordModifySuc: state.my.passwordModify.isPasswordModifySuc,
   }),
   dispatch => ({
     passwordModify: (data: Syusrinf) => dispatch(actions.passwordModify(data)),
-    passwordModifyReset: () => dispatch(actions.passwordModifyReset()),
     logout: () => dispatch(loginActions.logout()),
   })
 )(PasswordModify)
