@@ -12,6 +12,7 @@ import {COLOR_SYS, COLOR_WHITE} from "../../Style"
 import MobileModify from "./containers/Setting/MobileModify"
 import Profile from "./containers/Profile/Profile"
 import Photo from "./containers/Profile/Photo"
+import Name from "./containers/Profile/Name"
 
 
 export const MySettingRoute = createStackNavigator(
@@ -82,6 +83,12 @@ export const MyProfileRoute = createStackNavigator(
       screen: Photo,
       navigationOptions: {
         title: '设置头像',
+      }
+    },
+    MyProfileName: {
+      screen: Name,
+      navigationOptions: {
+        title: '设置昵称',
       }
     },
   },

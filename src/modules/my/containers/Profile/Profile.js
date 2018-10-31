@@ -16,7 +16,7 @@ class Profile extends Component<any, any> {
   }
 
   modifyName = () => {
-    alert(1)
+    this.props.navigation.navigate('MyProfileName')
   }
 
   modifyGender = () => {

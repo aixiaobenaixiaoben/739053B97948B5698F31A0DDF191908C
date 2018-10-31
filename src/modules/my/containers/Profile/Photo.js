@@ -3,7 +3,6 @@ import React, {Component} from "react"
 import {CameraRoll, Image, ScrollView} from "react-native"
 import ImagePicker from 'react-native-image-crop-picker'
 import style from "../styles/Profile/Photo"
-import {COLOR_WHITE} from "../../../../Style"
 import Button from "../../../common/components/Button"
 import {connect} from "react-redux"
 import * as actions from "../../actions/Profile"
@@ -95,12 +94,10 @@ class Photo extends Component<any, any> {
         {this.getPhoto()}
 
         <Button text='从相册选一张' onPress={this.photo}
-                style={style.button} textStyle={style.buttonText}
-                colorStart={COLOR_WHITE} colorEnd={COLOR_WHITE}/>
+                style={style.button} textStyle={style.buttonText}/>
 
         <Button text='拍一张照片' onPress={this.camera}
-                style={style.button} textStyle={style.buttonText}
-                colorStart={COLOR_WHITE} colorEnd={COLOR_WHITE}/>
+                style={style.button} textStyle={style.buttonText}/>
 
       </ScrollView>
     )
