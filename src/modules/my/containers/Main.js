@@ -10,7 +10,7 @@ import * as actions from "../../common/actions/Login/Login"
 import * as ftpActions from "../../common/actions/FTP"
 import * as profileActions from "../../my/actions/Profile"
 import style from "./styles/Main"
-import {ACTION_PROFILE_PATH_UPDATE} from "../Constants"
+import {ACTION_PROFILE_PATH_CLEAR, ACTION_PROFILE_PATH_UPDATE} from "../Constants"
 import type {Syusrinf} from "../../common/interface/Syusrinf"
 
 const Item = List.Item
@@ -19,6 +19,9 @@ const Item = List.Item
 class Main extends Component<any, any> {
 
   componentWillMount() {
+    if (this.props.photoPath.length > 0) {
+      this.props.cacheSync(ACTION_PROFILE_PATH_CLEAR, this.props.photoPath)
+    }
     if (!this.props.isLogin) {
       this.jumpToLogin()
     } else {
@@ -109,6 +112,7 @@ Main.propTypes = {
   logout: PropTypes.func.isRequired,
   requestProfile: PropTypes.func.isRequired,
   download: PropTypes.func.isRequired,
+  cacheSync: PropTypes.func.isRequired,
 }
 
 export default connect(
@@ -122,5 +126,6 @@ export default connect(
     logout: () => dispatch(actions.logout()),
     requestProfile: (data: Syusrinf) => dispatch(profileActions.profile(data)),
     download: (action: string, fileName: string) => dispatch(ftpActions.download(action, fileName)),
+    cacheSync: (action: string, fileName: string) => dispatch(ftpActions.cacheSync(action, fileName)),
   })
 )(Main)

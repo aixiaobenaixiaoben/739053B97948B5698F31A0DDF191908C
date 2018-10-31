@@ -87,3 +87,15 @@ export const cacheClear = (): ActionAsync => {
       })
   }
 }
+
+export const cacheSync = (action: string, fileName: string): ActionAsync => {
+  return (dispatch, getState) => {
+    let path = RNFetchBlob.fs.dirs.DocumentDir + '/cache/' + fileName
+    RNFetchBlob.fs.exists(path).then((exist) => {
+      if (!exist) {
+        dispatch({type: action})
+        Toast.info(action)
+      }
+    })
+  }
+}
