@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 
 import * as actions from "../../common/actions/Login/Login"
 import * as ftpActions from "../../common/actions/FTP"
-import * as profileActions from "../../my/actions/Profile"
+import * as profileActions from "../actions/Profile/Profile"
 import style from "./styles/Main"
 import {ACTION_PROFILE_PATH_CLEAR, ACTION_PROFILE_PATH_UPDATE} from "../Constants"
 import type {Syusrinf} from "../../common/interface/Syusrinf"

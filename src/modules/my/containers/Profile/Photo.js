@@ -5,7 +5,7 @@ import ImagePicker from 'react-native-image-crop-picker'
 import style from "../styles/Profile/Photo"
 import Button from "../../../common/components/Button"
 import {connect} from "react-redux"
-import * as actions from "../../actions/Profile"
+import * as actions from "../../actions/Profile/Profile"
 import PropTypes from "prop-types"
 import {Modal} from "antd-mobile-rn"
 import type {Syprofil} from "../../interface/Syprofil"

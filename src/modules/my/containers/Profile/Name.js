@@ -4,7 +4,7 @@ import {ScrollView, Text} from "react-native"
 import {InputItem, List, Modal, WhiteSpace} from "antd-mobile-rn"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
-import * as actions from "../../../common/actions/Login/Login"
+import * as actions from "../../actions/Profile/Name"
 import style from "../styles/Profile/Name"
 import type {Syusrinf} from "../../../common/interface/Syusrinf"
 import Button from "../../../common/components/Button"
@@ -45,7 +45,7 @@ class Name extends Component<any, any> {
       Modal.alert('', '昵称格式不正确')
       return
     }
-    this.props.updateUserInfo({suiusrnam: username})
+    this.props.usernameModify({suiusrnam: username})
   }
 
   render() {
@@ -68,7 +68,7 @@ class Name extends Component<any, any> {
 
 Name.propTypes = {
   user: PropTypes.object.isRequired,
-  updateUserInfo: PropTypes.func.isRequired,
+  usernameModify: PropTypes.func.isRequired,
 }
 
 export default connect(
@@ -76,6 +76,6 @@ export default connect(
     user: state.common.login.user,
   }),
   dispatch => ({
-    updateUserInfo: (data: Syusrinf) => dispatch(actions.updateUserInfo(data)),
+    usernameModify: (data: Syusrinf) => dispatch(actions.usernameModify(data)),
   })
 )(Name)

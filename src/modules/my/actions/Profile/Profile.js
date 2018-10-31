@@ -2,10 +2,10 @@
 import {Modal, Toast} from "antd-mobile-rn"
 import Request from "axios/index"
 import qs from "qs"
-import type {ActionAsync} from "../../common/Constants"
-import {ACTION_PROFILE_UPDATE, URL_PROFILE, URL_PROFILE_UPDATE} from "../Constants"
-import type {Syprofil} from "../interface/Syprofil"
-import type {Syusrinf} from "../../common/interface/Syusrinf"
+import type {ActionAsync} from "../../../common/Constants"
+import {ACTION_PROFILE_UPDATE, URL_PROFILE, URL_PROFILE_UPDATE} from "../../Constants"
+import type {Syprofil} from "../../interface/Syprofil"
+import type {Syusrinf} from "../../../common/interface/Syusrinf"
 
 
 export const profile = (data: Syusrinf): ActionAsync => {

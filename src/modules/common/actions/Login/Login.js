@@ -4,14 +4,7 @@ import Request from "axios/index"
 import md5 from "crypto-js/md5"
 import qs from "qs"
 import type {ActionAsync} from "../../Constants"
-import {
-  ACTION_LOGIN,
-  ACTION_LOGIN_UPDATE,
-  ACTION_LOGOUT,
-  URL_LOGIN,
-  URL_LOGOUT,
-  URL_UPDATE_USER_INFO
-} from "../../Constants"
+import {ACTION_LOGIN, ACTION_LOGOUT, URL_LOGIN, URL_LOGOUT} from "../../Constants"
 import type {Syusrinf} from "../../interface/Syusrinf"
 import {ACTION_PROFILE_INIT} from "../../../my/Constants"
 
@@ -49,31 +42,5 @@ export const logout = (): ActionAsync => {
   return (dispatch, getState) => {
     dispatch({type: ACTION_LOGOUT})
     Request.post(URL_LOGOUT)
-  }
-}
-
-export const updateUserInfo = (data: Syusrinf): ActionAsync => {
-  return (dispatch, getState) => {
-    Toast.loading('更新中', 0)
-    let user = getState().common.login.user
-    let param: Syusrinf = {
-      suiseqcod: user.suiseqcod,
-      suiverson: user.suiverson,
-      ...data,
-    }
-    Request.post(URL_UPDATE_USER_INFO, qs.stringify(param))
-      .then(response => {
-        const {RTNCOD, RTNDTA, ERRMSG} = response.data
-        if (RTNCOD === 'SUC') {
-          RTNDTA.suipaswrd = user.suipaswrd
-          dispatch({type: ACTION_LOGIN_UPDATE, payload: RTNDTA})
-          Toast.hide()
-        } else {
-          Modal.alert('', ERRMSG)
-        }
-      })
-      .catch(error => {
-        Modal.alert('', error.message)
-      })
   }
 }
