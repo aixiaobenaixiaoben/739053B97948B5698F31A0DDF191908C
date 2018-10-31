@@ -18,6 +18,22 @@ class LoginPassword extends Component<any, any> {
     password: '',
   }
 
+  componentDidMount() {
+    this.subs = [
+      this.props.navigation.addListener('willFocus', this.willFocus),
+    ]
+  }
+
+  componentWillUnmount() {
+    this.subs.forEach(sub => sub.remove())
+  }
+
+  willFocus = () => {
+    if (this.props.user.suiseqcod.length === 0) {
+      this.jumpTo('MyLogin')
+    }
+  }
+
   shouldComponentUpdate(nextProps) {
     if (nextProps.isLogin) {
       this.jumpTo('MyHome')

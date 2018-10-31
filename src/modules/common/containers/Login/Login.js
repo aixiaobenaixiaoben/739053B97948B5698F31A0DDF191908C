@@ -44,6 +44,23 @@ class Login extends Component<any, any> {
     }
   }
 
+  componentDidMount() {
+    this.subs = [
+      this.props.navigation.addListener('willFocus', this.willFocus),
+    ]
+  }
+
+  componentWillUnmount() {
+    this.subs.forEach(sub => sub.remove())
+  }
+
+  willFocus = () => {
+    const routeFrom = this.props.navigation.getParam('routeFrom')
+    if (!!routeFrom && this.props.user.suiseqcod.length === 0) {
+      this.jumpTo('MyHome')
+    }
+  }
+
   shouldComponentUpdate(nextProps) {
     if (nextProps.isLogin) {
       this.jumpTo('MyHome')

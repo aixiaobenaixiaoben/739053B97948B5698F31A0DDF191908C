@@ -4,7 +4,12 @@ import Request from "axios/index"
 import qs from "qs"
 import md5 from "crypto-js/md5"
 import type {Action, ActionAsync} from "../../Constants"
-import {ACTION_RESET_PASSWORD_RESET, ACTION_RESET_PASSWORD_SUC, URL_RESET_PASSWORD} from "../../Constants"
+import {
+  ACTION_LOGIN_UPDATE,
+  ACTION_RESET_PASSWORD_RESET,
+  ACTION_RESET_PASSWORD_SUC,
+  URL_RESET_PASSWORD
+} from "../../Constants"
 import type {Syusrinf} from "../../interface/Syusrinf"
 
 
@@ -23,6 +28,7 @@ export const resetPassword = (data: Syusrinf): ActionAsync => {
         const {RTNCOD, ERRMSG} = response.data
         if (RTNCOD === 'SUC') {
           dispatch({type: ACTION_RESET_PASSWORD_SUC})
+          dispatch({type: ACTION_LOGIN_UPDATE, payload: {suiseqcod: ''}})
           Toast.hide()
         } else {
           Modal.alert('', ERRMSG)

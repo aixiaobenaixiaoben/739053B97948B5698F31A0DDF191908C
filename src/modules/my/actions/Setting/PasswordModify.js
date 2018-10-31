@@ -22,10 +22,9 @@ export const passwordModify = (data: Syusrinf): ActionAsync => {
 
     Request.post(URL_PASSWORD_MODIFY, qs.stringify(param))
       .then(response => {
-        const {RTNCOD, RTNDTA, ERRMSG} = response.data
+        const {RTNCOD, ERRMSG} = response.data
         if (RTNCOD === 'SUC') {
-          RTNDTA.suipaswrd = param.newpaswrd
-          dispatch({type: ACTION_LOGIN_UPDATE, payload: RTNDTA})
+          dispatch({type: ACTION_LOGIN_UPDATE, payload: {suiseqcod: ''}})
           Toast.hide()
         } else {
           Modal.alert('', ERRMSG)
