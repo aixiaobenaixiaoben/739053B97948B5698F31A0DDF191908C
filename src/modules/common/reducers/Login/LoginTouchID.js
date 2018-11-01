@@ -1,18 +1,25 @@
 /** @flow */
 import {handleActions} from "redux-actions"
-import {ACTION_TOUCH_ID_DISABLE, ACTION_TOUCH_ID_ENABLE, ACTION_TOUCH_ID_SUPPORTED,} from "../../Constants"
+import {
+  ACTION_TOUCH_ID_DISABLE,
+  ACTION_TOUCH_ID_ENABLE,
+  ACTION_TOUCH_ID_SUPPORTED,
+  ACTION_TOUCH_ID_SWITCH,
+} from "../../Constants"
 
 
 type State = {
   isTouchIDSupported: boolean,
   isTouchIDEnabled: boolean,
   touchIDType: string,
+  touchIDs: Object,
 }
 
 const initialState: State = {
   isTouchIDSupported: false,
-  isTouchIDEnabled: true,
+  isTouchIDEnabled: false,
   touchIDType: '',
+  touchIDs: {},
 }
 
 export default handleActions(
@@ -35,6 +42,21 @@ export default handleActions(
       return {
         ...state,
         isTouchIDEnabled: false,
+      }
+    },
+    [ACTION_TOUCH_ID_SWITCH]: (state: State, action) => {
+      const {previousSequence, currentSequence} = action.payload
+      const previousTouch = {
+        isTouchIDEnabled: state.isTouchIDEnabled,
+      }
+      const touchIDs = state.touchIDs || {}
+      const currentTouch = touchIDs[currentSequence] || {
+        isTouchIDEnabled: false,
+      }
+      return {
+        ...state,
+        ...currentTouch,
+        touchIDs: {...touchIDs, [previousSequence]: previousTouch},
       }
     },
   },

@@ -4,9 +4,16 @@ import Request from "axios/index"
 import md5 from "crypto-js/md5"
 import qs from "qs"
 import type {ActionAsync} from "../../Constants"
-import {ACTION_LOGIN, ACTION_LOGOUT, URL_LOGIN, URL_LOGOUT} from "../../Constants"
+import {
+  ACTION_GESTURE_SWITCH,
+  ACTION_LOGIN,
+  ACTION_LOGOUT,
+  ACTION_TOUCH_ID_SWITCH,
+  URL_LOGIN,
+  URL_LOGOUT
+} from "../../Constants"
 import type {Syusrinf} from "../../interface/Syusrinf"
-import {ACTION_PROFILE_INIT} from "../../../my/Constants"
+import {ACTION_PROFILE_SWITCH} from "../../../my/Constants"
 
 
 export const login = (data: Syusrinf): ActionAsync => {
@@ -24,9 +31,18 @@ export const login = (data: Syusrinf): ActionAsync => {
       .then(response => {
         const {RTNCOD, RTNDTA, ERRMSG} = response.data
         if (RTNCOD === 'SUC') {
+
+          /** 如果发生账号切换，首先切换配置信息 */
+          let previousSequence = getState().common.login.sequence
+          let currentSequence = RTNDTA.suiseqcod
+          if (previousSequence.length > 0 && previousSequence !== currentSequence) {
+            dispatch({type: ACTION_PROFILE_SWITCH, payload: {previousSequence, currentSequence}})
+            dispatch({type: ACTION_GESTURE_SWITCH, payload: {previousSequence, currentSequence}})
+            dispatch({type: ACTION_TOUCH_ID_SWITCH, payload: {previousSequence, currentSequence}})
+          }
+
           RTNDTA.suipaswrd = param.suipaswrd
           dispatch({type: ACTION_LOGIN, payload: RTNDTA})
-          dispatch({type: ACTION_PROFILE_INIT, payload: RTNDTA.suiseqcod})
           Toast.hide()
         } else {
           Modal.alert('', ERRMSG)

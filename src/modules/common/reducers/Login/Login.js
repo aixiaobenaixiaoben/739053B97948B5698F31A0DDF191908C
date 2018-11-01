@@ -7,6 +7,7 @@ import type {Syusrinf} from "../../interface/Syusrinf"
 type State = {
   isLogin: boolean,
   user: Syusrinf,
+  sequence: string,
 }
 
 const initialState: State = {
@@ -14,6 +15,7 @@ const initialState: State = {
   user: {
     suiseqcod: '',
   },
+  sequence: '',
 }
 
 export default handleActions(
@@ -22,7 +24,8 @@ export default handleActions(
       return {
         ...state,
         isLogin: true,
-        user: action.payload
+        user: action.payload,
+        sequence: action.payload.suiseqcod,
       }
     },
     [ACTION_LOGOUT]: (state: State, action) => {
