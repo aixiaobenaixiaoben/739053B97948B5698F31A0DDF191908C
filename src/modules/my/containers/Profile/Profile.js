@@ -20,7 +20,7 @@ class Profile extends Component<any, any> {
   }
 
   modifyGender = () => {
-    alert(1)
+    this.props.navigation.navigate('MyProfileGender')
   }
 
   getPhoto = () => {
@@ -32,7 +32,8 @@ class Profile extends Component<any, any> {
   }
 
   render() {
-    let {user: {suiusrnam}} = this.props
+    let {user: {suiusrnam}, profile: {spfgenderText}} = this.props
+    let gender = spfgenderText || '未选择'
 
     return (
       <ScrollView style={style.scroll}>
@@ -48,7 +49,7 @@ class Profile extends Component<any, any> {
           <Item style={style.listItem} arrow="horizontal" onClick={this.modifyName} extra={suiusrnam}>
             昵称
           </Item>
-          <Item style={style.listItem} arrow="horizontal" onClick={this.modifyGender} extra={suiusrnam}>
+          <Item style={style.listItem} arrow="horizontal" onClick={this.modifyGender} extra={gender}>
             性别
           </Item>
         </List>

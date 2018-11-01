@@ -13,6 +13,7 @@ import MobileModify from "./containers/Setting/MobileModify"
 import Profile from "./containers/Profile/Profile"
 import Photo from "./containers/Profile/Photo"
 import Name from "./containers/Profile/Name"
+import Gender from "./containers/Profile/Gender"
 
 
 export const MySettingRoute = createStackNavigator(
@@ -89,6 +90,12 @@ export const MyProfileRoute = createStackNavigator(
       screen: Name,
       navigationOptions: {
         title: '设置昵称',
+      }
+    },
+    MyProfileGender: {
+      screen: Gender,
+      navigationOptions: {
+        title: '设置性别',
       }
     },
   },
