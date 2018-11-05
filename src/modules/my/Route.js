@@ -14,6 +14,7 @@ import Profile from "./containers/Profile/Profile"
 import Photo from "./containers/Profile/Photo"
 import Name from "./containers/Profile/Name"
 import Gender from "./containers/Profile/Gender"
+import Version from "./containers/Setting/Version"
 
 
 export const MySettingRoute = createStackNavigator(
@@ -59,6 +60,12 @@ export const MySettingRoute = createStackNavigator(
       navigationOptions: ({navigation}) => ({
         title: navigation.getParam('navigationTitle'),
       })
+    },
+    MyVersion: {
+      screen: Version,
+      navigationOptions: {
+        title: '关于',
+      }
     },
   },
   {

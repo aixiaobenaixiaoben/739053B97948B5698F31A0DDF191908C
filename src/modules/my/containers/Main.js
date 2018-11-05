@@ -8,6 +8,7 @@ import PropTypes from "prop-types"
 
 import * as actions from "../../common/actions/Login/Login"
 import * as ftpActions from "../../common/actions/FTP"
+import * as versionActions from "../actions/Setting/Version"
 import * as profileActions from "../actions/Profile/Profile"
 import style from "./styles/Main"
 import {ACTION_PROFILE_PATH_CLEAR, ACTION_PROFILE_PATH_UPDATE} from "../Constants"
@@ -25,6 +26,7 @@ class Main extends Component<any, any> {
     if (!this.props.isLogin) {
       this.jumpToLogin()
     } else {
+      this.props.requestVersion()
       this.props.requestProfile({suiseqcod: this.props.user.suiseqcod})
     }
   }
@@ -113,6 +115,7 @@ Main.propTypes = {
   requestProfile: PropTypes.func.isRequired,
   download: PropTypes.func.isRequired,
   cacheSync: PropTypes.func.isRequired,
+  requestVersion: PropTypes.func.isRequired,
 }
 
 export default connect(
@@ -127,5 +130,6 @@ export default connect(
     requestProfile: (data: Syusrinf) => dispatch(profileActions.profile(data)),
     download: (action: string, fileName: string) => dispatch(ftpActions.download(action, fileName)),
     cacheSync: (action: string, fileName: string) => dispatch(ftpActions.cacheSync(action, fileName)),
+    requestVersion: () => dispatch(versionActions.requestVersion()),
   })
 )(Main)

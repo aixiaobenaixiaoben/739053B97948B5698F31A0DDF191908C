@@ -1,5 +1,8 @@
 /** @flow */
 
+/** version of the app */
+export const APP_VERSION = '1.0.0'
+
 /** name of this modules */
 export const NAME = 'common'
 

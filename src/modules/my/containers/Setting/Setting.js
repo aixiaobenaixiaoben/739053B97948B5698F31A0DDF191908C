@@ -28,6 +28,10 @@ class Setting extends Component<any, any> {
     this.props.navigation.navigate('MyGestureSetting')
   }
 
+  version = () => {
+    this.props.navigation.navigate('MyVersion')
+  }
+
   render() {
     const {
       user: {suimobile},
@@ -60,6 +64,13 @@ class Setting extends Component<any, any> {
           }
           <Item style={style.listItem} arrow="horizontal" onClick={this.gestureModify} extra={gesture}>
             手势登录
+          </Item>
+        </List>
+
+        <WhiteSpace size="lg"/>
+        <List>
+          <Item style={style.listItem} arrow="horizontal" onClick={this.version}>
+            关于
           </Item>
         </List>
       </ScrollView>

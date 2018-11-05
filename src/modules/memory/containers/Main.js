@@ -6,11 +6,13 @@ import {connect} from "react-redux"
 import PropTypes from "prop-types"
 
 import * as actions from "../../common/actions/Login/LoginTouchID"
+import * as versionActions from "../../my/actions/Setting/Version"
 
 
 class Main extends Component<any, any> {
 
   componentWillMount() {
+    this.props.requestVersion()
     TouchId.isSupported().then(biometryType => {
       if (!this.props.isTouchIDSupported) {
         this.props.touchIDSupported(biometryType)
@@ -34,6 +36,7 @@ class Main extends Component<any, any> {
 Main.propTypes = {
   isTouchIDSupported: PropTypes.bool.isRequired,
   touchIDSupported: PropTypes.func.isRequired,
+  requestVersion: PropTypes.func.isRequired,
 }
 
 export default connect(
@@ -42,5 +45,6 @@ export default connect(
   }),
   dispatch => ({
     touchIDSupported: (touchIDType) => dispatch(actions.touchIDSupported(touchIDType)),
+    requestVersion: () => dispatch(versionActions.requestVersion()),
   })
 )(Main)
