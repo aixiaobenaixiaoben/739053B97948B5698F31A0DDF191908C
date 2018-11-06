@@ -78,7 +78,7 @@ class PasswordModify extends Component<any, any> {
         <WhiteSpace size="lg"/>
         <List>
           <InputItem style={style.inputItem} type='password' maxLength={15} clear placeholder="请输入原登录密码"
-                     value={password} onChange={(password) => this.setState({password})}>
+                     onChange={(password) => this.setState({password})}>
           </InputItem>
         </List>
 
@@ -90,10 +90,10 @@ class PasswordModify extends Component<any, any> {
 
         <List>
           <InputItem style={style.inputItem} type='password' maxLength={15} clear placeholder="请输入新登录密码"
-                     value={password1} onChange={(password1) => this.setState({password1})}>
+                     onChange={(password1) => this.setState({password1})}>
           </InputItem>
           <InputItem style={style.inputItem} type='password' maxLength={15} clear placeholder="请再次输入新登录密码"
-                     value={password2} onChange={(password2) => this.setState({password2})}>
+                     onChange={(password2) => this.setState({password2})}>
           </InputItem>
         </List>
 

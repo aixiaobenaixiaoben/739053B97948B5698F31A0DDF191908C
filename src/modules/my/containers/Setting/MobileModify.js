@@ -93,11 +93,10 @@ class MobileModify extends Component<any, any> {
         <WhiteSpace size="lg"/>
         <List>
           <InputItem style={style.inputItem} type='number-pad' maxLength={11} clear placeholder="请输入本人手机号码"
-                     value={mobile} onChange={(mobile) => this.setState({mobile})}>
+                     onChange={(mobile) => this.setState({mobile})}>
           </InputItem>
           <InputItem style={style.inputItem} type='number-pad' maxLength={6} clear placeholder="请输入验证码"
-                     value={code} onChange={(code) => this.setState({code})}
-                     extra={extraButton}>
+                     onChange={(code) => this.setState({code})} extra={extraButton}>
           </InputItem>
         </List>
         <WhiteSpace size="lg"/>

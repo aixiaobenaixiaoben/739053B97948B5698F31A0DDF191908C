@@ -74,13 +74,13 @@ class SetPassword extends Component<any, any> {
         <WhiteSpace size="lg"/>
         <List>
           <InputItem style={style.inputItem} maxLength={16} clear placeholder="请输入用户名" autoCapitalize='none'
-                     value={username} onChange={(username) => this.setState({username})}>
+                     onChange={(username) => this.setState({username})}>
           </InputItem>
           <InputItem style={style.inputItem} type='password' maxLength={15} clear placeholder="请输入登录密码"
-                     value={password1} onChange={(password1) => this.setState({password1})}>
+                     onChange={(password1) => this.setState({password1})}>
           </InputItem>
           <InputItem style={style.inputItem} type='password' maxLength={15} clear placeholder="请再次输入登录密码"
-                     value={password2} onChange={(password2) => this.setState({password2})}>
+                     onChange={(password2) => this.setState({password2})}>
           </InputItem>
         </List>
         <WhiteSpace size="lg"/>

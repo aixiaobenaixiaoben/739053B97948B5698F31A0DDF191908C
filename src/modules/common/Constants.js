@@ -59,4 +59,4 @@ export const URL_RESET_PASSWORD_MOBILE_CHECK = '/user/resetVerifyCode'
 export const URL_RESET_PASSWORD = '/user/resetPassword'
 
 /** 验证码失效时间(s) */
-export const DURATION_MOBILE_CODE_EXPIRED = 12
+export const DURATION_MOBILE_CODE_EXPIRED = 60

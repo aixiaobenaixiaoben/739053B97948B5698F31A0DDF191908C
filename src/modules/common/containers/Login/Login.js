@@ -114,6 +114,7 @@ class Login extends Component<any, any> {
 
   render() {
     const {mobile, password} = this.state
+    let canSubmit = mobile.length > 0 && password.length > 0
 
     return (
       <ScrollView keyboardShouldPersistTaps='handled' style={style.view}>
@@ -123,14 +124,14 @@ class Login extends Component<any, any> {
 
         <List style={style.list}>
           <InputItem type='number-pad' maxLength={11} clear placeholder="手机号"
-                     value={mobile} onChange={(mobile) => this.setState({mobile})}/>
+                     onChange={(mobile) => this.setState({mobile})}/>
           <InputItem type='password' maxLength={15} clear placeholder="请输入登录密码"
-                     value={password} onChange={(password) => this.setState({password})}/>
+                     onChange={(password) => this.setState({password})}/>
         </List>
 
         <View style={style.view2}>
           <Button text='注册' style={style.view2Register} textStyle={style.view2RegisterText} onPress={this.register}/>
-          <Button text='登录' style={style.view2Login} onPress={this.login}/>
+          <Button text='登录' style={style.view2Login} onPress={this.login} disabled={!canSubmit}/>
         </View>
 
         <View style={style.view3}>

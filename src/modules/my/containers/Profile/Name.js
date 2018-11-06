@@ -27,7 +27,6 @@ class Name extends Component<any, any> {
 
   componentWillMount() {
     this.props.navigation.setParams({saveFunc: this.submit})
-    this.setState({username: this.props.user.suiusrnam})
   }
 
   shouldComponentUpdate(nextProps) {
@@ -54,7 +53,7 @@ class Name extends Component<any, any> {
         <WhiteSpace size="lg"/>
         <List>
           <InputItem style={style.inputItem} maxLength={16} clear placeholder="请输入昵称" autoCapitalize='none'
-                     value={this.state.username} onChange={(username) => this.setState({username})}>
+                     onChange={(username) => this.setState({username})}>
           </InputItem>
         </List>
 

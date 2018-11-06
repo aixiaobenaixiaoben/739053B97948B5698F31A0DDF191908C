@@ -106,7 +106,7 @@ class LoginPassword extends Component<any, any> {
 
   render() {
     const mobile = this.props.user.suimobile
-    const {password} = this.state
+    let canSubmit = this.state.password.length > 0
 
     return (
       <ScrollView keyboardShouldPersistTaps='handled' style={style.view}>
@@ -120,10 +120,10 @@ class LoginPassword extends Component<any, any> {
 
         <List style={style.list}>
           <InputItem type='password' maxLength={15} clear placeholder="请输入登录密码"
-                     value={password} onChange={(password) => this.setState({password})}/>
+                     onChange={(password) => this.setState({password})}/>
         </List>
 
-        <Button text='登录' onPress={this.login} style={style.submitButton}/>
+        <Button text='登录' onPress={this.login} style={style.submitButton} disabled={!canSubmit}/>
 
         <View style={style.view3}>
           <Button text='忘记密码' style={style.view3Button} textStyle={style.view3ButtonText}
