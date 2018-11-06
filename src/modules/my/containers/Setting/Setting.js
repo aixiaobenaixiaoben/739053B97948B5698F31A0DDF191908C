@@ -32,6 +32,10 @@ class Setting extends Component<any, any> {
     this.props.navigation.navigate('MyVersion')
   }
 
+  feedback = () => {
+    this.props.navigation.navigate('MyFeedback')
+  }
+
   render() {
     const {
       user: {suimobile},
@@ -71,6 +75,9 @@ class Setting extends Component<any, any> {
         <List>
           <Item style={style.listItem} arrow="horizontal" onClick={this.version}>
             关于
+          </Item>
+          <Item style={style.listItem} arrow="horizontal" onClick={this.feedback}>
+            反馈
           </Item>
         </List>
       </ScrollView>

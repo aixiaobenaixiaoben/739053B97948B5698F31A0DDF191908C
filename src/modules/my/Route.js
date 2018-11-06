@@ -15,6 +15,7 @@ import Photo from "./containers/Profile/Photo"
 import Name from "./containers/Profile/Name"
 import Gender from "./containers/Profile/Gender"
 import Version from "./containers/Setting/Version"
+import Feedback from "./containers/Setting/Feedback"
 
 
 export const MySettingRoute = createStackNavigator(
@@ -65,6 +66,12 @@ export const MySettingRoute = createStackNavigator(
       screen: Version,
       navigationOptions: {
         title: '关于',
+      }
+    },
+    MyFeedback: {
+      screen: Feedback,
+      navigationOptions: {
+        title: '信息反馈',
       }
     },
   },

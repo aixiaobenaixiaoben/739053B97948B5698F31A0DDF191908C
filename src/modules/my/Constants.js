@@ -13,9 +13,13 @@ export const ACTION_PROFILE_PATH_UPDATE = `${NAME}/ACTION_PROFILE_PATH_UPDATE`
 export const ACTION_PROFILE_PATH_CLEAR = `${NAME}/ACTION_PROFILE_PATH_CLEAR`
 export const ACTION_PROFILE_PHOTO_UPLOADED = `${NAME}/ACTION_PROFILE_PHOTO_UPLOADED`
 export const ACTION_PROFILE_SWITCH = `${NAME}/ACTION_PROFILE_SWITCH`
+export const ACTION_FEEDBACK = `${NAME}/ACTION_FEEDBACK`
+export const ACTION_FEEDBACK_UPDATE = `${NAME}/ACTION_FEEDBACK_UPDATE`
+export const ACTION_FEEDBACK_RESET = `${NAME}/ACTION_FEEDBACK_RESET`
 
 /** URL type */
 export const URL_APP_VERSION = '/index/appInfo'
+export const URL_FEEDBACK = '/index/feedback'
 export const URL_PASSWORD_MODIFY = '/user/modPassword'
 export const URL_MOBILE_MODIFY_SEND = '/user/sendModPhoneVerifyCode'
 export const URL_MOBILE_MODIFY = '/user/modPhoneVerifyCode'

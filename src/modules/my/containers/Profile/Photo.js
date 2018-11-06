@@ -41,8 +41,8 @@ class Photo extends Component<any, any> {
       mediaType: 'photo',
       hideBottomControls: true,
     }).then(image => {
-      const {path, mime} = image
-      this.props.upload(ACTION_PROFILE_PHOTO_UPLOADED, path, mime)
+      const {path} = image
+      this.props.upload(ACTION_PROFILE_PHOTO_UPLOADED, path)
 
     }).catch(e => {
       if (e.message === 'Cannot access images. Please allow access if you want to be able to select images.') {
@@ -62,8 +62,8 @@ class Photo extends Component<any, any> {
       cropperToolbarTitle: '裁剪图片',
       hideBottomControls: true,
     }).then(image => {
-      const {path, mime} = image
-      this.props.upload(ACTION_PROFILE_PHOTO_UPLOADED, path, mime)
+      const {path} = image
+      this.props.upload(ACTION_PROFILE_PHOTO_UPLOADED, path)
       this.savePhoto(image)
 
     }).catch(e => {
@@ -121,7 +121,7 @@ export default connect(
   }),
   dispatch => ({
     updateProfile: (data: Syprofil) => dispatch(actions.updateProfile(data)),
-    upload: (action: string, path: string, MIMEType: string) => dispatch(ftpActions.upload(action, path, MIMEType)),
+    upload: (action: string, path: string) => dispatch(ftpActions.upload(action, path)),
     download: (action: string, fileName: string) => dispatch(ftpActions.download(action, fileName)),
   })
 )(Photo)

@@ -32,7 +32,7 @@ export const download = (action: string, fileName: string): ActionAsync => {
   }
 }
 
-export const upload = (action: string, path: string, MIMEType: string): ActionAsync => {
+export const upload = (action: string, path: string, fileName = '.JPG', MIMEType = 'image/jpeg'): ActionAsync => {
   return (dispatch, getState) => {
     Toast.loading('上传中', 0)
 
@@ -41,8 +41,6 @@ export const upload = (action: string, path: string, MIMEType: string): ActionAs
         Toast.fail('文件不存在', 1, null, false)
 
       } else {
-        let fileName = path.substring(path.lastIndexOf('/') + 1)
-
         RNFetchBlob
           .fetch('POST', Request.defaults.baseURL + URL_UPLOAD, {'Content-Type': 'multipart/form-data'}, [{
             name: 'FILE',
