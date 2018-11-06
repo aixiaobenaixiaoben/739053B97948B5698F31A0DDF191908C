@@ -1,15 +1,20 @@
 /** @flow */
 import React, {Component} from "react"
 import {ScrollView} from "react-native"
-import {List, WhiteSpace} from "antd-mobile-rn"
+import {List, Modal, WhiteSpace} from "antd-mobile-rn"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import style from "../styles/Setting/Setting"
+import * as ftpActions from "../../../common/actions/FTP"
 
 
 const Item = List.Item
 
 class Setting extends Component<any, any> {
+
+  componentWillMount() {
+    this.props.cacheCount()
+  }
 
   mobileModify = () => {
     this.props.navigation.navigate('MyMobileModify')
@@ -36,6 +41,13 @@ class Setting extends Component<any, any> {
     this.props.navigation.navigate('MyFeedback')
   }
 
+  cacheClear = () => {
+    Modal.alert('确认', '确认清理缓存?', [
+      {text: '取消'},
+      {text: '确定', onPress: this.props.cacheClear},
+    ])
+  }
+
   render() {
     const {
       user: {suimobile},
@@ -43,10 +55,14 @@ class Setting extends Component<any, any> {
       isTouchIDSupported,
       isTouchIDEnabled,
       touchIDType,
+      cacheSize,
     } = this.props
     let gesture = isGestureEnabled ? '已启用' : '未启用'
     let touchID = isTouchIDEnabled ? '已启用' : '未启用'
     let touchIDMethod = touchIDType === 'FaceID' ? '面容ID登录' : '指纹ID登录'
+    const count = Math.round(cacheSize / (1024 * 1024) * 10) / 10 + ''
+    const cache = count.indexOf('.') === -1 ? count + '.0M' : count + 'M'
+
     return (
       <ScrollView style={style.scroll}>
         <WhiteSpace size="lg"/>
@@ -73,6 +89,9 @@ class Setting extends Component<any, any> {
 
         <WhiteSpace size="lg"/>
         <List>
+          <Item style={style.listItem} onClick={this.cacheClear} extra={cache}>
+            清理缓存
+          </Item>
           <Item style={style.listItem} arrow="horizontal" onClick={this.version}>
             关于
           </Item>
@@ -91,6 +110,9 @@ Setting.propTypes = {
   isTouchIDSupported: PropTypes.bool.isRequired,
   isTouchIDEnabled: PropTypes.bool.isRequired,
   touchIDType: PropTypes.string.isRequired,
+  cacheSize: PropTypes.number.isRequired,
+  cacheCount: PropTypes.func.isRequired,
+  cacheClear: PropTypes.func.isRequired,
 }
 
 export default connect(
@@ -100,5 +122,10 @@ export default connect(
     isTouchIDSupported: state.common.loginTouchID.isTouchIDSupported,
     isTouchIDEnabled: state.common.loginTouchID.isTouchIDEnabled,
     touchIDType: state.common.loginTouchID.touchIDType,
+    cacheSize: state.my.setting.cacheSize,
+  }),
+  dispatch => ({
+    cacheCount: () => dispatch(ftpActions.cacheCount()),
+    cacheClear: () => dispatch(ftpActions.cacheClear()),
   })
 )(Setting)
