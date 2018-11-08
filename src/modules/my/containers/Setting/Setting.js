@@ -20,6 +20,10 @@ class Setting extends Component<any, any> {
     this.props.navigation.navigate('MyMobileModify')
   }
 
+  autoLoginModify = () => {
+    this.props.navigation.navigate('MyAutoLogin')
+  }
+
   passwordModify = () => {
     this.props.navigation.navigate('MyPasswordModify')
   }
@@ -56,7 +60,9 @@ class Setting extends Component<any, any> {
       isTouchIDEnabled,
       touchIDType,
       cacheSize,
+      autoLogin,
     } = this.props
+    let autoLoginText = autoLogin ? '已启用' : '未启用'
     let gesture = isGestureEnabled ? '已启用' : '未启用'
     let touchID = isTouchIDEnabled ? '已启用' : '未启用'
     let touchIDMethod = touchIDType === 'FaceID' ? '面容ID登录' : '指纹ID登录'
@@ -74,6 +80,9 @@ class Setting extends Component<any, any> {
 
         <WhiteSpace size="lg"/>
         <List>
+          <Item style={style.listItem} arrow="horizontal" onClick={this.autoLoginModify} extra={autoLoginText}>
+            自动登录
+          </Item>
           <Item style={style.listItem} arrow="horizontal" onClick={this.passwordModify} extra='修改'>
             登录密码
           </Item>
@@ -113,6 +122,7 @@ Setting.propTypes = {
   cacheSize: PropTypes.number.isRequired,
   cacheCount: PropTypes.func.isRequired,
   cacheClear: PropTypes.func.isRequired,
+  autoLogin: PropTypes.bool.isRequired,
 }
 
 export default connect(
@@ -123,6 +133,7 @@ export default connect(
     isTouchIDEnabled: state.common.loginTouchID.isTouchIDEnabled,
     touchIDType: state.common.loginTouchID.touchIDType,
     cacheSize: state.my.setting.cacheSize,
+    autoLogin: state.my.autoLogin.autoLogin,
   }),
   dispatch => ({
     cacheCount: () => dispatch(ftpActions.cacheCount()),

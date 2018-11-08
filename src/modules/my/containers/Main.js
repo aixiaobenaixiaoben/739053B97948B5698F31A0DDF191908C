@@ -33,10 +33,29 @@ class Main extends Component<any, any> {
 
   shouldComponentUpdate(nextProps) {
     if (!nextProps.isLogin) {
-      this.jumpToLogin()
-      return false
+      if (this.props.navigation.isFocused()) {
+        this.jumpToLogin()
+      } else {
+        this.props.navigation.navigate('RootTab')
+      }
     }
     return true
+  }
+
+  componentDidMount() {
+    this.subs = [
+      this.props.navigation.addListener('willFocus', this.willFocus),
+    ]
+  }
+
+  componentWillUnmount() {
+    this.subs.forEach(sub => sub.remove())
+  }
+
+  willFocus = (payload) => {
+    if (!this.props.isLogin && payload.action.type === 'Navigation/NAVIGATE') {
+      this.jumpToLogin()
+    }
   }
 
   logout = () => {

@@ -16,6 +16,7 @@ import Name from "./containers/Profile/Name"
 import Gender from "./containers/Profile/Gender"
 import Version from "./containers/Setting/Version"
 import Feedback from "./containers/Setting/Feedback"
+import AutoLoginSetting from "./containers/Setting/AutoLoginSetting"
 
 
 export const MySettingRoute = createStackNavigator(
@@ -30,6 +31,12 @@ export const MySettingRoute = createStackNavigator(
       screen: MobileModify,
       navigationOptions: {
         title: '修改手机号码',
+      }
+    },
+    MyAutoLogin: {
+      screen: AutoLoginSetting,
+      navigationOptions: {
+        title: '自动登录',
       }
     },
     MyPasswordModify: {

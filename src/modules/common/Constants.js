@@ -61,3 +61,5 @@ export const URL_RESET_PASSWORD = '/user/resetPassword'
 
 /** 验证码失效时间(s) */
 export const DURATION_MOBILE_CODE_EXPIRED = 60
+/** 自动登录判断时间(ms) */
+export const DURATION_AUTO_LOGIN = 600000

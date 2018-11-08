@@ -13,7 +13,7 @@ import {
   URL_LOGOUT
 } from "../../Constants"
 import type {Syusrinf} from "../../interface/Syusrinf"
-import {ACTION_PROFILE_SWITCH} from "../../../my/Constants"
+import {ACTION_AUTO_LOGIN_SWITCH, ACTION_PROFILE_SWITCH} from "../../../my/Constants"
 
 
 export const login = (data: Syusrinf): ActionAsync => {
@@ -39,6 +39,7 @@ export const login = (data: Syusrinf): ActionAsync => {
             dispatch({type: ACTION_PROFILE_SWITCH, payload: {previousSequence, currentSequence}})
             dispatch({type: ACTION_GESTURE_SWITCH, payload: {previousSequence, currentSequence}})
             dispatch({type: ACTION_TOUCH_ID_SWITCH, payload: {previousSequence, currentSequence}})
+            dispatch({type: ACTION_AUTO_LOGIN_SWITCH, payload: {previousSequence, currentSequence}})
           }
 
           RTNDTA.suipaswrd = param.suipaswrd
