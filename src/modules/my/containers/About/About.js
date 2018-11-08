@@ -17,7 +17,7 @@ class About extends Component<any, any> {
   }
 
   update = () => {
-    versionActions.updateFunc(this.props.version.url)
+    versionActions.linkingFunc(this.props.version.url)
   }
 
   rate = () => {
@@ -25,7 +25,7 @@ class About extends Component<any, any> {
   }
 
   privacy = () => {
-    alert('TODO')
+    versionActions.linkingFunc(this.props.version.appName)
   }
 
   render() {

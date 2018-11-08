@@ -24,20 +24,20 @@ const style = StyleSheet.create({
   },
 })
 
+export const linkingFunc = (url: string) => {
+  Linking.canOpenURL(url).then(supported => {
+    if (supported) {
+      Linking.openURL(url)
+    }
+  }).catch(err => Toast.fail(err, 1))
+}
+
 export const isVersionIncrease = (oldVersion: string, newVersion: string): boolean => {
   const oldVersions = oldVersion.split('.')
   const newVersions = newVersion.split('.')
   return parseInt(oldVersions[0]) < parseInt(newVersions[0])
     || parseInt(oldVersions[1]) < parseInt(newVersions[1])
     || parseInt(oldVersions[2]) < parseInt(newVersions[2])
-}
-
-export const updateFunc = (url: string) => {
-  Linking.canOpenURL(url).then(supported => {
-    if (supported) {
-      Linking.openURL(url)
-    }
-  }).catch(err => Toast.fail(err, 1))
 }
 
 const messageForIos = (response: Object, isForce = false) => {
@@ -47,7 +47,7 @@ const messageForIos = (response: Object, isForce = false) => {
         {'新版本：' + response.newVersion + '\n更新说明：\n' + response.updateDescription.split('。').join('\n')}
       </Text>
       <View style={style.emptyView}/>
-      {isForce && <Button text='更新' onPress={() => updateFunc(response.url)}/>}
+      {isForce && <Button text='更新' onPress={() => linkingFunc(response.url)}/>}
     </View>
   )
 }
@@ -59,7 +59,7 @@ const forceUpdateIos = (response: Object) => {
 const unForceUpdateIos = (response: Object) => {
   Modal.alert('更新提示', messageForIos(response), [
     {text: '暂不更新'},
-    {text: '更新', onPress: () => updateFunc(response.url), style: {color: COLOR_SYS}}
+    {text: '更新', onPress: () => linkingFunc(response.url), style: {color: COLOR_SYS}}
   ])
 }
 
