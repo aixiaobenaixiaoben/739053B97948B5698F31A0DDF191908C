@@ -23,7 +23,6 @@ class Main extends Component<any, any> {
     if (this.props.isLogin) {
       this.props.autoLogin ? this.props.login(this.props.user) : this.props.logout()
     }
-    this.props.requestVersion()
     TouchId.isSupported().then(biometryType => {
       if (!this.props.isTouchIDSupported) {
         this.props.touchIDSupported(biometryType)
@@ -33,6 +32,7 @@ class Main extends Component<any, any> {
 
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChange)
+    this.props.requestVersion()
   }
 
   componentWillUnmount() {

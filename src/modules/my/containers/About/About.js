@@ -17,15 +17,15 @@ class About extends Component<any, any> {
   }
 
   update = () => {
-    versionActions.linkingFunc(this.props.version.url)
+    versionActions.linkingFunc(this.props.version.updateUrl)
   }
 
   rate = () => {
-    alert('TODO')
+    versionActions.linkingFunc(this.props.version.rateUrl)
   }
 
   privacy = () => {
-    versionActions.linkingFunc(this.props.version.appName)
+    versionActions.linkingFunc(this.props.version.privacyUrl)
   }
 
   render() {

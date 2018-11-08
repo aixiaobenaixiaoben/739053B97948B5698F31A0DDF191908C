@@ -26,7 +26,6 @@ class Main extends Component<any, any> {
     if (!this.props.isLogin) {
       this.jumpToLogin()
     } else {
-      this.props.requestVersion()
       this.props.requestProfile({suiseqcod: this.props.user.suiseqcod})
     }
   }
@@ -46,6 +45,9 @@ class Main extends Component<any, any> {
     this.subs = [
       this.props.navigation.addListener('willFocus', this.willFocus),
     ]
+    if (this.props.isLogin) {
+      this.props.requestVersion()
+    }
   }
 
   componentWillUnmount() {

@@ -20,7 +20,6 @@ const style = StyleSheet.create({
   },
   emptyView: {
     width: 500,
-    height: 20,
   },
 })
 
@@ -41,13 +40,14 @@ export const isVersionIncrease = (oldVersion: string, newVersion: string): boole
 }
 
 const messageForIos = (response: Object, isForce = false) => {
+  const {updateDescription = '', updateUrl} = response
   return (
     <View style={style.view}>
       <Text style={style.text}>
-        {'新版本：' + response.newVersion + '\n更新说明：\n' + response.updateDescription.split('。').join('\n')}
+        {'新版本：' + response.newVersion + '\n更新说明：\n' + updateDescription.split('。').join('\n')}
       </Text>
       <View style={style.emptyView}/>
-      {isForce && <Button text='更新' onPress={() => linkingFunc(response.url)}/>}
+      {isForce && <Button text='更新' onPress={() => linkingFunc(updateUrl)}/>}
     </View>
   )
 }
@@ -59,7 +59,7 @@ const forceUpdateIos = (response: Object) => {
 const unForceUpdateIos = (response: Object) => {
   Modal.alert('更新提示', messageForIos(response), [
     {text: '暂不更新'},
-    {text: '更新', onPress: () => linkingFunc(response.url), style: {color: COLOR_SYS}}
+    {text: '更新', onPress: () => linkingFunc(response.updateUrl), style: {color: COLOR_SYS}}
   ])
 }
 
@@ -74,12 +74,14 @@ export const requestVersion = (): ActionAsync => {
         return
       }
 
-      const {APP_NAME, APP_NEW_VERSION, APP_MIN_VERSION, APP_UPDATE_URL, APP_UPDATE_DESCRIPTION} = RTNDTA
+      const {APP_NAME, APP_NEW_VERSION, APP_MIN_VERSION, APP_PRIVACY_URL, APP_RATE_URL, APP_UPDATE_URL, APP_UPDATE_DESCRIPTION} = RTNDTA
       let response: Version = {
         appName: APP_NAME,
         newVersion: APP_NEW_VERSION,
         minVersion: APP_MIN_VERSION,
-        url: APP_UPDATE_URL,
+        privacyUrl: APP_PRIVACY_URL,
+        rateUrl: APP_RATE_URL,
+        updateUrl: APP_UPDATE_URL,
         updateDescription: APP_UPDATE_DESCRIPTION,
       }
       let reducer: Version = getState().my.about.version

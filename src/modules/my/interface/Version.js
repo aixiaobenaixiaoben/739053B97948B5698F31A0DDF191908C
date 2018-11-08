@@ -11,8 +11,14 @@ export interface Version {
   /** 服务器返回的最低版本 */
   minVersion?: string
 
+  /** 服务器返回的隐私政策地址 */
+  privacyUrl?: string
+
+  /** 服务器返回的评分地址 */
+  rateUrl?: string
+
   /** 服务器返回的更新地址 */
-  url?: string
+  updateUrl?: string
 
   /** 服务器返回的更新文案 */
   updateDescription?: string
