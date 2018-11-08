@@ -37,14 +37,6 @@ class Setting extends Component<any, any> {
     this.props.navigation.navigate('MyGestureSetting')
   }
 
-  version = () => {
-    this.props.navigation.navigate('MyVersion')
-  }
-
-  feedback = () => {
-    this.props.navigation.navigate('MyFeedback')
-  }
-
   cacheClear = () => {
     Modal.alert('确认', '确认清理缓存?', [
       {text: '取消'},
@@ -100,12 +92,6 @@ class Setting extends Component<any, any> {
         <List>
           <Item style={style.listItem} onClick={this.cacheClear} extra={cache}>
             清理缓存
-          </Item>
-          <Item style={style.listItem} arrow="horizontal" onClick={this.version}>
-            关于
-          </Item>
-          <Item style={style.listItem} arrow="horizontal" onClick={this.feedback}>
-            反馈
           </Item>
         </List>
       </ScrollView>

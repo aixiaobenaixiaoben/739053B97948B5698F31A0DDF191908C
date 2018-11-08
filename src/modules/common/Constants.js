@@ -2,6 +2,8 @@
 
 /** version of the app */
 export const APP_VERSION = '1.0.0'
+/** name of the app */
+export const APP_NAME = '回忆未来'
 
 /** name of this modules */
 export const NAME = 'common'

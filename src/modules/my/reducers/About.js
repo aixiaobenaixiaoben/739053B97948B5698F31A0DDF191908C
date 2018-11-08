@@ -1,7 +1,7 @@
 /** @flow */
 import {handleActions} from "redux-actions"
-import {ACTION_APP_VERSION} from "../../Constants"
-import type {Version} from "../../interface/Version"
+import {ACTION_ABOUT_VERSION} from "../Constants"
+import type {Version} from "../interface/Version"
 
 type State = {
   version: Version,
@@ -19,7 +19,7 @@ const initialState: State = {
 
 export default handleActions(
   {
-    [ACTION_APP_VERSION]: (state: State, action) => {
+    [ACTION_ABOUT_VERSION]: (state: State, action) => {
       return {
         ...state,
         version: action.payload,

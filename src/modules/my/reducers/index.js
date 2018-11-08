@@ -2,7 +2,7 @@
 import {combineReducers} from "redux"
 import mobileModify from "./Setting/MobileModify"
 import profile from "./Profile"
-import version from "./Setting/Version"
+import about from "./About"
 import feedback from "./Setting/Feedback"
 import setting from "./Setting/Setting"
 import autoLogin from "./Setting/AutoLogin"
@@ -11,7 +11,7 @@ import autoLogin from "./Setting/AutoLogin"
 export default combineReducers({
   mobileModify,
   profile,
-  version,
+  about,
   feedback,
   setting,
   autoLogin,

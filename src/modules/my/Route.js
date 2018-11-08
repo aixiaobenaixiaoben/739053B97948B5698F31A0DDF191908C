@@ -14,9 +14,10 @@ import Profile from "./containers/Profile/Profile"
 import Photo from "./containers/Profile/Photo"
 import Name from "./containers/Profile/Name"
 import Gender from "./containers/Profile/Gender"
-import Version from "./containers/Setting/Version"
+import About from "./containers/About/About"
 import Feedback from "./containers/Setting/Feedback"
 import AutoLoginSetting from "./containers/Setting/AutoLoginSetting"
+import {APP_NAME} from "../common/Constants"
 
 
 export const MySettingRoute = createStackNavigator(
@@ -69,18 +70,6 @@ export const MySettingRoute = createStackNavigator(
         title: navigation.getParam('navigationTitle'),
       })
     },
-    MyVersion: {
-      screen: Version,
-      navigationOptions: {
-        title: '关于',
-      }
-    },
-    MyFeedback: {
-      screen: Feedback,
-      navigationOptions: {
-        title: '信息反馈',
-      }
-    },
   },
   {
     navigationOptions: ({navigation}) => ({
@@ -117,6 +106,32 @@ export const MyProfileRoute = createStackNavigator(
       screen: Gender,
       navigationOptions: {
         title: '设置性别',
+      }
+    },
+  },
+  {
+    navigationOptions: ({navigation}) => ({
+      headerTintColor: COLOR_WHITE,
+      headerStyle: {
+        backgroundColor: COLOR_SYS,
+      },
+      headerLeft: <HeaderBackImage handler={() => navigation.pop()}/>,
+    })
+  }
+)
+
+export const MyAboutRoute = createStackNavigator(
+  {
+    MyAbout: {
+      screen: About,
+      navigationOptions: {
+        title: '关于' + APP_NAME,
+      }
+    },
+    MyFeedback: {
+      screen: Feedback,
+      navigationOptions: {
+        title: '信息反馈',
       }
     },
   },

@@ -26,8 +26,8 @@ export default StyleSheet.create({
     marginRight: 10,
   },
   view2Setting: {
-    width: 24,
-    height: 24,
+    width: 18,
+    height: 18,
     resizeMode: 'contain',
     tintColor: COLOR_FONT_BLACK,
     marginRight: 10,

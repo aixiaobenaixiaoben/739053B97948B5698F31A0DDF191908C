@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 
 import * as actions from "../../common/actions/Login/Login"
 import * as ftpActions from "../../common/actions/FTP"
-import * as versionActions from "../actions/Setting/Version"
+import * as aboutActions from "../actions/About/About"
 import * as profileActions from "../actions/Profile/Profile"
 import style from "./styles/Main"
 import {ACTION_PROFILE_PATH_CLEAR, ACTION_PROFILE_PATH_UPDATE} from "../Constants"
@@ -81,6 +81,10 @@ class Main extends Component<any, any> {
     this.props.navigation.navigate('MyProfile')
   }
 
+  goToAbout = () => {
+    this.props.navigation.navigate('MyAbout')
+  }
+
   getPhoto = () => {
     const {profile: {spfphotog = ''}, photoPath} = this.props
     if (spfphotog != null && spfphotog.length > 0 && photoPath.indexOf(spfphotog) === -1) {
@@ -111,6 +115,10 @@ class Main extends Component<any, any> {
           <Item style={style.listItem} arrow="horizontal" onClick={this.goToSetting}
                 thumb={<Image style={style.view2Setting} source={require('../../../../assets/my/main/set.png')}/>}>
             设置
+          </Item>
+          <Item style={style.listItem} arrow="horizontal" onClick={this.goToAbout}
+                thumb={<Image style={style.view2Setting} source={require('../../../../assets/my/main/info.png')}/>}>
+            关于
           </Item>
         </List>
 
@@ -149,6 +157,6 @@ export default connect(
     requestProfile: (data: Syusrinf) => dispatch(profileActions.profile(data)),
     download: (action: string, fileName: string) => dispatch(ftpActions.download(action, fileName)),
     cacheSync: (action: string, fileName: string) => dispatch(ftpActions.cacheSync(action, fileName)),
-    requestVersion: () => dispatch(versionActions.requestVersion()),
+    requestVersion: () => dispatch(aboutActions.requestVersion()),
   })
 )(Main)

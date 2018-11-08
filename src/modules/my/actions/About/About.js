@@ -7,7 +7,7 @@ import type {ActionAsync} from "../../../common/Constants"
 import {APP_VERSION} from "../../../common/Constants"
 import type {Version} from "../../interface/Version"
 import {COLOR_FONT_BLACK, COLOR_SYS} from "../../../../Style"
-import {ACTION_APP_VERSION, URL_APP_VERSION} from "../../Constants"
+import {ACTION_ABOUT_VERSION, URL_APP_VERSION} from "../../Constants"
 import Button from "../../../common/components/Button"
 
 
@@ -82,7 +82,7 @@ export const requestVersion = (): ActionAsync => {
         url: APP_UPDATE_URL,
         updateDescription: APP_UPDATE_DESCRIPTION,
       }
-      let reducer: Version = getState().my.version.version
+      let reducer: Version = getState().my.about.version
 
       if (isVersionIncrease(APP_VERSION, response.minVersion)) {
         forceUpdateIos(response)
@@ -91,7 +91,7 @@ export const requestVersion = (): ActionAsync => {
         unForceUpdateIos(response)
       }
 
-      dispatch({type: ACTION_APP_VERSION, payload: response})
+      dispatch({type: ACTION_ABOUT_VERSION, payload: response})
 
     }).catch(error => Modal.alert('', error.message))
   }

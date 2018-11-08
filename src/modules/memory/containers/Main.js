@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
 import * as touchIDActions from "../../common/actions/Login/LoginTouchID"
 import * as loginActions from "../../common/actions/Login/Login"
 import * as autoLoginActions from "../../my/actions/Setting/AutoLogin"
-import * as versionActions from "../../my/actions/Setting/Version"
+import * as aboutActions from "../../my/actions/About/About"
 import type {Syusrinf} from "../../common/interface/Syusrinf"
 import {DURATION_AUTO_LOGIN} from "../../common/Constants"
 
@@ -95,7 +95,7 @@ export default connect(
   }),
   dispatch => ({
     touchIDSupported: (touchIDType) => dispatch(touchIDActions.touchIDSupported(touchIDType)),
-    requestVersion: () => dispatch(versionActions.requestVersion()),
+    requestVersion: () => dispatch(aboutActions.requestVersion()),
     login: (data: Syusrinf) => dispatch(loginActions.login(data)),
     logout: () => dispatch(loginActions.logout()),
     autoLoginStub: (time: number) => dispatch(autoLoginActions.autoLoginStub(time)),

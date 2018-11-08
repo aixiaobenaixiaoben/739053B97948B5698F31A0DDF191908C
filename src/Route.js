@@ -137,6 +137,7 @@ export default createStackNavigator(
     Future: future.FutureRoute,
     MySetting: my.MySettingRoute,
     MyProfile: my.MyProfileRoute,
+    MyAbout: my.MyAboutRoute,
   },
   {
     headerMode: 'none',
