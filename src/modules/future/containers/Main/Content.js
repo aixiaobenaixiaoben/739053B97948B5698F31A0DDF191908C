@@ -3,7 +3,7 @@ import React, {Component} from "react"
 import {Button, Text, View} from "react-native"
 
 
-class Main extends Component<any, any> {
+class Content extends Component<any, any> {
 
   render() {
     return (
@@ -18,4 +18,4 @@ class Main extends Component<any, any> {
   }
 }
 
-export default Main
+export default Content

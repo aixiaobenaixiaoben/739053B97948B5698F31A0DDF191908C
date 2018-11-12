@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native"
-import {COLOR_FONT_BLACK, COLOR_FONT_GRAY_DARK, COLOR_SYS, COLOR_WHITE_MORE_DARK, FONT_SIZE_18} from "../../../../Style"
+import {COLOR_FONT_BLACK, COLOR_FONT_GRAY_DARK, COLOR_SYS, COLOR_WHITE_MORE_DARK, FONT_SIZE_18} from "../../../../../Style"
 
 export default StyleSheet.create({
   scroll: {

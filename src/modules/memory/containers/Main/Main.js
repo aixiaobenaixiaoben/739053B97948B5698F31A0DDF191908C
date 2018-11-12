@@ -1,16 +1,17 @@
 /** @flow */
 import React, {Component} from "react"
-import {AppState, Button, Text, View} from "react-native"
+import {AppState} from "react-native"
 import TouchId from "react-native-touch-id"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 
-import * as touchIDActions from "../../common/actions/Login/LoginTouchID"
-import * as loginActions from "../../common/actions/Login/Login"
-import * as autoLoginActions from "../../my/actions/Setting/AutoLogin"
-import * as aboutActions from "../../my/actions/About/About"
-import type {Syusrinf} from "../../common/interface/Syusrinf"
-import {DURATION_AUTO_LOGIN} from "../../common/Constants"
+import * as touchIDActions from "../../../common/actions/Login/LoginTouchID"
+import * as loginActions from "../../../common/actions/Login/Login"
+import * as autoLoginActions from "../../../my/actions/Setting/AutoLogin"
+import * as aboutActions from "../../../my/actions/About/About"
+import type {Syusrinf} from "../../../common/interface/Syusrinf"
+import {DURATION_AUTO_LOGIN} from "../../../common/Constants"
+import Content from "./Content"
 
 
 class Main extends Component<any, any> {
@@ -60,15 +61,7 @@ class Main extends Component<any, any> {
   }
 
   render() {
-    return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>This Is Memory Main Page</Text>
-        <Button
-          title='Go To Detail'
-          onPress={() => this.props.navigation.navigate('Memory')}
-        />
-      </View>
-    )
+    return <Content {...this.props}/>
   }
 }
 

@@ -31,7 +31,7 @@ export const linkingFunc = (url: string) => {
   }).catch(err => Toast.fail(err, 1))
 }
 
-export const isVersionIncrease = (oldVersion: string, newVersion: string): boolean => {
+export const isVersionIncrease = (oldVersion: string = '', newVersion: string = ''): boolean => {
   const oldVersions = oldVersion.split('.')
   const newVersions = newVersion.split('.')
   return parseInt(oldVersions[0]) < parseInt(newVersions[0])
