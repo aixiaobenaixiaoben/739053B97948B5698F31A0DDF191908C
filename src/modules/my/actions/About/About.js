@@ -88,7 +88,7 @@ export const requestVersion = (): ActionAsync => {
 
       if (isVersionIncrease(APP_VERSION, response.minVersion)) {
         forceUpdateIos(response)
-      } else if (reducer.newVersion.length === 0 && isVersionIncrease(APP_VERSION, response.newVersion)
+      } else if (reducer.newVersion && reducer.newVersion.length === 0 && isVersionIncrease(APP_VERSION, response.newVersion)
         || isVersionIncrease(reducer.newVersion, response.newVersion)) {
         unForceUpdateIos(response)
       }

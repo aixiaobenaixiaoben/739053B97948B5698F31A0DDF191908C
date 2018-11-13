@@ -1,5 +1,6 @@
 /** @flow */
 import {combineReducers} from "redux"
+import main from "./Main"
 import mobileModify from "./Setting/MobileModify"
 import profile from "./Profile"
 import about from "./About"
@@ -9,6 +10,7 @@ import autoLogin from "./Setting/AutoLogin"
 
 
 export default combineReducers({
+  main,
   mobileModify,
   profile,
   about,

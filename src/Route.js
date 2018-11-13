@@ -1,12 +1,13 @@
 /** @flow */
 import React from "react"
-import {createBottomTabNavigator, createStackNavigator} from "react-navigation"
+import {createStackNavigator, createTabNavigator} from "react-navigation"
 import AntDesign from "react-native-vector-icons/AntDesign"
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 
 import {common, future, memory, my} from "./modules"
 import {COLOR_FONT_GRAY_DARK, COLOR_SYS, COLOR_WHITE} from "./Style"
+import {ACTION_MY_MAIN_UPDATE} from "./modules/my/Constants"
 
 const TabBarBadge = common.TabBarBadge
 
@@ -84,7 +85,7 @@ const MyHomeStack = createStackNavigator(
 )
 
 
-const RootTab = createBottomTabNavigator(
+const RootTab = createTabNavigator(
   {
     MemoryTab: {
       screen: MemoryHomeStack,
@@ -108,13 +109,19 @@ const RootTab = createBottomTabNavigator(
     },
     MyTab: {
       screen: MyHomeStack,
-      navigationOptions: {
+      navigationOptions: ({screenProps}) => ({
         title: '我的',
         tabBarIcon: ({focused, tintColor}) => {
           const icon = <AntDesign name='user' size={25} color={tintColor}/>
           return (<TabBarBadge tab='my' icon={icon}/>)
         },
-      }
+        tabBarOnPress: ({scene, jumpToIndex}) => {
+          jumpToIndex(scene.index)
+          if (scene.focused) {
+            screenProps.store.dispatch({type: ACTION_MY_MAIN_UPDATE})
+          }
+        }
+      })
     },
   },
   {

@@ -1,6 +1,6 @@
 /** @flow */
 import React, {Component} from "react"
-import {Image, ScrollView, Text, View} from "react-native"
+import {Image, RefreshControl, ScrollView, Text, View} from "react-native"
 import {connect} from "react-redux"
 import {List, Modal, WhiteSpace} from "antd-mobile-rn"
 import PropTypes from "prop-types"
@@ -9,11 +9,58 @@ import * as actions from "../../../common/actions/Login/Login"
 import * as ftpActions from "../../../common/actions/FTP"
 import style from "../styles/Main/Content"
 import {ACTION_PROFILE_PATH_UPDATE} from "../../Constants"
+import {COLOR_SYS} from "../../../../Style"
+import * as profileActions from "../../actions/Profile/Profile"
+import type {Syusrinf} from "../../../common/interface/Syusrinf"
 
 const Item = List.Item
 
 
 class Content extends Component<any, any> {
+
+  state = {
+    refreshing: false,
+    refreshTitle: '',
+  }
+  scrollView
+
+  shouldComponentUpdate(nextProps) {
+    if (this.props.isLogin && this.props.version !== nextProps.version) {
+      this.scrollView.scrollTo({x: 0, y: -1, animated: true})
+    }
+    if (this.props.profile !== nextProps.profile && this.state.refreshing) {
+      this.setState({refreshing: false})
+      return false
+    }
+    return true
+  }
+
+  onRefresh = () => {
+    //TODO
+    //震动
+    this.setState({refreshing: true, refreshTitle: '松开刷新'})
+  }
+
+  onScrollBeginDrag = () => {
+    this.setState({refreshTitle: '下拉刷新'})
+  }
+
+  onScrollEndDrag = () => {
+    if (this.state.refreshing) {
+      this.setState({refreshTitle: ''})
+      this.props.requestProfile({suiseqcod: this.props.user.suiseqcod})
+    }
+  }
+
+  onMomentumScrollEnd = (event) => {
+    if (event.nativeEvent.contentOffset.y === -1) {
+      //TODO
+      //铃声
+      this.scrollView.scrollTo({x: 0, y: -70, animated: true})
+      this.setState({refreshing: true, refreshTitle: ''})
+      this.props.requestProfile({suiseqcod: this.props.user.suiseqcod})
+    }
+  }
 
   logout = () => {
     Modal.alert('确认', '请确认是否退出当前登录帐号', [
@@ -47,10 +94,14 @@ class Content extends Component<any, any> {
 
   render() {
     let {suiusrnam, suimobile} = this.props.user
+    const {refreshing, refreshTitle} = this.state
+    let refreshControl = <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh}
+                                         tintColor={COLOR_SYS} title={refreshTitle} titleColor={COLOR_SYS}/>
 
     return (
-      <ScrollView style={style.scroll}>
-        <WhiteSpace size="lg"/>
+      <ScrollView ref={ref => this.scrollView = ref} style={style.scroll}
+                  refreshControl={refreshControl} onMomentumScrollEnd={this.onMomentumScrollEnd}
+                  onScrollBeginDrag={this.onScrollBeginDrag} onScrollEndDrag={this.onScrollEndDrag}>
         <List>
           <Item style={style.listItem} arrow="horizontal" onClick={this.goToProfile}
                 thumb={this.getPhoto()} extra={<View style={{height: 66}}/>}>
@@ -83,20 +134,26 @@ class Content extends Component<any, any> {
 }
 
 Content.propTypes = {
+  version: PropTypes.number.isRequired,
+  isLogin: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   photoPath: PropTypes.string.isRequired,
+  requestProfile: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   download: PropTypes.func.isRequired,
 }
 
 export default connect(
   state => ({
+    version: state.my.main.version,
+    isLogin: state.common.login.isLogin,
     user: state.common.login.user,
     profile: state.my.profile.profile,
     photoPath: state.my.profile.photoPath,
   }),
   dispatch => ({
+    requestProfile: (data: Syusrinf) => dispatch(profileActions.profile(data)),
     logout: () => dispatch(actions.logout()),
     download: (action: string, fileName: string) => dispatch(ftpActions.download(action, fileName)),
   })

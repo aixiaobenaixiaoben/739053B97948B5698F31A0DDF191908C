@@ -40,7 +40,7 @@ const Main = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Root/>
+        <Root screenProps={{store}}/>
       </PersistGate>
     </Provider>
   )
