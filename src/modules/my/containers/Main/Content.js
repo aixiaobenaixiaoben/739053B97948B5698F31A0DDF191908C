@@ -1,9 +1,10 @@
 /** @flow */
 import React, {Component} from "react"
-import {Image, RefreshControl, ScrollView, Text, View} from "react-native"
+import {Image, RefreshControl, ScrollView, Text, Vibration, View} from "react-native"
 import {connect} from "react-redux"
 import {List, Modal, WhiteSpace} from "antd-mobile-rn"
 import PropTypes from "prop-types"
+import Sound from "react-native-sound"
 
 import * as actions from "../../../common/actions/Login/Login"
 import * as ftpActions from "../../../common/actions/FTP"
@@ -30,14 +31,15 @@ class Content extends Component<any, any> {
     }
     if (this.props.profile !== nextProps.profile && this.state.refreshing) {
       this.setState({refreshing: false})
+      const source = require('../../../../../assets/common/ring/refresh.m4a')
+      const sound = new Sound(source, () => sound.play(() => sound.release()))
       return false
     }
     return true
   }
 
   onRefresh = () => {
-    //TODO
-    //震动
+    Vibration.vibrate(100)
     this.setState({refreshing: true, refreshTitle: '松开刷新'})
   }
 
@@ -54,8 +56,8 @@ class Content extends Component<any, any> {
 
   onMomentumScrollEnd = (event) => {
     if (event.nativeEvent.contentOffset.y === -1) {
-      //TODO
-      //铃声
+      const source = require('../../../../../assets/common/ring/onRefresh.m4a')
+      const sound = new Sound(source, () => sound.play(() => sound.release()))
       this.scrollView.scrollTo({x: 0, y: -70, animated: true})
       this.setState({refreshing: true, refreshTitle: ''})
       this.props.requestProfile({suiseqcod: this.props.user.suiseqcod})
