@@ -3,13 +3,8 @@ import {Modal, Toast} from "antd-mobile-rn"
 import Request from "axios/index"
 import qs from "qs"
 import md5 from "crypto-js/md5"
-import type {Action, ActionAsync} from "../../Constants"
-import {
-  ACTION_LOGIN_UPDATE,
-  ACTION_RESET_PASSWORD_RESET,
-  ACTION_RESET_PASSWORD_SUC,
-  URL_RESET_PASSWORD
-} from "../../Constants"
+import type {ActionAsync} from "../../Constants"
+import {ACTION_LOGIN_UPDATE, ACTION_RESET_PASSWORD_SUC, URL_RESET_PASSWORD} from "../../Constants"
 import type {Syusrinf} from "../../interface/Syusrinf"
 
 
@@ -37,11 +32,5 @@ export const resetPassword = (data: Syusrinf): ActionAsync => {
       .catch(error => {
         Modal.alert('', error.message)
       })
-  }
-}
-
-export const resetPasswordReset = (): Action => {
-  return {
-    type: ACTION_RESET_PASSWORD_RESET,
   }
 }

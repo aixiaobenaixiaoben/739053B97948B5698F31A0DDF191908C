@@ -3,8 +3,8 @@ import {Modal, Toast} from "antd-mobile-rn"
 import Request from "axios/index"
 import qs from "qs"
 import md5 from "crypto-js/md5"
-import type {Action, ActionAsync} from "../../Constants"
-import {ACTION_REGISTER_RESET, ACTION_REGISTER_SUC, URL_REGISTER} from "../../Constants"
+import type {ActionAsync} from "../../Constants"
+import {ACTION_REGISTER_SUC, URL_REGISTER} from "../../Constants"
 import type {Syusrinf} from "../../interface/Syusrinf"
 
 
@@ -27,11 +27,5 @@ export const register = (data: Syusrinf): ActionAsync => {
       .catch(error => {
         Modal.alert('', error.message)
       })
-  }
-}
-
-export const registerReset = (): Action => {
-  return {
-    type: ACTION_REGISTER_RESET,
   }
 }

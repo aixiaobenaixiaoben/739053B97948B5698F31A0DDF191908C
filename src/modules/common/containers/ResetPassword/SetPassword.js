@@ -19,8 +19,7 @@ class SetPassword extends Component<any, any> {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.isResetPasswordSuc) {
-      this.props.resetPasswordReset()
+    if (nextProps.version !== this.props.version) {
       this.next()
       return false
     }
@@ -93,7 +92,7 @@ class SetPassword extends Component<any, any> {
 
 SetPassword.propTypes = {
   isLogin: PropTypes.bool.isRequired,
-  isResetPasswordSuc: PropTypes.bool.isRequired,
+  version: PropTypes.number.isRequired,
   resetPassword: PropTypes.func.isRequired,
   resetPasswordReset: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
@@ -102,11 +101,10 @@ SetPassword.propTypes = {
 export default connect(
   state => ({
     isLogin: state.common.login.isLogin,
-    isResetPasswordSuc: state.common.resetPasswordSetPassword.isResetPasswordSuc,
+    version: state.common.resetPasswordSetPassword.version,
   }),
   dispatch => ({
     resetPassword: (data) => dispatch(actions.resetPassword(data)),
-    resetPasswordReset: () => dispatch(actions.resetPasswordReset()),
     logout: () => dispatch(loginActions.logout()),
   })
 )(SetPassword)

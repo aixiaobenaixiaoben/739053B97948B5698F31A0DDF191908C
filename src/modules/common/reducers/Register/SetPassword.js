@@ -1,14 +1,14 @@
 /** @flow */
 import {handleActions} from "redux-actions"
-import {ACTION_REGISTER_RESET, ACTION_REGISTER_SUC} from "../../Constants"
+import {ACTION_REGISTER_SUC} from "../../Constants"
 
 
 type State = {
-  isRegisterSuc: boolean,
+  version: number,
 }
 
 const initialState: State = {
-  isRegisterSuc: false,
+  version: 0,
 }
 
 export default handleActions(
@@ -16,13 +16,7 @@ export default handleActions(
     [ACTION_REGISTER_SUC]: (state: State, action) => {
       return {
         ...state,
-        isRegisterSuc: true,
-      }
-    },
-    [ACTION_REGISTER_RESET]: (state: State, action) => {
-      return {
-        ...state,
-        isRegisterSuc: false,
+        version: Date.now(),
       }
     },
   },

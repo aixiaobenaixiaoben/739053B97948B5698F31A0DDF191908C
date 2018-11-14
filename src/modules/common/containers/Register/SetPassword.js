@@ -19,8 +19,7 @@ class SetPassword extends Component<any, any> {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.isRegisterSuc) {
-      this.props.registerReset()
+    if (nextProps.version !== this.props.version) {
       this.next()
       return false
     }
@@ -96,17 +95,15 @@ class SetPassword extends Component<any, any> {
 }
 
 SetPassword.propTypes = {
-  isRegisterSuc: PropTypes.bool.isRequired,
+  version: PropTypes.number.isRequired,
   register: PropTypes.func.isRequired,
-  registerReset: PropTypes.func.isRequired,
 }
 
 export default connect(
   state => ({
-    isRegisterSuc: state.common.registerSetPassword.isRegisterSuc,
+    version: state.common.registerSetPassword.version,
   }),
   dispatch => ({
     register: (data: Syusrinf) => dispatch(actions.register(data)),
-    registerReset: () => dispatch(actions.registerReset()),
   })
 )(SetPassword)

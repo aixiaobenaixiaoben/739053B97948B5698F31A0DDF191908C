@@ -1,14 +1,14 @@
 /** @flow */
 import {handleActions} from "redux-actions"
-import {ACTION_RESET_PASSWORD_RESET, ACTION_RESET_PASSWORD_SUC} from "../../Constants"
+import {ACTION_RESET_PASSWORD_SUC} from "../../Constants"
 
 
 type State = {
-  isResetPasswordSuc: boolean,
+  version: number,
 }
 
 const initialState: State = {
-  isResetPasswordSuc: false,
+  version: 0,
 }
 
 export default handleActions(
@@ -16,13 +16,7 @@ export default handleActions(
     [ACTION_RESET_PASSWORD_SUC]: (state: State, action) => {
       return {
         ...state,
-        isResetPasswordSuc: true,
-      }
-    },
-    [ACTION_RESET_PASSWORD_RESET]: (state: State, action) => {
-      return {
-        ...state,
-        isResetPasswordSuc: false,
+        version: Date.now(),
       }
     },
   },
