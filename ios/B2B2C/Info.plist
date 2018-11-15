@@ -47,6 +47,8 @@
 	<string>需要使用照片</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>需要存储照片</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>需要使用日历</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>

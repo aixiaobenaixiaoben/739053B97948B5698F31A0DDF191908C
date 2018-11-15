@@ -4,11 +4,13 @@ import {AppState} from "react-native"
 import TouchId from "react-native-touch-id"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
+import RNCalendarEvents from "react-native-calendar-events"
 
 import * as touchIDActions from "../../../common/actions/Login/LoginTouchID"
 import * as loginActions from "../../../common/actions/Login/Login"
 import * as autoLoginActions from "../../../my/actions/Setting/AutoLogin"
 import * as aboutActions from "../../../my/actions/About/About"
+import * as calendarActions from "../../../future/actions/Calendar"
 import type {Syusrinf} from "../../../common/interface/Syusrinf"
 import {DURATION_AUTO_LOGIN} from "../../../common/Constants"
 import Content from "./Content"
@@ -27,6 +29,12 @@ class Main extends Component<any, any> {
     TouchId.isSupported().then(biometryType => {
       if (!this.props.isTouchIDSupported) {
         this.props.touchIDSupported(biometryType)
+      }
+    })
+    RNCalendarEvents.authorizeEventStore().then(response => {
+      const accessible = response === 'authorized'
+      if (this.props.calendarAccessible !== accessible) {
+        this.props.calendarAccess(accessible)
       }
     })
   }
@@ -71,11 +79,13 @@ Main.propTypes = {
   autoLogin: PropTypes.bool.isRequired,
   exitTime: PropTypes.number.isRequired,
   isTouchIDSupported: PropTypes.bool.isRequired,
+  calendarAccessible: PropTypes.bool.isRequired,
   touchIDSupported: PropTypes.func.isRequired,
   requestVersion: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   autoLoginStub: PropTypes.func.isRequired,
+  calendarAccess: PropTypes.func.isRequired,
 }
 
 export default connect(
@@ -85,6 +95,7 @@ export default connect(
     autoLogin: state.my.autoLogin.autoLogin,
     exitTime: state.my.autoLogin.exitTime,
     isTouchIDSupported: state.common.loginTouchID.isTouchIDSupported,
+    calendarAccessible: state.future.calendar.accessible,
   }),
   dispatch => ({
     touchIDSupported: (touchIDType) => dispatch(touchIDActions.touchIDSupported(touchIDType)),
@@ -92,5 +103,6 @@ export default connect(
     login: (data: Syusrinf) => dispatch(loginActions.login(data)),
     logout: () => dispatch(loginActions.logout()),
     autoLoginStub: (time: number) => dispatch(autoLoginActions.autoLoginStub(time)),
+    calendarAccess: (accessible: boolean) => dispatch(calendarActions.access(accessible)),
   })
 )(Main)
