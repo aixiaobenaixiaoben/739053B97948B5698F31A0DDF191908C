@@ -3,21 +3,13 @@ import React, {Component} from "react"
 import {View} from "react-native"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
-import {CalendarList, LocaleConfig} from "react-native-calendars"
 import RNCalendarEvents from 'react-native-calendar-events'
 import {Modal, Toast} from "antd-mobile-rn"
 import * as eventActions from "../../actions/Event"
 import Button from "../../../common/components/Button"
-import {COLOR_FONT_BLACK, COLOR_SYS, COLOR_WHITE} from "../../../../Style"
+import {COLOR_SYS} from "../../../../Style"
 import style from "../styles/Main/Main"
-
-LocaleConfig.locales['CH'] = {
-  monthNames: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-  monthNamesShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-  dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-  dayNamesShort: ['日', '一', '二', '三', '四', '五', '六']
-}
-LocaleConfig.defaultLocale = 'CH'
+import Calendar from "../../components/Calendar"
 
 let DATE = new Date()
 DATE.setHours(DATE.getHours() + 8)
@@ -32,7 +24,8 @@ class Main extends Component<any, any> {
   }
 
   static navigationOptions = ({navigation}) => {
-    const backToToday = navigation.getParam('backToToday')
+    const backToToday = navigation.getParam('backToToday', () => {
+    })
     return {
       headerLeft: <Button style={style.headerButton} text='今天' onPress={backToToday}/>,
     }
@@ -44,62 +37,53 @@ class Main extends Component<any, any> {
 
   componentDidMount() {
     if (!this.props.isLogin) {
-      Toast.info('未登录时仅显示系统日历中的日程', 3, null, false)
+      Toast.info('登录后显示你添加的日程', 3, null, false)
     }
   }
 
   shouldComponentUpdate(nextProps) {
     if (this.props.version !== nextProps.version) {
-      this.loadRemoteEventsOfMonth()
+      this.refreshRemoteEvent()
     }
     if (this.props.isLogin !== nextProps.isLogin) {
       const {current} = this.state
-      this.loadEventsOfMonth(parseInt(current.substr(0, 4)), parseInt(current.substr(5, 2)))
+      this.requestEvents(parseInt(current.substr(0, 4)), parseInt(current.substr(5, 2)))
     }
     return true
   }
 
-  onVisibleMonthsChange = (months) => {
-    if (months.length === 1) {
-      const {year, month, dateString} = months[0]
-      this.loadEventsOfMonth(year, month)
+  backToToday = () => {
+    this.onDateChange(TODAY)
+  }
 
-      if (this.state.current === dateString) {
-        return
-      }
-      if (month === new Date().getMonth() + 1) {
-        this.setState({current: TODAY})
-      } else {
-        let date = new Date(dateString)
-        date.setDate(1)
-        this.setState({current: date.toJSON().substr(0, 10)})
-      }
+  onDateChange = (date) => {
+    this.setState({current: date})
+  }
+
+  onMonthChange = (year, month, dateString) => {
+    this.requestEvents(year, month)
+    if (this.state.current === dateString) {
+      return
+    }
+    if (month === new Date().getMonth() + 1) {
+      this.onDateChange(TODAY)
+    } else {
+      let date = new Date(dateString)
+      date.setDate(1)
+      this.onDateChange(date.toJSON().substr(0, 10))
     }
   }
 
-  onDayPress = (day) => {
-    this.setState({current: day.dateString})
-  }
-
-  backToToday = () => {
-    this.setState({current: TODAY})
-  }
-
-  loadEventsOfMonth = (year, month) => {
+  requestEvents = (year, month) => {
     if (!this.props.calendarAccessible) {
-      this.setState({markDates: {}})
-      if (this.props.isLogin) {
-        this.props.eventFetch(year, month)
-      }
+      this.refreshEvent(year, month, {})
       return
     }
     let startDate = new Date(year, month - 1, 1)
     let endDate = new Date(year, month, 1)
     RNCalendarEvents.fetchAllEvents(startDate, endDate).then(response => {
-
       let markDates = {}
       for (let event of response) {
-
         const {title, notes: note, occurrenceDate, calendar: {color}} = event
         let date = new Date(occurrenceDate)
         date.setHours(date.getHours() + 8)
@@ -110,16 +94,19 @@ class Main extends Component<any, any> {
         }
         markDates[dateString].events.push({title, note, color, date: dateString})
       }
-      this.setState({markDates})
-
-      if (this.props.isLogin) {
-        this.props.eventFetch(year, month)
-      }
+      this.refreshEvent(year, month, markDates)
 
     }).catch(error => Modal.alert('', error.message))
   }
 
-  loadRemoteEventsOfMonth = () => {
+  refreshEvent = (year, month, markDates) => {
+    this.setState({markDates})
+    if (this.props.isLogin) {
+      this.props.eventFetch(year, month)
+    }
+  }
+
+  refreshRemoteEvent = () => {
   }
 
   render() {
@@ -127,27 +114,8 @@ class Main extends Component<any, any> {
     //TODO 显示日程
     return (
       <View>
-        <CalendarList
-          current={current}
-          horizontal={true}
-          pagingEnabled={true}
-          monthFormat={'yyyy.MM'}
-          onVisibleMonthsChange={this.onVisibleMonthsChange}
-          onDayPress={this.onDayPress}
-          markedDates={{
-            ...markDates,
-            [current]: {
-              selected: true,
-              selectedColor: current === TODAY ? COLOR_SYS : COLOR_FONT_BLACK,
-              ...markDates[current] ? {marked: true, dotColor: COLOR_WHITE} : {},
-            },
-          }}
-          theme={{
-            monthTextColor: COLOR_SYS,
-            textSectionTitleColor: COLOR_FONT_BLACK,
-            todayTextColor: COLOR_SYS,
-          }}
-        />
+        <Calendar current={current} markDates={markDates} todayFocus={current === TODAY}
+                  onMonthChange={this.onMonthChange} onDateChange={this.onDateChange}/>
       </View>
     )
   }
