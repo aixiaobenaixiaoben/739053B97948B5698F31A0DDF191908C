@@ -1,6 +1,6 @@
 /** @flow */
 import React, {Component} from "react"
-import {View} from "react-native"
+import {ScrollView} from "react-native"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import RNCalendarEvents from 'react-native-calendar-events'
@@ -10,6 +10,7 @@ import Button from "../../../common/components/Button"
 import {COLOR_SYS} from "../../../../Style"
 import style from "../styles/Main/Main"
 import Calendar from "../../components/Calendar"
+import EventList from "../../components/EventList"
 
 let DATE = new Date()
 DATE.setHours(DATE.getHours() + 8)
@@ -84,7 +85,7 @@ class Main extends Component<any, any> {
     RNCalendarEvents.fetchAllEvents(startDate, endDate).then(response => {
       let markDates = {}
       for (let event of response) {
-        const {title, notes: note, occurrenceDate, calendar: {color}} = event
+        const {id, title, notes: note, occurrenceDate, calendar: {color}} = event
         let date = new Date(occurrenceDate)
         date.setHours(date.getHours() + 8)
         let dateString = date.toJSON().substr(0, 10)
@@ -92,7 +93,7 @@ class Main extends Component<any, any> {
         if (!markDates[dateString]) {
           markDates[dateString] = {marked: true, dotColor: COLOR_SYS, events: []}
         }
-        markDates[dateString].events.push({title, note, color, date: dateString})
+        markDates[dateString].events.push({id, title, note, color, date: dateString})
       }
       this.refreshEvent(year, month, markDates)
 
@@ -111,12 +112,12 @@ class Main extends Component<any, any> {
 
   render() {
     const {current, markDates} = this.state
-    //TODO 显示日程
     return (
-      <View>
+      <ScrollView style={style.scroll}>
         <Calendar current={current} markDates={markDates} todayFocus={current === TODAY}
                   onMonthChange={this.onMonthChange} onDateChange={this.onDateChange}/>
-      </View>
+        <EventList data={markDates[current] && markDates[current].events || []}/>
+      </ScrollView>
     )
   }
 }
