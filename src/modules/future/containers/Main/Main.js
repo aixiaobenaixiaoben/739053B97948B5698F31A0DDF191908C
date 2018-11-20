@@ -116,7 +116,7 @@ class Main extends Component<any, any> {
       <ScrollView style={style.scroll}>
         <Calendar current={current} markDates={markDates} todayFocus={current === TODAY}
                   onMonthChange={this.onMonthChange} onDateChange={this.onDateChange}/>
-        <EventList data={markDates[current] && markDates[current].events || []}/>
+        <EventList {...this.props} data={markDates[current] && markDates[current].events || []}/>
       </ScrollView>
     )
   }
