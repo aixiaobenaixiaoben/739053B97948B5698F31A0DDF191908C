@@ -11,10 +11,9 @@ import {COLOR_SYS} from "../../../../Style"
 import style from "../styles/Main/Main"
 import Calendar from "../../components/Calendar"
 import EventList from "../../components/EventList"
+import * as DateUtils from "../../../common/utils/DateUtils"
 
-let DATE = new Date()
-DATE.setHours(DATE.getHours() + 8)
-const TODAY = DATE.toJSON().substr(0, 10)
+const TODAY = DateUtils.localDateString()
 
 
 class Main extends Component<any, any> {
@@ -86,10 +85,7 @@ class Main extends Component<any, any> {
       let markDates = {}
       for (let event of response) {
         const {id, title, notes: note, occurrenceDate, calendar: {color}} = event
-        let date = new Date(occurrenceDate)
-        date.setHours(date.getHours() + 8)
-        let dateString = date.toJSON().substr(0, 10)
-
+        let dateString = DateUtils.localDateString(occurrenceDate)
         if (!markDates[dateString]) {
           markDates[dateString] = {marked: true, dotColor: COLOR_SYS, events: []}
         }

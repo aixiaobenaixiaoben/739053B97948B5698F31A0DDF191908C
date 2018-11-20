@@ -10,3 +10,9 @@ export const WEEK = (day: number): string => {
   if (day === 6) return '星期六'
   return '星期'
 }
+
+export const localDateString = (ISODateString: string = new Date().toJSON()): string => {
+  let date = new Date(ISODateString)
+  date.setHours(date.getHours() + 8)
+  return date.toJSON().substr(0, 10)
+}
