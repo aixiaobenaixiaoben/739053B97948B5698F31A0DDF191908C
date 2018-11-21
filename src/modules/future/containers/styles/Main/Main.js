@@ -3,7 +3,7 @@ import {COLOR_WHITE_MORE_DARK} from "../../../../../Style"
 
 export default StyleSheet.create({
   headerButton: {
-    marginLeft: 20,
+    marginHorizontal: 20,
   },
   scroll: {
     backgroundColor: COLOR_WHITE_MORE_DARK,

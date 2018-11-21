@@ -16,3 +16,10 @@ export const localDateString = (ISODateString: string = new Date().toJSON()): st
   date.setHours(date.getHours() + 8)
   return date.toJSON().substr(0, 10)
 }
+
+export const transDateString = (date: string): string => {
+  const year = date.substr(0, 4)
+  const month = date.substr(5, 2)
+  const day = date.substr(8, 2)
+  return year + '年' + month + '月' + day + '日'
+}

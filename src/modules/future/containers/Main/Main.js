@@ -26,13 +26,16 @@ class Main extends Component<any, any> {
   static navigationOptions = ({navigation}) => {
     const backToToday = navigation.getParam('backToToday', () => {
     })
+    const addEvent = navigation.getParam('addEvent', () => {
+    })
     return {
       headerLeft: <Button style={style.headerButton} text='今天' onPress={backToToday}/>,
+      headerRight: <Button style={style.headerButton} text='新建' onPress={addEvent}/>,
     }
   }
 
   componentWillMount() {
-    this.props.navigation.setParams({backToToday: this.backToToday})
+    this.props.navigation.setParams({backToToday: this.backToToday, addEvent: this.addEvent})
   }
 
   componentDidMount() {
@@ -56,6 +59,11 @@ class Main extends Component<any, any> {
     this.onDateChange(TODAY)
   }
 
+  addEvent = () => {
+    const {current} = this.state
+    this.props.navigation.navigate('FutureCreate', {current})
+  }
+
   onDateChange = (date) => {
     this.setState({current: date})
   }
@@ -65,7 +73,7 @@ class Main extends Component<any, any> {
     if (this.state.current === dateString) {
       return
     }
-    if (month === new Date().getMonth() + 1) {
+    if (TODAY === dateString) {
       this.onDateChange(TODAY)
     } else {
       let date = new Date(dateString)

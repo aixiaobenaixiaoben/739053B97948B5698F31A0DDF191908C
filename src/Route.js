@@ -142,6 +142,7 @@ export default createStackNavigator(
     CommonResetPassword: common.CommonResetPasswordRoute,
     Memory: memory.MemoryRoute,
     Future: future.FutureRoute,
+    FutureCreate: future.FutureCreateRoute,
     MySetting: my.MySettingRoute,
     MyProfile: my.MyProfileRoute,
     MyAbout: my.MyAboutRoute,

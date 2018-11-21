@@ -15,12 +15,10 @@ class Event extends Component<any, any> {
     console.log('remove:' + id)
   }
 
-  dateString = (date: string): string => {
-    const year = date.substr(0, 4)
-    const month = date.substr(5, 2)
-    const day = date.substr(8, 2)
-    const week = DateUtils.WEEK(new Date(year, month - 1, day).getDay())
-    return year + '年' + month + '月' + day + '日' + ' ' + week
+  dateString = (dateString: string): string => {
+    let date = new Date(dateString)
+    date.setHours(date.getHours() - 8)
+    return DateUtils.transDateString(dateString) + ' ' + DateUtils.WEEK(date.getDay())
   }
 
   render() {

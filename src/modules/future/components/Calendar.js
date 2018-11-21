@@ -3,6 +3,7 @@ import React, {Component} from "react"
 import PropTypes from "prop-types"
 import {CalendarList, LocaleConfig} from "react-native-calendars"
 import {COLOR_FONT_BLACK, COLOR_SYS, COLOR_WHITE} from "../../../Style"
+import {CALENDAR_RANGE} from "../../common/Constants"
 
 LocaleConfig.locales['CH'] = {
   monthNames: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
@@ -34,6 +35,8 @@ class Calendar extends Component<any, any> {
         horizontal={true}
         pagingEnabled={true}
         monthFormat={'yyyy.MM'}
+        pastScrollRange={CALENDAR_RANGE}
+        futureScrollRange={CALENDAR_RANGE}
         onVisibleMonthsChange={this.onVisibleMonthsChange}
         onDayPress={this.onDayPress}
         markedDates={{

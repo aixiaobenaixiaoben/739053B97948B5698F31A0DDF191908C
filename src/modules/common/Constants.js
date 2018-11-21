@@ -63,3 +63,5 @@ export const URL_RESET_PASSWORD = '/user/resetPassword'
 export const DURATION_MOBILE_CODE_EXPIRED = 60
 /** 自动登录判断时间(ms) */
 export const DURATION_AUTO_LOGIN = 600000
+/** 日历前后可见范围(月) */
+export const CALENDAR_RANGE = 120
