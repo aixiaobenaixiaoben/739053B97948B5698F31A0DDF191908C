@@ -4,38 +4,37 @@ import {ScrollView, Text, View} from "react-native"
 import style from "../styles/Event/Event"
 import * as DateUtils from "../../../common/utils/DateUtils"
 import Button from "../../../common/components/Button"
+import type {Fueventt} from "../../interface/Fueventt"
 
 
 class Event extends Component<any, any> {
 
   remove = () => {
-    const event = this.props.navigation.getParam('event')
-    const {id} = event
+    const event: Fueventt = this.props.navigation.getParam('event')
     //TODO
-    console.log('remove:' + id)
+    console.log('remove:' + event.fetseqcod)
   }
 
   dateString = (dateString: string): string => {
     let date = new Date(dateString)
-    date.setHours(date.getHours() - 8)
-    return DateUtils.transDateString(dateString) + ' ' + DateUtils.WEEK(date.getDay())
+    return DateUtils.transDateString(DateUtils.localDateString(dateString)) + ' ' + DateUtils.WEEK(date.getDay())
   }
 
   render() {
-    const event = this.props.navigation.getParam('event')
-    const {title, note, date} = event
+    const event: Fueventt = this.props.navigation.getParam('event')
+    const {fetevttit, fetevtnot, fetoccdat} = event
 
     return (
       <View style={style.outline}>
 
         <ScrollView>
           <View style={style.view}>
-            <Text style={style.title}>{title}</Text>
-            <Text style={style.date}>{this.dateString(date)}</Text>
+            <Text style={style.title}>{fetevttit}</Text>
+            <Text style={style.date}>{this.dateString(fetoccdat)}</Text>
           </View>
           <View style={style.view}>
             <Text style={style.mark}>备注</Text>
-            <Text style={style.note}>{note}</Text>
+            <Text style={style.note}>{fetevtnot}</Text>
           </View>
         </ScrollView>
 

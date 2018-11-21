@@ -12,15 +12,15 @@ class EventList extends Component<any, any> {
     this.props.navigation.navigate('FutureEvent', {event: item})
   }
 
-  remove = (id) => {
+  remove = (fetseqcod) => {
     //TODO
-    console.log('remove:' + id)
+    console.log('remove:' + fetseqcod)
   }
 
-  keyExtractor = (item) => item.id
+  keyExtractor = (item) => item.fetseqcod
 
   renderItem = ({item}) => {
-    const {id, title, color} = item
+    const {fetseqcod, fetevttit, color} = item
     let action = [
       {
         text: '详细信息',
@@ -29,7 +29,7 @@ class EventList extends Component<any, any> {
       },
       {
         text: '删除',
-        onPress: () => this.remove(id),
+        onPress: () => this.remove(fetseqcod),
         style: {backgroundColor: COLOR_SYS, color: COLOR_WHITE},
       },
     ]
@@ -39,7 +39,7 @@ class EventList extends Component<any, any> {
                           onPress={() => this.detail(item)} activeOpacity={0.8}>
 
           <View style={{backgroundColor: color, width: 2}}/>
-          <Text style={style.text} numberOfLines={1}>{title}</Text>
+          <Text style={style.text} numberOfLines={1}>{fetevttit}</Text>
 
         </TouchableOpacity>
       </SwipeAction>

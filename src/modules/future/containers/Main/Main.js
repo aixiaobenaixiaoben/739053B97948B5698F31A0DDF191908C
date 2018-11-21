@@ -12,6 +12,7 @@ import style from "../styles/Main/Main"
 import Calendar from "../../components/Calendar"
 import EventList from "../../components/EventList"
 import * as DateUtils from "../../../common/utils/DateUtils"
+import type {Fueventt} from "../../interface/Fueventt"
 
 const TODAY = DateUtils.localDateString()
 
@@ -97,7 +98,14 @@ class Main extends Component<any, any> {
         if (!markDates[dateString]) {
           markDates[dateString] = {marked: true, dotColor: COLOR_SYS, events: []}
         }
-        markDates[dateString].events.push({id, title, note, color, date: dateString})
+        const fueventt: Fueventt = {
+          fetseqcod: id,
+          fetevttit: title,
+          fetevtnot: note,
+          fetoccdat: occurrenceDate,
+          color: color,
+        }
+        markDates[dateString].events.push(fueventt)
       }
       this.refreshEvent(year, month, markDates)
 
