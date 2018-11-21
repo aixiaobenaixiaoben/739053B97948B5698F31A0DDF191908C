@@ -24,6 +24,8 @@ class Main extends Component<any, any> {
     markDates: {},
   }
 
+  newEventDate = ''
+
   static navigationOptions = ({navigation}) => {
     const backToToday = navigation.getParam('backToToday', () => {
     })
@@ -40,13 +42,34 @@ class Main extends Component<any, any> {
   }
 
   componentDidMount() {
+    this.subs = [
+      this.props.navigation.addListener('willFocus', this.willFocus),
+    ]
     if (!this.props.isLogin) {
       Toast.info('登录后显示你添加的日程', 3, null, false)
     }
   }
 
+  componentWillUnmount() {
+    this.subs.forEach(sub => sub.remove())
+  }
+
+  willFocus = (payload) => {
+    let {params} = payload.action
+    if (params && params.newEventDate) {
+      const newEventDate = params.newEventDate
+      this.newEventDate = newEventDate
+      const {current} = this.state
+      this.onDateChange(newEventDate)
+
+      if (current.substr(0, 7) === newEventDate.substr(0, 7)) {
+        this.requestEvents(parseInt(newEventDate.substr(0, 4)), parseInt(newEventDate.substr(5, 2)))
+      }
+    }
+  }
+
   shouldComponentUpdate(nextProps) {
-    if (this.props.version !== nextProps.version) {
+    if (this.props.events !== nextProps.events) {
       this.refreshRemoteEvent()
     }
     if (this.props.isLogin !== nextProps.isLogin) {
@@ -74,13 +97,16 @@ class Main extends Component<any, any> {
     if (this.state.current === dateString) {
       return
     }
+    if (this.newEventDate.length > 0) {
+      this.onDateChange(this.newEventDate)
+      this.newEventDate = ''
+      return
+    }
     if (TODAY === dateString) {
       this.onDateChange(TODAY)
-    } else {
-      let date = new Date(dateString)
-      date.setDate(1)
-      this.onDateChange(date.toJSON().substr(0, 10))
+      return
     }
+    this.onDateChange(dateString.substr(0, 8) + '01')
   }
 
   requestEvents = (year, month) => {
@@ -115,7 +141,7 @@ class Main extends Component<any, any> {
   refreshEvent = (year, month, markDates) => {
     this.setState({markDates})
     if (this.props.isLogin) {
-      this.props.eventFetch(year, month)
+      this.props.eventFetch()
     }
   }
 
@@ -137,6 +163,7 @@ class Main extends Component<any, any> {
 Main.propTypes = {
   isLogin: PropTypes.bool.isRequired,
   calendarAccessible: PropTypes.bool.isRequired,
+  events: PropTypes.array.isRequired,
   eventFetch: PropTypes.func.isRequired,
 }
 
@@ -144,9 +171,9 @@ export default connect(
   state => ({
     isLogin: state.common.login.isLogin,
     calendarAccessible: state.future.calendar.accessible,
-    version: state.future.event.version,
+    events: state.future.event.events,
   }),
   dispatch => ({
-    eventFetch: (year: number, month: number) => dispatch(eventActions.fetch(year, month)),
+    eventFetch: () => dispatch(eventActions.fetch()),
   })
 )(Main)

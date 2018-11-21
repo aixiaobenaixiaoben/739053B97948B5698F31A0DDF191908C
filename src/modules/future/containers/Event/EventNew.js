@@ -2,10 +2,14 @@
 import React, {Component} from "react"
 import {ScrollView, View} from "react-native"
 import {DatePicker, InputItem, List, TextareaItem, WhiteSpace} from "antd-mobile-rn"
+import {connect} from "react-redux"
+import PropTypes from "prop-types"
 import style from "../styles/Event/EventNew"
 import * as DateUtils from "../../../common/utils/DateUtils"
 import {CALENDAR_RANGE} from "../../../common/Constants"
 import Button from "../../../common/components/Button"
+import type {Fueventt} from "../../interface/Fueventt"
+import * as eventActions from "../../actions/Event"
 
 let MINDATE = new Date()
 MINDATE.setMonth(MINDATE.getMonth() - CALENDAR_RANGE)
@@ -48,11 +52,22 @@ class EventNew extends Component<any, any> {
       const {a, b} = nextState
       this.props.navigation.setParams({canSubmit: a.trim().length > 0 && b})
     }
+    if (this.props.version !== nextProps.version) {
+      this.props.navigation.navigate('RootTab', {newEventDate: DateUtils.localDateString(this.state.b.toJSON())})
+      return false
+    }
     return true
   }
 
   save = () => {
-    alert(1)
+    const {a, b, c} = this.state
+    const fueventt: Fueventt = {
+      fetevttit: a,
+      fetevtnot: c,
+      fetoccdat: b.toJSON(),
+      fetallday: '1',
+    }
+    this.props.eventAdd(fueventt)
   }
 
   format = (value: Date) => {
@@ -87,4 +102,16 @@ class EventNew extends Component<any, any> {
   }
 }
 
-export default EventNew
+EventNew.propTypes = {
+  version: PropTypes.number.isRequired,
+  eventAdd: PropTypes.func.isRequired,
+}
+
+export default connect(
+  state => ({
+    version: state.future.event.version,
+  }),
+  dispatch => ({
+    eventAdd: (data: Fueventt) => dispatch(eventActions.add(data)),
+  })
+)(EventNew)
