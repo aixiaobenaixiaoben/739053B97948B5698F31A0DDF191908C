@@ -38,7 +38,7 @@ class Setting extends Component<any, any> {
   }
 
   cacheClear = () => {
-    Modal.alert('确认', '确认清理缓存?', [
+    Modal.alert('确认', '确定清理缓存?', [
       {text: '取消'},
       {text: '确定', onPress: this.props.cacheClear},
     ])

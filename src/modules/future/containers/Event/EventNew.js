@@ -53,7 +53,7 @@ class EventNew extends Component<any, any> {
       this.props.navigation.setParams({canSubmit: a.trim().length > 0 && b})
     }
     if (this.props.version !== nextProps.version) {
-      this.props.navigation.navigate('RootTab', {newEventDate: DateUtils.localDateString(this.state.b.toJSON())})
+      this.props.navigation.navigate('RootTab', {updateEventDate: DateUtils.localDateString(this.state.b.toJSON())})
       return false
     }
     return true

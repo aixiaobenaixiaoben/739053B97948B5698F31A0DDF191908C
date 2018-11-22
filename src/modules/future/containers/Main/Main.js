@@ -24,7 +24,7 @@ class Main extends Component<any, any> {
     markDates: {},
   }
 
-  newEventDate = ''
+  updateEventDate = ''
 
   static navigationOptions = ({navigation}) => {
     const backToToday = navigation.getParam('backToToday', () => {
@@ -56,14 +56,14 @@ class Main extends Component<any, any> {
 
   willFocus = (payload) => {
     let {params} = payload.action
-    if (params && params.newEventDate) {
-      const newEventDate = params.newEventDate
-      this.newEventDate = newEventDate
+    if (params && params.updateEventDate) {
+      const updateEventDate = params.updateEventDate
+      this.updateEventDate = updateEventDate
       const {current} = this.state
-      this.onDateChange(newEventDate)
+      this.onDateChange(updateEventDate)
 
-      if (current.substr(0, 7) === newEventDate.substr(0, 7)) {
-        this.requestEvents(newEventDate.substr(0, 4), newEventDate.substr(5, 2))
+      if (current.substr(0, 7) === updateEventDate.substr(0, 7)) {
+        this.requestEvents(updateEventDate.substr(0, 4), updateEventDate.substr(5, 2))
       }
     }
   }
@@ -102,9 +102,9 @@ class Main extends Component<any, any> {
     if (this.state.current === dateString) {
       return
     }
-    if (this.newEventDate.length > 0) {
-      this.onDateChange(this.newEventDate)
-      this.newEventDate = ''
+    if (this.updateEventDate.length > 0) {
+      this.onDateChange(this.updateEventDate)
+      this.updateEventDate = ''
       return
     }
     if (TODAY === dateString) {
