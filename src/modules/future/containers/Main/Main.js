@@ -63,7 +63,7 @@ class Main extends Component<any, any> {
       this.onDateChange(newEventDate)
 
       if (current.substr(0, 7) === newEventDate.substr(0, 7)) {
-        this.requestEvents(parseInt(newEventDate.substr(0, 4)), parseInt(newEventDate.substr(5, 2)))
+        this.requestEvents(newEventDate.substr(0, 4), newEventDate.substr(5, 2))
       }
     }
   }
@@ -74,7 +74,7 @@ class Main extends Component<any, any> {
     }
     if (this.props.isLogin !== nextProps.isLogin) {
       const {current} = this.state
-      this.requestEvents(parseInt(current.substr(0, 4)), parseInt(current.substr(5, 2)))
+      this.requestEvents(current.substr(0, 4), current.substr(5, 2))
     }
     return true
   }
@@ -86,6 +86,11 @@ class Main extends Component<any, any> {
   addEvent = () => {
     const {current} = this.state
     this.props.navigation.navigate('FutureCreate', {current})
+  }
+
+  onEventDelete = () => {
+    const {current} = this.state
+    this.requestEvents(current.substr(0, 4), current.substr(5, 2))
   }
 
   onDateChange = (date) => {
@@ -164,7 +169,9 @@ class Main extends Component<any, any> {
       <ScrollView style={style.scroll}>
         <Calendar current={current} markDates={markDates} todayFocus={current === TODAY}
                   onMonthChange={this.onMonthChange} onDateChange={this.onDateChange}/>
-        <EventList {...this.props} data={markDates[current] && markDates[current].events || []}/>
+        <EventList {...this.props}
+                   data={markDates[current] && markDates[current].events || []}
+                   onEventDelete={this.onEventDelete}/>
       </ScrollView>
     )
   }

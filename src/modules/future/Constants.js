@@ -11,4 +11,5 @@ export const ACTION_EVENT_FRESH = `${NAME}/ACTION_EVENT_FRESH`
 /** URL type */
 export const URL_EVENT_LIST = '/future/list'
 export const URL_EVENT_ADD = '/future/add'
+export const URL_EVENT_DEL = '/future/del'
 
