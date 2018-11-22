@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native"
-import {COLOR_FONT_BLACK, COLOR_WHITE, FONT_SIZE_16} from "../../../../Style"
+import {COLOR_FONT_BLACK, COLOR_WHITE, FONT_SIZE_16} from "../../../../../Style"
 
 export default StyleSheet.create({
   list: {

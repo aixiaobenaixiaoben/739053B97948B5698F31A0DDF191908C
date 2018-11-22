@@ -4,10 +4,10 @@ import {FlatList, Text, TouchableOpacity, View} from "react-native"
 import PropTypes from "prop-types"
 import {connect} from "react-redux"
 import {SwipeAction} from "antd-mobile-rn"
-import * as eventActions from "../actions/Event"
-import style from "./styles/EventList"
-import type {Fueventt} from "../interface/Fueventt"
-import {COLOR_FONT_GRAY_DARK, COLOR_SYS, COLOR_WHITE} from "../../../Style"
+import * as eventActions from "../../actions/Event"
+import style from "../styles/Event/EventList"
+import type {Fueventt} from "../../interface/Fueventt"
+import {COLOR_FONT_GRAY_DARK, COLOR_SYS, COLOR_WHITE} from "../../../../Style"
 
 class EventList extends Component<any, any> {
 

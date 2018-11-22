@@ -10,7 +10,7 @@ import Button from "../../../common/components/Button"
 import {COLOR_SYS} from "../../../../Style"
 import style from "../styles/Main/Main"
 import Calendar from "../../components/Calendar"
-import EventList from "../../components/EventList"
+import EventList from "../Event/EventList"
 import * as DateUtils from "../../../common/utils/DateUtils"
 import type {Fueventt} from "../../interface/Fueventt"
 
