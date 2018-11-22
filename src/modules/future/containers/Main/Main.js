@@ -31,14 +31,21 @@ class Main extends Component<any, any> {
     })
     const addEvent = navigation.getParam('addEvent', () => {
     })
+    const todayButton = <Button style={style.headerButton} text='今天' onPress={backToToday}/>
+    const createButton = <Button style={style.headerButton} text='新建' onPress={addEvent}/>
+    const isLogin = navigation.getParam('isLogin')
     return {
-      headerLeft: <Button style={style.headerButton} text='今天' onPress={backToToday}/>,
-      headerRight: <Button style={style.headerButton} text='新建' onPress={addEvent}/>,
+      headerLeft: todayButton,
+      headerRight: isLogin ? createButton : null,
     }
   }
 
   componentWillMount() {
-    this.props.navigation.setParams({backToToday: this.backToToday, addEvent: this.addEvent})
+    this.props.navigation.setParams({
+      backToToday: this.backToToday,
+      addEvent: this.addEvent,
+      isLogin: this.props.isLogin,
+    })
   }
 
   componentDidMount() {
@@ -73,6 +80,7 @@ class Main extends Component<any, any> {
       this.refreshRemoteEvent(nextProps.events)
     }
     if (this.props.isLogin !== nextProps.isLogin) {
+      this.props.navigation.setParams({isLogin: nextProps.isLogin})
       const {current} = this.state
       this.requestEvents(current.substr(0, 4), current.substr(5, 2))
     }
