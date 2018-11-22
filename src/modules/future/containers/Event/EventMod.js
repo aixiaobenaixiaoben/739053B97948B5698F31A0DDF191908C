@@ -4,7 +4,7 @@ import {ScrollView, View} from "react-native"
 import {DatePicker, InputItem, List, TextareaItem, WhiteSpace} from "antd-mobile-rn"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
-import style from "../styles/Event/EventNew"
+import style from "../styles/Event/EventMod"
 import * as DateUtils from "../../../common/utils/DateUtils"
 import {CALENDAR_RANGE} from "../../../common/Constants"
 import Button from "../../../common/components/Button"
@@ -19,7 +19,7 @@ let MAXDATE = new Date()
 MAXDATE.setMonth(MAXDATE.getMonth() + CALENDAR_RANGE + 1)
 MAXDATE.setDate(0)
 
-class EventNew extends Component<any, any> {
+class EventMod extends Component<any, any> {
 
   state = {
     a: '',
@@ -37,14 +37,17 @@ class EventNew extends Component<any, any> {
   }
 
   componentWillMount() {
-    this.props.navigation.setParams({save: this.save})
+    this.props.navigation.setParams({save: this.save, canSubmit: true})
   }
 
   componentDidMount() {
-    let current = this.props.navigation.getParam('current')
-    let date = new Date(current)
-    date.setHours(date.getHours() - 8)
-    this.setState({b: date})
+    let event: Fueventt = this.props.navigation.getParam('event')
+    const {fetevttit, fetoccdat, fetevtnot} = event
+    this.setState({
+      a: fetevttit,
+      b: new Date(fetoccdat),
+      c: fetevtnot,
+    })
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -60,13 +63,14 @@ class EventNew extends Component<any, any> {
 
   save = () => {
     const {a, b, c} = this.state
+    let event: Fueventt = this.props.navigation.getParam('event')
     const fueventt: Fueventt = {
+      ...event,
       fetevttit: a,
       fetevtnot: c,
       fetoccdat: b.toJSON(),
-      fetallday: '1',
     }
-    this.props.eventAdd(fueventt)
+    this.props.eventMod(fueventt)
   }
 
   format = (value: Date) => {
@@ -79,7 +83,7 @@ class EventNew extends Component<any, any> {
         <WhiteSpace size="lg"/>
         <List>
           <InputItem style={style.inputItem} maxLength={32} clear placeholder="标题" autoCapitalize='none'
-                     onChange={a => this.setState({a})}>
+                     value={this.state.a} onChange={a => this.setState({a})}>
           </InputItem>
         </List>
 
@@ -94,16 +98,16 @@ class EventNew extends Component<any, any> {
         <WhiteSpace size="lg"/>
         <View style={style.textArea}>
           <TextareaItem rows={8} count={128} autoCapitalize='none' placeholder="备注"
-                        onChange={c => this.setState({c})}/>
+                        value={this.state.c} onChange={c => this.setState({c})}/>
         </View>
       </ScrollView>
     )
   }
 }
 
-EventNew.propTypes = {
+EventMod.propTypes = {
   updateEvent: PropTypes.object.isRequired,
-  eventAdd: PropTypes.func.isRequired,
+  eventMod: PropTypes.func.isRequired,
 }
 
 export default connect(
@@ -111,6 +115,6 @@ export default connect(
     updateEvent: state.future.event.updateEvent,
   }),
   dispatch => ({
-    eventAdd: (data: Fueventt) => dispatch(eventActions.add(data)),
+    eventMod: (data: Fueventt) => dispatch(eventActions.mod(data)),
   })
-)(EventNew)
+)(EventMod)

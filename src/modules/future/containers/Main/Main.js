@@ -42,42 +42,25 @@ class Main extends Component<any, any> {
 
   componentWillMount() {
     this.props.navigation.setParams({
-      backToToday: this.backToToday,
+      backToToday: this.onDateChange,
       addEvent: this.addEvent,
       isLogin: this.props.isLogin,
     })
-  }
-
-  componentDidMount() {
-    this.subs = [
-      this.props.navigation.addListener('willFocus', this.willFocus),
-    ]
     if (!this.props.isLogin) {
       Modal.alert('', '登录后显示你添加的日程')
-    }
-  }
-
-  componentWillUnmount() {
-    this.subs.forEach(sub => sub.remove())
-  }
-
-  willFocus = (payload) => {
-    let {params} = payload.action
-    if (params && params.updateEventDate) {
-      const updateEventDate = params.updateEventDate
-      this.updateEventDate = updateEventDate
-      const {current} = this.state
-      this.onDateChange(updateEventDate)
-
-      if (current.substr(0, 7) === updateEventDate.substr(0, 7)) {
-        this.requestEvents(updateEventDate.substr(0, 4), updateEventDate.substr(5, 2))
-      }
     }
   }
 
   shouldComponentUpdate(nextProps) {
     if (this.props.events !== nextProps.events) {
       this.refreshRemoteEvent(nextProps.events)
+    }
+    if (this.props.updateEvent !== nextProps.updateEvent) {
+      if (nextProps.updateEvent.fetoccdat) {
+        this.eventUpdated(DateUtils.localDateString(nextProps.updateEvent.fetoccdat))
+      } else {
+        this.eventUpdated(this.state.current)
+      }
     }
     if (this.props.isLogin !== nextProps.isLogin) {
       this.props.navigation.setParams({isLogin: nextProps.isLogin})
@@ -87,8 +70,14 @@ class Main extends Component<any, any> {
     return true
   }
 
-  backToToday = () => {
-    this.onDateChange(TODAY)
+  eventUpdated = (updateEventDate) => {
+    this.updateEventDate = updateEventDate
+    const {current} = this.state
+    this.onDateChange(updateEventDate)
+
+    if (current.substr(0, 7) === updateEventDate.substr(0, 7)) {
+      this.requestEvents(updateEventDate.substr(0, 4), updateEventDate.substr(5, 2))
+    }
   }
 
   addEvent = () => {
@@ -96,12 +85,7 @@ class Main extends Component<any, any> {
     this.props.navigation.navigate('FutureCreate', {current})
   }
 
-  onEventDelete = () => {
-    const {current} = this.state
-    this.requestEvents(current.substr(0, 4), current.substr(5, 2))
-  }
-
-  onDateChange = (date) => {
+  onDateChange = (date = TODAY) => {
     this.setState({current: date})
   }
 
@@ -177,9 +161,7 @@ class Main extends Component<any, any> {
       <ScrollView style={style.scroll}>
         <Calendar current={current} markDates={markDates} todayFocus={current === TODAY}
                   onMonthChange={this.onMonthChange} onDateChange={this.onDateChange}/>
-        <EventList {...this.props}
-                   data={markDates[current] && markDates[current].events || []}
-                   onEventDelete={this.onEventDelete}/>
+        <EventList {...this.props} data={markDates[current] && markDates[current].events || []}/>
       </ScrollView>
     )
   }
@@ -189,6 +171,7 @@ Main.propTypes = {
   isLogin: PropTypes.bool.isRequired,
   calendarAccessible: PropTypes.bool.isRequired,
   events: PropTypes.array.isRequired,
+  updateEvent: PropTypes.object.isRequired,
   eventFetch: PropTypes.func.isRequired,
 }
 
@@ -197,6 +180,7 @@ export default connect(
     isLogin: state.common.login.isLogin,
     calendarAccessible: state.future.calendar.accessible,
     events: state.future.event.events,
+    updateEvent: state.future.event.updateEvent,
   }),
   dispatch => ({
     eventFetch: () => dispatch(eventActions.fetch()),

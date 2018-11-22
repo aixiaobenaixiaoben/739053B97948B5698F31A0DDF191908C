@@ -1,16 +1,16 @@
 /** @flow */
 import {handleActions} from "redux-actions"
-import {ACTION_EVENT_FETCH, ACTION_EVENT_FRESH} from "../Constants"
+import {ACTION_EVENT_FETCH, ACTION_EVENT_UPDATE} from "../Constants"
 import type {Fueventt} from "../interface/Fueventt"
 
 type State = {
-  version: number,
   events: Fueventt[],
+  updateEvent: Fueventt,
 }
 
 const initialState: State = {
-  version: 0,
   events: [],
+  updateEvent: {},
 }
 
 export default handleActions(
@@ -21,10 +21,10 @@ export default handleActions(
         events: action.payload,
       }
     },
-    [ACTION_EVENT_FRESH]: (state: State, action) => {
+    [ACTION_EVENT_UPDATE]: (state: State, action) => {
       return {
         ...state,
-        version: Date.now(),
+        updateEvent: action.payload,
       }
     },
   },

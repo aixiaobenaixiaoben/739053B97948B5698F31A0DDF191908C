@@ -10,6 +10,9 @@ import {
 } from "../../../../../Style"
 
 export default StyleSheet.create({
+  headerButton: {
+    marginHorizontal: 20,
+  },
   outline: {
     flex: 1,
     backgroundColor: COLOR_WHITE_MORE_DARK,

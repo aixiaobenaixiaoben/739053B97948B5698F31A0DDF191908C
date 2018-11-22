@@ -1,6 +1,13 @@
 /** @flow */
 import type {ActionAsync} from "../../common/Constants"
-import {ACTION_EVENT_FETCH, ACTION_EVENT_FRESH, URL_EVENT_ADD, URL_EVENT_DEL, URL_EVENT_LIST} from "../Constants"
+import {
+  ACTION_EVENT_FETCH,
+  ACTION_EVENT_UPDATE,
+  URL_EVENT_ADD,
+  URL_EVENT_DEL,
+  URL_EVENT_LIST,
+  URL_EVENT_MOD
+} from "../Constants"
 import Request from "axios/index"
 import {Modal, Toast} from "antd-mobile-rn/lib/index.native"
 import qs from "qs"
@@ -25,9 +32,25 @@ export const add = (data: Fueventt): ActionAsync => {
     Toast.loading('提交中', 0)
 
     Request.post(URL_EVENT_ADD, qs.stringify(data)).then(response => {
-      const {RTNCOD, ERRMSG} = response.data
+      const {RTNCOD, RTNDTA, ERRMSG} = response.data
       if (RTNCOD === 'SUC') {
-        dispatch({type: ACTION_EVENT_FRESH})
+        dispatch({type: ACTION_EVENT_UPDATE, payload: RTNDTA})
+        Toast.hide()
+      } else {
+        Modal.alert('', ERRMSG)
+      }
+    }).catch(error => Modal.alert('', error.message))
+  }
+}
+
+export const mod = (data: Fueventt): ActionAsync => {
+  return (dispatch) => {
+    Toast.loading('提交中', 0)
+
+    Request.post(URL_EVENT_MOD, qs.stringify(data)).then(response => {
+      const {RTNCOD, RTNDTA, ERRMSG} = response.data
+      if (RTNCOD === 'SUC') {
+        dispatch({type: ACTION_EVENT_UPDATE, payload: RTNDTA})
         Toast.hide()
       } else {
         Modal.alert('', ERRMSG)
@@ -43,7 +66,7 @@ export const del = (data: Fueventt): ActionAsync => {
     Request.post(URL_EVENT_DEL, qs.stringify(data)).then(response => {
       const {RTNCOD, ERRMSG} = response.data
       if (RTNCOD === 'SUC') {
-        dispatch({type: ACTION_EVENT_FRESH})
+        dispatch({type: ACTION_EVENT_UPDATE, payload: {}})
         Toast.hide()
       } else {
         Modal.alert('', ERRMSG)

@@ -17,12 +17,36 @@ class Event extends Component<any, any> {
     event: this.props.navigation.getParam('event'),
   }
 
+  static navigationOptions = ({navigation}) => {
+    const modEvent = navigation.getParam('modEvent', () => {
+    })
+    const canModEvent = navigation.getParam('canModEvent')
+    const modButton = <Button style={style.headerButton} text='编辑' onPress={modEvent}/>
+    return {
+      headerRight: canModEvent ? modButton : null,
+    }
+  }
+
+  componentWillMount() {
+    this.props.navigation.setParams({
+      modEvent: this.modEvent,
+      canModEvent: this.state.event.fetseqcod.length === 24,
+    })
+  }
+
   shouldComponentUpdate(nextProps) {
-    if (this.props.version !== nextProps.version) {
-      this.props.navigation.navigate('RootTab', {updateEventDate: DateUtils.localDateString(this.state.event.fetoccdat)})
-      return false
+    if (this.props.updateEvent !== nextProps.updateEvent) {
+      if (nextProps.updateEvent.fetseqcod) {
+        this.setState({event: nextProps.updateEvent})
+      } else {
+        this.props.navigation.pop()
+      }
     }
     return true
+  }
+
+  modEvent = () => {
+    this.props.navigation.navigate('FutureEventMod', {event: this.state.event})
   }
 
   remove = () => {
@@ -65,13 +89,13 @@ class Event extends Component<any, any> {
 }
 
 Event.propTypes = {
-  version: PropTypes.number.isRequired,
+  updateEvent: PropTypes.object.isRequired,
   eventDel: PropTypes.func.isRequired,
 }
 
 export default connect(
   state => ({
-    version: state.future.event.version,
+    updateEvent: state.future.event.updateEvent,
   }),
   dispatch => ({
     eventDel: (data: Fueventt) => dispatch(eventActions.del(data)),
