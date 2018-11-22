@@ -4,7 +4,7 @@ import {ScrollView} from "react-native"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import RNCalendarEvents from 'react-native-calendar-events'
-import {Modal, Toast} from "antd-mobile-rn"
+import {Modal} from "antd-mobile-rn"
 import * as eventActions from "../../actions/Event"
 import Button from "../../../common/components/Button"
 import {COLOR_SYS} from "../../../../Style"
@@ -46,7 +46,7 @@ class Main extends Component<any, any> {
       this.props.navigation.addListener('willFocus', this.willFocus),
     ]
     if (!this.props.isLogin) {
-      Toast.info('登录后显示你添加的日程', 3, null, false)
+      Modal.alert('', '登录后显示你添加的日程')
     }
   }
 
@@ -70,7 +70,7 @@ class Main extends Component<any, any> {
 
   shouldComponentUpdate(nextProps) {
     if (this.props.events !== nextProps.events) {
-      this.refreshRemoteEvent()
+      this.refreshRemoteEvent(nextProps.events)
     }
     if (this.props.isLogin !== nextProps.isLogin) {
       const {current} = this.state
@@ -145,7 +145,17 @@ class Main extends Component<any, any> {
     }
   }
 
-  refreshRemoteEvent = () => {
+  refreshRemoteEvent = (events: Fueventt[]) => {
+    let {markDates} = this.state
+    for (let event: Fueventt of events) {
+      let dateString = DateUtils.localDateString(event.fetoccdat)
+      if (!markDates[dateString]) {
+        markDates[dateString] = {marked: true, dotColor: COLOR_SYS, events: []}
+      }
+      event.color = COLOR_SYS
+      markDates[dateString].events.push(event)
+    }
+    this.setState({markDates})
   }
 
   render() {

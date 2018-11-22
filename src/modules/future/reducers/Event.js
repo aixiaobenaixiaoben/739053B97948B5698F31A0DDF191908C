@@ -1,10 +1,11 @@
 /** @flow */
 import {handleActions} from "redux-actions"
 import {ACTION_EVENT_FETCH, ACTION_EVENT_FRESH} from "../Constants"
+import type {Fueventt} from "../interface/Fueventt"
 
 type State = {
   version: number,
-  events: Array,
+  events: Fueventt[],
 }
 
 const initialState: State = {
