@@ -13,7 +13,7 @@ import Button from "../../../common/components/Button"
 class Name extends Component<any, any> {
 
   state = {
-    username: '',
+    username: this.props.user.suiusrnam,
   }
 
   static navigationOptions = ({navigation}) => {
@@ -48,12 +48,13 @@ class Name extends Component<any, any> {
   }
 
   render() {
+    const {suiusrnam} = this.props.user
     return (
       <ScrollView keyboardShouldPersistTaps='handled' style={style.scroll}>
         <WhiteSpace size="lg"/>
         <List>
           <InputItem style={style.inputItem} maxLength={16} clear placeholder="请输入昵称" autoCapitalize='none'
-                     onChange={(username) => this.setState({username})}>
+                     defaultValue={suiusrnam} onChange={(username) => this.setState({username})}>
           </InputItem>
         </List>
 

@@ -78,12 +78,15 @@ class EventMod extends Component<any, any> {
   }
 
   render() {
+    let event: Fueventt = this.props.navigation.getParam('event')
+    const {fetevttit, fetevtnot} = event
+
     return (
       <ScrollView keyboardShouldPersistTaps='handled' style={style.scroll}>
         <WhiteSpace size="lg"/>
         <List>
           <InputItem style={style.inputItem} maxLength={32} clear placeholder="标题" autoCapitalize='none'
-                     value={this.state.a} onChange={a => this.setState({a})}>
+                     defaultValue={fetevttit} onChange={a => this.setState({a})}>
           </InputItem>
         </List>
 
@@ -98,7 +101,7 @@ class EventMod extends Component<any, any> {
         <WhiteSpace size="lg"/>
         <View style={style.textArea}>
           <TextareaItem rows={8} count={128} autoCapitalize='none' placeholder="备注"
-                        value={this.state.c} onChange={c => this.setState({c})}/>
+                        defaultValue={fetevtnot} onChange={c => this.setState({c})}/>
         </View>
       </ScrollView>
     )
