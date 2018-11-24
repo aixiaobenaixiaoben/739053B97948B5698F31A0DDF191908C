@@ -20,7 +20,8 @@ class Button extends Component<any, any> {
       executingText = '执行中',
       text = 'Button',
       style = {},
-      textStyle = {}
+      textStyle = {},
+      hitSlop,
     } = this.props
 
     const title = executing ? executingText : text
@@ -29,7 +30,7 @@ class Button extends Component<any, any> {
 
     return (
       <TouchableOpacity style={[defaultStyle.touch, style, disableStyle]}
-                        onPress={this.press} activeOpacity={0.6} disabled={disable}>
+                        onPress={this.press} activeOpacity={0.6} disabled={disable} hitSlop={hitSlop}>
         <Text style={[defaultStyle.touchText, textStyle]}>{title}</Text>
       </TouchableOpacity>
     )

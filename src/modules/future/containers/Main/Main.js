@@ -1,18 +1,20 @@
 /** @flow */
 import React, {Component} from "react"
-import {ScrollView} from "react-native"
+import {ScrollView, View} from "react-native"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import RNCalendarEvents from 'react-native-calendar-events'
 import {Modal} from "antd-mobile-rn"
+import AntDesign from "react-native-vector-icons/AntDesign"
 import * as eventActions from "../../actions/Event"
 import Button from "../../../common/components/Button"
-import {COLOR_SYS} from "../../../../Style"
+import {COLOR_SYS, COLOR_WHITE} from "../../../../Style"
 import style from "../styles/Main/Main"
 import Calendar from "../../components/Calendar"
 import EventList from "../Event/EventList"
 import * as DateUtils from "../../../common/utils/DateUtils"
 import type {Fueventt} from "../../interface/Fueventt"
+import FutureChoice, {ModalFutureChoice} from "../../components/FutureChoice"
 
 const TODAY = DateUtils.localDateString()
 
@@ -22,11 +24,25 @@ class Main extends Component<any, any> {
   state = {
     current: TODAY,
     markDates: {},
+    modalVisible: false,
+    modalChoice: ModalFutureChoice.CURRENT,
+    modalPageY: 0,
   }
 
   updateEventDate = ''
+  ref
+
+  headerTitle = (visible: boolean, title: string) => {
+    return (
+      <View style={style.headerTitle}>
+        <Button text={title} hitSlop={{right: 20}} onPress={() => this.setState({modalVisible: true})}/>
+        <AntDesign name={visible ? 'caretup' : 'caretdown'} size={12} color={COLOR_WHITE}/>
+      </View>
+    )
+  }
 
   static navigationOptions = ({navigation}) => {
+    const headerTitle = navigation.getParam('headerTitle')
     const backToToday = navigation.getParam('backToToday', () => {
     })
     const addEvent = navigation.getParam('addEvent', () => {
@@ -36,12 +52,14 @@ class Main extends Component<any, any> {
     const isLogin = navigation.getParam('isLogin')
     return {
       headerLeft: todayButton,
+      headerTitle: headerTitle,
       headerRight: isLogin ? createButton : null,
     }
   }
 
   componentWillMount() {
     this.props.navigation.setParams({
+      headerTitle: this.headerTitle(this.state.modalVisible, this.state.modalChoice),
       backToToday: this.onDateChange,
       addEvent: this.addEvent,
       isLogin: this.props.isLogin,
@@ -51,7 +69,14 @@ class Main extends Component<any, any> {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
+  componentDidMount() {
+    setTimeout(() => this.ref.measure((frameX, frameY, width, height, pageX, pageY) => this.setState({modalPageY: pageY})), 1)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.modalVisible !== nextState.modalVisible) {
+      this.props.navigation.setParams({headerTitle: this.headerTitle(nextState.modalVisible, nextState.modalChoice)})
+    }
     if (this.props.events !== nextProps.events) {
       this.refreshRemoteEvent(nextProps.events)
     }
@@ -68,6 +93,10 @@ class Main extends Component<any, any> {
       this.requestEvents(current.substr(0, 4), current.substr(5, 2))
     }
     return true
+  }
+
+  onModalChoice = (choice: string) => {
+    this.setState({modalVisible: false, modalChoice: choice})
   }
 
   eventUpdated = (updateEventDate) => {
@@ -156,13 +185,19 @@ class Main extends Component<any, any> {
   }
 
   render() {
-    const {current, markDates} = this.state
+    const {current, markDates, modalVisible, modalChoice, modalPageY} = this.state
     return (
-      <ScrollView style={style.scroll}>
-        <Calendar current={current} markDates={markDates} todayFocus={current === TODAY}
-                  onMonthChange={this.onMonthChange} onDateChange={this.onDateChange}/>
-        <EventList {...this.props} data={markDates[current] && markDates[current].events || []}/>
-      </ScrollView>
+      <View ref={ref => this.ref = ref} style={style.outline}>
+        <ScrollView style={style.scroll}>
+          <FutureChoice modalPageY={modalPageY} modalVisible={modalVisible}
+                        modalChoice={modalChoice} onModalChoice={this.onModalChoice}/>
+
+          <Calendar current={current} markDates={markDates} todayFocus={current === TODAY}
+                    onMonthChange={this.onMonthChange} onDateChange={this.onDateChange}/>
+
+          <EventList {...this.props} data={markDates[current] && markDates[current].events || []}/>
+        </ScrollView>
+      </View>
     )
   }
 }
