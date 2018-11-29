@@ -133,14 +133,21 @@ class ContentCurrent extends Component<any, any> {
   }
 
   refreshRemoteEvent = (events: Fueventt[]) => {
-    let {markDates} = this.state
+    let {current, markDates} = this.state
+    let date = new Date(current.substr(0, 4), current.substr(5, 2) - 1, 1)
+    let start = date.toJSON()
+    date.setMonth(date.getMonth() + 1)
+    let end = date.toJSON()
+
     for (let event: Fueventt of events) {
-      let dateString = DateUtils.localDateString(event.fetoccdat)
-      if (!markDates[dateString]) {
-        markDates[dateString] = {marked: true, dotColor: COLOR_SYS, events: []}
+      if (event.fetoccdat >= start && event.fetoccdat < end) {
+        let dateString = DateUtils.localDateString(event.fetoccdat)
+        if (!markDates[dateString]) {
+          markDates[dateString] = {marked: true, dotColor: COLOR_SYS, events: []}
+        }
+        event.color = COLOR_SYS
+        markDates[dateString].events.push(event)
       }
-      event.color = COLOR_SYS
-      markDates[dateString].events.push(event)
     }
     this.setState({markDates})
   }

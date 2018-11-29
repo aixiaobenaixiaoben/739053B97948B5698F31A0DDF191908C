@@ -37,12 +37,9 @@ class CurrentEventList extends Component<any, any> {
     }
     return (
       <SwipeAction right={action} autoClose style={{backgroundColor: 'transparent'}}>
-        <TouchableOpacity style={style.listItem}
-                          onPress={() => this.detail(item)} activeOpacity={0.8}>
-
+        <TouchableOpacity style={style.listItem} onPress={() => this.detail(item)} activeOpacity={0.8}>
           <View style={{backgroundColor: color, width: 2}}/>
           <Text style={style.text} numberOfLines={1}>{fetevttit}</Text>
-
         </TouchableOpacity>
       </SwipeAction>
     )
