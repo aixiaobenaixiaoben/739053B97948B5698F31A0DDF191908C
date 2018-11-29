@@ -31,7 +31,6 @@ const FutureHomeStack = createStackNavigator(
     FutureHome: {
       screen: future.FutureMain,
       navigationOptions: {
-        title: 'Future',
         headerTintColor: COLOR_WHITE,
         headerStyle: {
           backgroundColor: COLOR_SYS,
