@@ -87,6 +87,7 @@ class ContentPast extends Component<any, any> {
         eventList.push(event)
       }
     }
+    eventList.sort(eventActions.compare)
     this.setState({events: eventList})
   }
 

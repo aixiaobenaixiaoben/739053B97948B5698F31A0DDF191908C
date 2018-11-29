@@ -74,3 +74,9 @@ export const del = (data: Fueventt): ActionAsync => {
     }).catch(error => Modal.alert('', error.message))
   }
 }
+
+export const compare = (a: Fueventt, b: Fueventt) => {
+  if (a.fetoccdat < b.fetoccdat) return -1
+  if (a.fetoccdat > b.fetoccdat) return 1
+  return 0
+}

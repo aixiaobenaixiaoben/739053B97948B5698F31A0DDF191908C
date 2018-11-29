@@ -23,7 +23,7 @@ export default StyleSheet.create({
     backgroundColor: COLOR_WHITE,
   },
   date: {
-    marginRight: 4,
+    minWidth: 88,
     marginTop: 5,
     color: COLOR_SYS,
     fontSize: FONT_SIZE_14,
