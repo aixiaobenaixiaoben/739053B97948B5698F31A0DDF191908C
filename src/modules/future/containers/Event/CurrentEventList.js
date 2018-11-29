@@ -9,7 +9,7 @@ import style from "../styles/Event/EventList"
 import type {Fueventt} from "../../interface/Fueventt"
 import {COLOR_FONT_GRAY_DARK, COLOR_SYS, COLOR_WHITE} from "../../../../Style"
 
-class EventList extends Component<any, any> {
+class CurrentEventList extends Component<any, any> {
 
   detail = (item) => {
     this.props.navigation.navigate('FutureEvent', {event: item})
@@ -61,7 +61,7 @@ class EventList extends Component<any, any> {
   }
 }
 
-EventList.propTypes = {
+CurrentEventList.propTypes = {
   data: PropTypes.array.isRequired,
   eventDel: PropTypes.func.isRequired,
 }
@@ -71,4 +71,4 @@ export default connect(
   dispatch => ({
     eventDel: (data: Fueventt) => dispatch(eventActions.del(data)),
   })
-)(EventList)
+)(CurrentEventList)

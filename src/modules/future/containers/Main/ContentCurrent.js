@@ -1,45 +1,30 @@
 /** @flow */
 import React, {Component} from "react"
-import {ScrollView, View} from "react-native"
+import {ScrollView} from "react-native"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import RNCalendarEvents from 'react-native-calendar-events'
 import {Modal} from "antd-mobile-rn"
-import AntDesign from "react-native-vector-icons/AntDesign"
 import * as eventActions from "../../actions/Event"
 import Button from "../../../common/components/Button"
-import {COLOR_SYS, COLOR_WHITE} from "../../../../Style"
-import style from "../styles/Main/Content"
+import {COLOR_SYS} from "../../../../Style"
+import style from "../styles/Main/ContentCurrent"
 import Calendar from "../../components/Calendar"
-import EventList from "../Event/EventList"
+import CurrentEventList from "../Event/CurrentEventList"
 import * as DateUtils from "../../../common/utils/DateUtils"
 import type {Fueventt} from "../../interface/Fueventt"
-import FutureChoice, {ModalFutureChoice} from "../../components/FutureChoice"
 
 const TODAY = DateUtils.localDateString()
 
 
-class Content extends Component<any, any> {
+class ContentCurrent extends Component<any, any> {
 
   state = {
     current: TODAY,
     markDates: {},
-    modalVisible: false,
-    modalChoice: ModalFutureChoice.CURRENT,
-    modalPageY: 0,
   }
 
   updateEventDate = ''
-  ref
-
-  headerTitle = (visible: boolean, title: string) => {
-    return (
-      <View style={style.headerTitle}>
-        <Button text={title} hitSlop={{right: 20}} onPress={() => this.setState({modalVisible: true})}/>
-        <AntDesign name={visible ? 'caretup' : 'caretdown'} size={12} color={COLOR_WHITE}/>
-      </View>
-    )
-  }
 
   headerLeft = () => {
     return <Button style={style.headerButton} text='今天' onPress={this.onDateChange}/>
@@ -51,20 +36,12 @@ class Content extends Component<any, any> {
 
   componentWillMount() {
     this.props.navigation.setParams({
-      headerTitle: this.headerTitle(this.state.modalVisible, this.state.modalChoice),
       headerLeft: this.headerLeft(),
       headerRight: this.headerRight(this.props.isLogin),
     })
   }
 
-  componentDidMount() {
-    setTimeout(() => this.ref.measure((frameX, frameY, width, height, pageX, pageY) => this.setState({modalPageY: pageY})), 1)
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.modalVisible !== nextState.modalVisible) {
-      this.props.navigation.setParams({headerTitle: this.headerTitle(nextState.modalVisible, nextState.modalChoice)})
-    }
+  shouldComponentUpdate(nextProps) {
     if (this.props.events !== nextProps.events) {
       this.refreshRemoteEvent(nextProps.events)
     }
@@ -81,10 +58,6 @@ class Content extends Component<any, any> {
       this.requestEvents(current.substr(0, 4), current.substr(5, 2))
     }
     return true
-  }
-
-  onModalChoice = (choice: string) => {
-    this.setState({modalVisible: false, modalChoice: choice})
   }
 
   eventUpdated = (updateEventDate) => {
@@ -173,24 +146,19 @@ class Content extends Component<any, any> {
   }
 
   render() {
-    const {current, markDates, modalVisible, modalChoice, modalPageY} = this.state
+    const {current, markDates} = this.state
     return (
-      <View ref={ref => this.ref = ref} style={style.outline}>
-        <ScrollView style={style.scroll}>
-          <FutureChoice modalPageY={modalPageY} modalVisible={modalVisible}
-                        modalChoice={modalChoice} onModalChoice={this.onModalChoice}/>
+      <ScrollView style={style.scroll}>
+        <Calendar current={current} markDates={markDates} todayFocus={current === TODAY}
+                  onMonthChange={this.onMonthChange} onDateChange={this.onDateChange}/>
 
-          <Calendar current={current} markDates={markDates} todayFocus={current === TODAY}
-                    onMonthChange={this.onMonthChange} onDateChange={this.onDateChange}/>
-
-          <EventList {...this.props} data={markDates[current] && markDates[current].events || []}/>
-        </ScrollView>
-      </View>
+        <CurrentEventList {...this.props} data={markDates[current] && markDates[current].events || []}/>
+      </ScrollView>
     )
   }
 }
 
-Content.propTypes = {
+ContentCurrent.propTypes = {
   isLogin: PropTypes.bool.isRequired,
   calendarAccessible: PropTypes.bool.isRequired,
   events: PropTypes.array.isRequired,
@@ -208,4 +176,4 @@ export default connect(
   dispatch => ({
     eventFetch: () => dispatch(eventActions.fetch()),
   })
-)(Content)
+)(ContentCurrent)
