@@ -41,28 +41,28 @@ class Main extends Component<any, any> {
     )
   }
 
+  headerLeft = () => {
+    return <Button style={style.headerButton} text='今天' onPress={this.onDateChange}/>
+  }
+
+  headerRight = (isLogin: boolean) => {
+    return isLogin ? <Button style={style.headerButton} text='新建' onPress={this.addEvent}/> : null
+  }
+
   static navigationOptions = ({navigation}) => {
-    const headerTitle = navigation.getParam('headerTitle')
-    const backToToday = navigation.getParam('backToToday', () => {
-    })
-    const addEvent = navigation.getParam('addEvent', () => {
-    })
-    const todayButton = <Button style={style.headerButton} text='今天' onPress={backToToday}/>
-    const createButton = <Button style={style.headerButton} text='新建' onPress={addEvent}/>
-    const isLogin = navigation.getParam('isLogin')
+    const {headerTitle, headerLeft, headerRight} = navigation.state.params || {}
     return {
-      headerLeft: todayButton,
+      headerLeft: headerLeft,
       headerTitle: headerTitle,
-      headerRight: isLogin ? createButton : null,
+      headerRight: headerRight,
     }
   }
 
   componentWillMount() {
     this.props.navigation.setParams({
       headerTitle: this.headerTitle(this.state.modalVisible, this.state.modalChoice),
-      backToToday: this.onDateChange,
-      addEvent: this.addEvent,
-      isLogin: this.props.isLogin,
+      headerLeft: this.headerLeft(),
+      headerRight: this.headerRight(this.props.isLogin),
     })
     if (!this.props.isLogin) {
       Modal.alert('', '登录后显示你添加的日程')
@@ -88,7 +88,7 @@ class Main extends Component<any, any> {
       }
     }
     if (this.props.isLogin !== nextProps.isLogin) {
-      this.props.navigation.setParams({isLogin: nextProps.isLogin})
+      this.props.navigation.setParams({headerRight: this.headerRight(nextProps.isLogin)})
       const {current} = this.state
       this.requestEvents(current.substr(0, 4), current.substr(5, 2))
     }
