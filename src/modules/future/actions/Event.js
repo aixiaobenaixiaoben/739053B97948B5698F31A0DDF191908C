@@ -16,10 +16,13 @@ import type {Fueventt} from "../interface/Fueventt"
 
 export const fetch = (): ActionAsync => {
   return (dispatch) => {
+    Toast.loading('加载中', 0)
+
     Request.post(URL_EVENT_LIST).then(response => {
       const {RTNCOD, RTNDTA, ERRMSG} = response.data
       if (RTNCOD === 'SUC') {
         dispatch({type: ACTION_EVENT_FETCH, payload: RTNDTA})
+        Toast.hide()
       } else {
         Modal.alert('', ERRMSG)
       }

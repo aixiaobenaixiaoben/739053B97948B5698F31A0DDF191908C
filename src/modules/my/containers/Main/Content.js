@@ -26,7 +26,7 @@ class Content extends Component<any, any> {
   scrollView
 
   shouldComponentUpdate(nextProps) {
-    if (this.props.isLogin && this.props.version !== nextProps.version) {
+    if (this.props.version !== nextProps.version) {
       this.scrollView.scrollTo({x: 0, y: -1, animated: true})
     }
     if (this.props.profile !== nextProps.profile && this.state.refreshing) {
@@ -137,7 +137,6 @@ class Content extends Component<any, any> {
 
 Content.propTypes = {
   version: PropTypes.number.isRequired,
-  isLogin: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   photoPath: PropTypes.string.isRequired,
@@ -149,7 +148,6 @@ Content.propTypes = {
 export default connect(
   state => ({
     version: state.my.main.version,
-    isLogin: state.common.login.isLogin,
     user: state.common.login.user,
     profile: state.my.profile.profile,
     photoPath: state.my.profile.photoPath,

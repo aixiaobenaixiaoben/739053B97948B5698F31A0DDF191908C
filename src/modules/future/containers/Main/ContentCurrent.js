@@ -1,6 +1,7 @@
 /** @flow */
 import React, {Component} from "react"
-import {ScrollView} from "react-native"
+import {RefreshControl, ScrollView, Vibration} from "react-native"
+import Sound from "react-native-sound"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import RNCalendarEvents from 'react-native-calendar-events'
@@ -20,10 +21,13 @@ const TODAY = DateUtils.localDateString()
 class ContentCurrent extends Component<any, any> {
 
   state = {
+    refreshing: false,
+    refreshTitle: '',
     current: TODAY,
     markDates: {},
   }
 
+  scrollView
   updateEventDate = ''
 
   headerLeft = () => {
@@ -41,7 +45,17 @@ class ContentCurrent extends Component<any, any> {
     })
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.version !== nextProps.version) {
+      this.scrollView.scrollTo({x: 0, y: -1, animated: true})
+    }
+    if (this.state.refreshing) {
+      if (!this.props.isLogin && this.state.markDates !== nextState.markDates || this.props.events !== nextProps.events) {
+        this.setState({refreshing: false})
+        const source = require('../../../../../assets/common/ring/refresh.m4a')
+        const sound = new Sound(source, () => sound.play(() => sound.release()))
+      }
+    }
     if (this.props.events !== nextProps.events) {
       this.refreshRemoteEvent(nextProps.events)
     }
@@ -58,6 +72,32 @@ class ContentCurrent extends Component<any, any> {
       this.requestEvents(current.substr(0, 4), current.substr(5, 2))
     }
     return true
+  }
+
+  onRefresh = () => {
+    Vibration.vibrate(100)
+    this.setState({refreshing: true, refreshTitle: '松开刷新'})
+  }
+
+  onScrollBeginDrag = () => {
+    this.setState({refreshTitle: '下拉刷新'})
+  }
+
+  onScrollEndDrag = () => {
+    if (this.state.refreshing) {
+      this.setState({refreshTitle: ''})
+      this.eventUpdated(this.state.current)
+    }
+  }
+
+  onMomentumScrollEnd = (event) => {
+    if (event.nativeEvent.contentOffset.y === -1) {
+      const source = require('../../../../../assets/common/ring/onRefresh.m4a')
+      const sound = new Sound(source, () => sound.play(() => sound.release()))
+      this.scrollView.scrollTo({x: 0, y: -70, animated: true})
+      this.setState({refreshing: true, refreshTitle: ''})
+      this.eventUpdated(this.state.current)
+    }
   }
 
   eventUpdated = (updateEventDate) => {
@@ -153,9 +193,14 @@ class ContentCurrent extends Component<any, any> {
   }
 
   render() {
-    const {current, markDates} = this.state
+    const {refreshing, refreshTitle, current, markDates} = this.state
+    let refreshControl = <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh}
+                                         tintColor={COLOR_SYS} title={refreshTitle} titleColor={COLOR_SYS}/>
     return (
-      <ScrollView style={style.scroll}>
+      <ScrollView ref={ref => this.scrollView = ref} style={style.scroll}
+                  refreshControl={refreshControl} onMomentumScrollEnd={this.onMomentumScrollEnd}
+                  onScrollBeginDrag={this.onScrollBeginDrag} onScrollEndDrag={this.onScrollEndDrag}>
+
         <Calendar current={current} markDates={markDates} todayFocus={current === TODAY}
                   onMonthChange={this.onMonthChange} onDateChange={this.onDateChange}/>
 
@@ -166,6 +211,7 @@ class ContentCurrent extends Component<any, any> {
 }
 
 ContentCurrent.propTypes = {
+  version: PropTypes.number.isRequired,
   isLogin: PropTypes.bool.isRequired,
   calendarAccessible: PropTypes.bool.isRequired,
   events: PropTypes.array.isRequired,
@@ -175,6 +221,7 @@ ContentCurrent.propTypes = {
 
 export default connect(
   state => ({
+    version: state.future.main.version,
     isLogin: state.common.login.isLogin,
     calendarAccessible: state.future.calendar.accessible,
     events: state.future.event.events,

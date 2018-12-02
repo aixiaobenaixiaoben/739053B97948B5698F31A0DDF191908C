@@ -8,6 +8,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome"
 import {common, future, memory, my} from "./modules"
 import {COLOR_FONT_GRAY_DARK, COLOR_SYS, COLOR_WHITE} from "./Style"
 import {ACTION_MY_MAIN_UPDATE} from "./modules/my/Constants"
+import {ACTION_FUTURE_MAIN_UPDATE} from "./modules/future/Constants"
 
 const TabBarBadge = common.TabBarBadge
 
@@ -98,13 +99,19 @@ const RootTab = createTabNavigator(
     },
     FutureTab: {
       screen: FutureHomeStack,
-      navigationOptions: {
+      navigationOptions: ({screenProps}) => ({
         title: '未来',
         tabBarIcon: ({focused, tintColor}) => {
           const icon = <FontAwesome name='paper-plane' size={25} color={tintColor}/>
           return (<TabBarBadge tab='movie' icon={icon}/>)
+        },
+        tabBarOnPress: ({scene, jumpToIndex}) => {
+          jumpToIndex(scene.index)
+          if (scene.focused) {
+            screenProps.store.dispatch({type: ACTION_FUTURE_MAIN_UPDATE})
+          }
         }
-      }
+      })
     },
     MyTab: {
       screen: MyHomeStack,
