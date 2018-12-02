@@ -15,6 +15,19 @@ export default StyleSheet.create({
   scroll: {
     backgroundColor: COLOR_WHITE_MORE_DARK,
   },
+  title: {
+    height: 40,
+    backgroundColor: COLOR_WHITE,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  titleText: {
+    color: COLOR_SYS,
+    fontSize: FONT_SIZE_16,
+  },
+  list: {
+    marginTop: 1,
+  },
   listItem: {
     flexDirection: 'row',
     height: 44,
@@ -23,7 +36,7 @@ export default StyleSheet.create({
     backgroundColor: COLOR_WHITE,
   },
   date: {
-    minWidth: 88,
+    minWidth: 44,
     marginTop: 5,
     color: COLOR_SYS,
     fontSize: FONT_SIZE_14,

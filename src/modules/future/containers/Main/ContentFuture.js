@@ -103,7 +103,7 @@ class ContentFuture extends Component<any, any> {
 
   renderItem = ({item}) => {
     const {fetseqcod, fetevttit, fetoccdat} = item
-    const date = DateUtils.localDateString(fetoccdat)
+    const date = DateUtils.localDateString(fetoccdat).substring(5)
     let action = [
       {
         text: '详细信息',
@@ -128,10 +128,15 @@ class ContentFuture extends Component<any, any> {
   }
 
   render() {
-    const {events} = this.state
+    const {year, events} = this.state
     return (
       <ScrollView style={style.scroll}>
+        <View style={style.title}>
+          <Text style={style.titleText}>{year}年</Text>
+        </View>
+
         <FlatList
+          style={style.list}
           data={events}
           keyExtractor={this.keyExtractor}
           renderItem={this.renderItem}
