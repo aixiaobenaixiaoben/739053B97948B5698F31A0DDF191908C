@@ -52,7 +52,7 @@ class ContentFuture extends Component<any, any> {
         headerLeft: this.headerLeft(nextState.year),
         headerRight: this.headerRight(nextState.year),
       })
-      this.props.eventFetch()
+      this.refreshEvent(nextProps.isLogin)
     }
     if (this.props.events !== nextProps.events) {
       this.refreshRemoteEvent(nextProps.events)

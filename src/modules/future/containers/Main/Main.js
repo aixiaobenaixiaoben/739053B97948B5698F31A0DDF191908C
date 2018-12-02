@@ -1,8 +1,10 @@
 /** @flow */
 import React, {Component} from "react"
 import ContentCurrent from "./ContentCurrent"
-import {View} from "react-native"
+import {Text, View} from "react-native"
 import AntDesign from "react-native-vector-icons/AntDesign"
+import {connect} from "react-redux"
+import PropTypes from "prop-types"
 import Button from "../../../common/components/Button"
 import style from "../styles/Main/Main"
 import FutureChoice, {ModalFutureChoice} from "../../components/FutureChoice"
@@ -60,8 +62,13 @@ class Main extends Component<any, any> {
     this.setState({modalVisible: false, modalChoice: choice})
   }
 
+  goLogin = () => {
+    this.props.navigation.navigate('MyTab')
+  }
+
   render() {
     const {modalVisible, modalChoice, modalPageY} = this.state
+    const {isLogin} = this.props
     return (
       <View ref={ref => this.ref = ref} style={style.outline}>
         <FutureChoice modalPageY={modalPageY} modalVisible={modalVisible}
@@ -70,9 +77,24 @@ class Main extends Component<any, any> {
         {modalChoice === ModalFutureChoice.CURRENT && <ContentCurrent {...this.props}/>}
         {modalChoice === ModalFutureChoice.PAST && <ContentPast {...this.props}/>}
         {modalChoice === ModalFutureChoice.FUTURE && <ContentFuture {...this.props}/>}
+
+        {!isLogin &&
+        <View style={style.tail}>
+          <Text style={style.tailText}>登录后查看自己的日程</Text>
+          <Button text='登录' onPress={this.goLogin} style={style.tailButton} textStyle={style.tailButtonText}/>
+        </View>
+        }
       </View>
     )
   }
 }
 
-export default Main
+Main.propTypes = {
+  isLogin: PropTypes.bool.isRequired,
+}
+
+export default connect(
+  state => ({
+    isLogin: state.common.login.isLogin,
+  })
+)(Main)
