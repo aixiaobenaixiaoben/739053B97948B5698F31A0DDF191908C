@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import {persistReducer, persistStore} from "redux-persist"
 import {AsyncStorage} from "react-native"
 
-import {common, future, my} from './modules'
+import {common, future, memory, my} from './modules'
 
 const persistConfig = {
   key: 'root',
@@ -16,6 +16,7 @@ const middleware = applyMiddleware(thunk)
 export default (data: Object = {}) => {
   const rootReducer = combineReducers({
     [common.NAME]: common.reducer,
+    [memory.NAME]: memory.reducer,
     [future.NAME]: future.reducer,
     [my.NAME]: my.reducer,
   })
