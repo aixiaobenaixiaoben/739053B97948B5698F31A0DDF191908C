@@ -22,6 +22,13 @@ class Main extends Component<any, any> {
     appState: AppState.currentState
   }
 
+  static navigationOptions = ({navigation}) => {
+    const {headerRight} = navigation.state.params || {}
+    return {
+      headerRight: headerRight,
+    }
+  }
+
   componentWillMount() {
     if (this.props.isLogin) {
       this.props.autoLogin ? this.props.login(this.props.user) : this.props.logout()

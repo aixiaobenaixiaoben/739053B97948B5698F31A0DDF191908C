@@ -1,5 +1,5 @@
 /** @flow */
 import MemoryMain from "./containers/Main/Main"
-import {MemoryRoute} from "./Route"
+import {MemoryCreateRoute} from "./Route"
 
-export default {MemoryMain, MemoryRoute}
+export default {MemoryMain, MemoryCreateRoute}

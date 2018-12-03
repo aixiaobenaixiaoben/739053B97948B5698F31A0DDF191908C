@@ -146,7 +146,7 @@ export default createStackNavigator(
     Guide: common.Guide,
     CommonRegister: common.CommonRegisterRoute,
     CommonResetPassword: common.CommonResetPasswordRoute,
-    Memory: memory.MemoryRoute,
+    MemoryCreate: memory.MemoryCreateRoute,
     Future: future.FutureRoute,
     FutureCreate: future.FutureCreateRoute,
     MySetting: my.MySettingRoute,
