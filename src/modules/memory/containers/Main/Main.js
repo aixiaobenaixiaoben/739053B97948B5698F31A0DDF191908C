@@ -1,6 +1,6 @@
 /** @flow */
 import React, {Component} from "react"
-import {AppState} from "react-native"
+import {AppState, Text, View} from "react-native"
 import TouchId from "react-native-touch-id"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
@@ -14,6 +14,8 @@ import * as calendarActions from "../../../future/actions/Calendar"
 import type {Syusrinf} from "../../../common/interface/Syusrinf"
 import {DURATION_AUTO_LOGIN} from "../../../common/Constants"
 import Content from "./Content"
+import style from "../styles/Main/Main"
+import Button from "../../../common/components/Button"
 
 
 class Main extends Component<any, any> {
@@ -75,8 +77,24 @@ class Main extends Component<any, any> {
     this.setState({appState: nextAppState})
   }
 
+  goLogin = () => {
+    this.props.navigation.navigate('MyTab')
+  }
+
   render() {
-    return <Content {...this.props}/>
+    const {isLogin} = this.props
+    return (
+      <View style={style.outline}>
+        <Content {...this.props}/>
+
+        {!isLogin &&
+        <View style={style.tail}>
+          <Text style={style.tailText}>登录后查看回忆</Text>
+          <Button text='登录' onPress={this.goLogin} style={style.tailButton} textStyle={style.tailButtonText}/>
+        </View>
+        }
+      </View>
+    )
   }
 }
 
