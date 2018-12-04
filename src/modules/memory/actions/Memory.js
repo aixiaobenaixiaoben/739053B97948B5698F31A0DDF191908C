@@ -14,11 +14,11 @@ import {
 import type {Mememory} from "../interface/Mememory"
 
 
-export const fetch = (): ActionAsync => {
+export const fetch = (data: Mememory): ActionAsync => {
   return (dispatch) => {
     Toast.loading('加载中', 0)
 
-    Request.post(URL_MEMORY_LIST).then(response => {
+    Request.post(URL_MEMORY_LIST, qs.stringify(data)).then(response => {
       const {RTNCOD, RTNDTA, ERRMSG} = response.data
       if (RTNCOD === 'SUC') {
         dispatch({type: ACTION_MEMORY_FETCH, payload: RTNDTA})

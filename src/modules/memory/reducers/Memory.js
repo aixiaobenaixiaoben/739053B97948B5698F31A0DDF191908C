@@ -18,7 +18,7 @@ export default handleActions(
     [ACTION_MEMORY_FETCH]: (state: State, action) => {
       return {
         ...state,
-        memories: action.payload,
+        memories: action.payload.data,
       }
     },
     [ACTION_MEMORY_UPDATE]: (state: State, action) => {
