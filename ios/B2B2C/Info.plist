@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>B2B2C</string>
+	<string>回忆未来</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.0.1</string>
+	<string>1.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -37,18 +37,16 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSFaceIDUsageDescription</key>
-	<string>使用面容ID安全快速地登录您的账户.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
-	<key>NSCameraUsageDescription</key>
-	<string>需要使用相机</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>需要使用照片</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>需要存储照片</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>需要使用日历</string>
+	<string>回忆未来需要访问您的系统日历，才能更好地展示您的日程</string>
+	<key>NSCameraUsageDescription</key>
+	<string>回忆未来需要使用您的相机，才能方便您设置头像</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>回忆未来需要使用您的面容ID，才能方便您安全快速地登录App</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>回忆未来需要访问您的相册，才能方便您存储图片</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>回忆未来需要访问您的相册，才能方便您设置头像</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -73,11 +71,11 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarHidden</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
