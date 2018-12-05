@@ -11,8 +11,6 @@ import {ACTION_MY_MAIN_UPDATE} from "./modules/my/Constants"
 import {ACTION_FUTURE_MAIN_UPDATE} from "./modules/future/Constants"
 import {ACTION_MEMORY_MAIN_UPDATE} from "./modules/memory/Constants"
 
-const TabBarBadge = common.TabBarBadge
-
 const MemoryHomeStack = createStackNavigator(
   {
     MemoryHome: {
@@ -93,8 +91,7 @@ const RootTab = createTabNavigator(
       navigationOptions: ({screenProps}) => ({
         title: '回忆',
         tabBarIcon: ({focused, tintColor}) => {
-          const icon = <SimpleLineIcons name='note' size={25} color={tintColor}/>
-          return (<TabBarBadge tab='home' icon={icon}/>)
+          return <SimpleLineIcons name='note' size={25} color={tintColor}/>
         },
         tabBarOnPress: ({scene, jumpToIndex}) => {
           jumpToIndex(scene.index)
@@ -109,8 +106,7 @@ const RootTab = createTabNavigator(
       navigationOptions: ({screenProps}) => ({
         title: '未来',
         tabBarIcon: ({focused, tintColor}) => {
-          const icon = <FontAwesome name='paper-plane' size={25} color={tintColor}/>
-          return (<TabBarBadge tab='movie' icon={icon}/>)
+          return <FontAwesome name='paper-plane' size={25} color={tintColor}/>
         },
         tabBarOnPress: ({scene, jumpToIndex}) => {
           jumpToIndex(scene.index)
@@ -125,8 +121,7 @@ const RootTab = createTabNavigator(
       navigationOptions: ({screenProps}) => ({
         title: '我的',
         tabBarIcon: ({focused, tintColor}) => {
-          const icon = <AntDesign name='user' size={25} color={tintColor}/>
-          return (<TabBarBadge tab='my' icon={icon}/>)
+          return <AntDesign name='user' size={25} color={tintColor}/>
         },
         tabBarOnPress: ({scene, jumpToIndex}) => {
           jumpToIndex(scene.index)

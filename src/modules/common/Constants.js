@@ -19,8 +19,6 @@ export type ActionAsync = (dispatch: Function, getState: Function) => void
 /** action type */
 export const ACTION_CACHE_CLEAR = `${NAME}/ACTION_CACHE_CLEAR`
 export const ACTION_CACHE_COUNT = `${NAME}/ACTION_CACHE_COUNT`
-export const ACTION_TAB_BAR_BADGE_SET = `${NAME}/ACTION_TAB_BAR_BADGE_SET`
-export const ACTION_TAB_BAR_BADGE_CLEAR = `${NAME}/ACTION_TAB_BAR_BADGE_CLEAR`
 export const ACTION_LOGIN = `${NAME}/ACTION_LOGIN`
 export const ACTION_LOGOUT = `${NAME}/ACTION_LOGOUT`
 export const ACTION_LOGIN_UPDATE = `${NAME}/ACTION_LOGIN_UPDATE`
