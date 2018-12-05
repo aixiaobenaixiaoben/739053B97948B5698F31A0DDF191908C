@@ -1,7 +1,5 @@
 /** @flow */
 import {combineReducers} from "redux"
-
-import guide from "./Guide"
 import tabBarBadge from "./TabBarBadge"
 import login from "./Login/Login"
 import registerMobileCheck from "./Register/MobileCheck"
@@ -13,7 +11,6 @@ import loginTouchID from "./Login/LoginTouchID"
 
 
 export default combineReducers({
-  guide,
   tabBarBadge,
   login,
   registerMobileCheck,

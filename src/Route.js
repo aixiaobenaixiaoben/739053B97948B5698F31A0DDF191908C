@@ -149,8 +149,6 @@ const RootTab = createTabNavigator(
 export default createStackNavigator(
   {
     RootTab: RootTab,
-    Start: common.Start,
-    Guide: common.Guide,
     CommonRegister: common.CommonRegisterRoute,
     CommonResetPassword: common.CommonResetPasswordRoute,
     Memory: memory.MemoryRoute,
