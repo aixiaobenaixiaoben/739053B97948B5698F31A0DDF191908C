@@ -1,27 +1,13 @@
 /** @flow */
 import {Modal, Toast} from "antd-mobile-rn"
-import {Linking, StyleSheet, Text, View} from "react-native"
+import {Linking} from "react-native"
 import React from "react"
 import Request from "axios/index"
 import type {ActionAsync} from "../../../common/Constants"
 import {APP_VERSION} from "../../../common/Constants"
 import type {Version} from "../../interface/Version"
-import {COLOR_FONT_BLACK, COLOR_SYS} from "../../../../Style"
 import {ACTION_ABOUT_VERSION, URL_APP_VERSION} from "../../Constants"
-import Button from "../../../common/components/Button"
 
-
-const style = StyleSheet.create({
-  view: {
-    paddingTop: 2,
-  },
-  text: {
-    color: COLOR_FONT_BLACK,
-  },
-  emptyView: {
-    width: 500,
-  },
-})
 
 export const linkingFunc = (url: string) => {
   Linking.canOpenURL(url).then(supported => {
@@ -39,27 +25,22 @@ export const isVersionIncrease = (oldVersion: string = '', newVersion: string = 
     || parseInt(oldVersions[2]) < parseInt(newVersions[2])
 }
 
-const messageForIos = (response: Object, isForce = false) => {
-  const {updateDescription = '', updateUrl} = response
-  return (
-    <View style={style.view}>
-      <Text style={style.text}>
-        {'新版本：' + response.newVersion + '\n更新说明：\n' + updateDescription.split('。').join('\n')}
-      </Text>
-      <View style={style.emptyView}/>
-      {isForce && <Button text='更新' onPress={() => linkingFunc(updateUrl)}/>}
-    </View>
-  )
+const message = (response: Version) => {
+  return '新版本：' + response.newVersion
+    + '\n更新说明：\n'
+    + response.updateDescription.split('。').join('\n')
 }
 
-const forceUpdateIos = (response: Object) => {
-  Modal.alert('更新提示', messageForIos(response, true), [])
+const forceUpdateIos = (response: Version) => {
+  Modal.alert('更新提示', message(response), [
+    {text: '更新', onPress: () => linkingFunc(response.updateUrl)}
+  ])
 }
 
-const unForceUpdateIos = (response: Object) => {
-  Modal.alert('更新提示', messageForIos(response), [
+const unForceUpdateIos = (response: Version) => {
+  Modal.alert('更新提示', message(response), [
     {text: '暂不更新'},
-    {text: '更新', onPress: () => linkingFunc(response.updateUrl), style: {color: COLOR_SYS}}
+    {text: '更新', onPress: () => linkingFunc(response.updateUrl)}
   ])
 }
 
