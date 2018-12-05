@@ -72,10 +72,10 @@ class Content extends Component<any, any> {
       this.props.navigation.setParams({headerRight: this.headerRight(nextProps.isLogin)})
       if (nextProps.isLogin) {
         this.requestMemory()
-      } else {
-        this.pageIndex = 0
-        this.setState({memories: []})
+        return true
       }
+      this.pageIndex = 0
+      this.setState({memories: []})
     }
     return true
   }
@@ -92,6 +92,10 @@ class Content extends Component<any, any> {
     this.props.navigation.navigate('MemoryCreate')
   }
 
+  detail = (item) => {
+    this.props.navigation.navigate('MemoryMemory', {memory: item})
+  }
+
   remove = (mmrseqcod) => {
     this.props.memoryDel({mmrseqcod})
   }
@@ -104,7 +108,7 @@ class Content extends Component<any, any> {
     let action = [
       {
         text: '详情',
-        onPress: () => alert('detail'),
+        onPress: () => this.detail(item),
         style: {backgroundColor: COLOR_FONT_GRAY_DARK, color: COLOR_WHITE},
       },
       {
@@ -115,7 +119,7 @@ class Content extends Component<any, any> {
     ]
     return (
       <SwipeAction right={action} autoClose style={{backgroundColor: 'transparent'}}>
-        <TouchableOpacity style={style.listItem} onPress={() => alert('detail')} activeOpacity={0.8}>
+        <TouchableOpacity style={style.listItem} onPress={() => this.detail(item)} activeOpacity={0.8}>
           <Text style={style.date}>{date}</Text>
           <View style={style.fill}/>
           <Text style={style.text} numberOfLines={1}>{mmrmtitle}</Text>
