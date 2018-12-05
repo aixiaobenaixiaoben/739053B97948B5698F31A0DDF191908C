@@ -1,6 +1,7 @@
 import {StyleSheet} from "react-native"
 import {
   COLOR_FONT_BLACK,
+  COLOR_FONT_GRAY_DARK,
   COLOR_SYS,
   COLOR_WHITE,
   COLOR_WHITE_MORE_DARK,
@@ -15,8 +16,21 @@ export default StyleSheet.create({
   scroll: {
     backgroundColor: COLOR_WHITE_MORE_DARK,
   },
+  scrollContent: {
+    flex: 1,
+  },
   list: {
     marginTop: 1,
+  },
+  listFooter: {
+    height: 44,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  listFooterText: {
+    color: COLOR_FONT_GRAY_DARK,
+    marginHorizontal: 8,
   },
   listItem: {
     flexDirection: 'row',

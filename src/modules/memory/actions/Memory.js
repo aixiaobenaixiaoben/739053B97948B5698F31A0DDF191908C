@@ -77,9 +77,3 @@ export const del = (data: Mememory): ActionAsync => {
     }).catch(error => Modal.alert('', error.message))
   }
 }
-
-export const compare = (a: Mememory, b: Mememory) => {
-  if (a.mmroccdat > b.mmroccdat) return -1
-  if (a.mmroccdat < b.mmroccdat) return 1
-  return 0
-}

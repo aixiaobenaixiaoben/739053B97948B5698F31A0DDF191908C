@@ -3,7 +3,7 @@ import React, {Component} from "react"
 import {FlatList, ScrollView, Text, TouchableOpacity, View} from "react-native"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
-import {SwipeAction} from "antd-mobile-rn"
+import {ActivityIndicator, SwipeAction} from "antd-mobile-rn"
 import style from "../styles/Main/Content"
 import Button from "../../../common/components/Button"
 import * as memoryActions from "../../actions/Memory"
@@ -16,7 +16,13 @@ class Content extends Component<any, any> {
 
   state = {
     memories: [],
+    moreLoading: false,
   }
+
+  pageIndex = 0
+  pageSize = 12
+  ref
+  scrollViewHeight: number
 
   headerRight = (isLogin: boolean) => {
     return isLogin ? <Button style={style.headerButton} text='新建' onPress={this.addMemory}/> : null
@@ -33,13 +39,14 @@ class Content extends Component<any, any> {
   }
 
   shouldComponentUpdate(nextProps) {
+    if (this.props.headerHeight === 0 && nextProps.headerHeight > 0) {
+      this.scrollViewHeight += nextProps.headerHeight
+    }
     if (this.props.memories !== nextProps.memories) {
-      let memories: Mememory[] = nextProps.memories
-      memories.sort(memoryActions.compare)
-      this.setState({memories})
+      this.setState({moreLoading: false, memories: this.state.memories.concat(nextProps.memories)})
     }
     if (this.props.updateMemory !== nextProps.updateMemory) {
-      this.requestMemory()
+      this.refreshMemory(this.props.isLogin)
     }
     if (this.props.isLogin !== nextProps.isLogin) {
       this.props.navigation.setParams({headerRight: this.headerRight(nextProps.isLogin)})
@@ -50,13 +57,14 @@ class Content extends Component<any, any> {
 
   requestMemory = () => {
     const memory: Mememory = {
-      pageIndex: 0,
-      pageSize: 100,
+      pageIndex: this.pageIndex,
+      pageSize: this.pageSize,
     }
     this.props.memoryFetch(memory)
   }
 
   refreshMemory = (isLogin: boolean) => {
+    this.pageIndex = 0
     this.setState({memories: []})
     if (isLogin) {
       this.requestMemory()
@@ -99,15 +107,54 @@ class Content extends Component<any, any> {
     )
   }
 
+  noMoreMemory = (): boolean => {
+    return Math.ceil(this.props.memoryLength / this.pageSize) - 1 === this.pageIndex
+  }
+
+  onLayout = (event) => {
+    this.scrollViewHeight = this.props.headerHeight + event.nativeEvent.layout.height
+  }
+
+  onScroll = () => {
+    if (!this.state.moreLoading && this.ref) {
+      this.ref.measure((frameX, frameY, width, height, pageX, pageY) => {
+        if (pageY + height === this.scrollViewHeight) {
+          if (!this.noMoreMemory()) {
+            this.setState({moreLoading: true})
+            this.pageIndex += 1
+            this.requestMemory()
+          }
+        }
+      })
+    }
+  }
+
+  ListFooterComponent = () => {
+    if (!this.props.isLogin) return null
+    let text = this.noMoreMemory() ? '都加载完啦' : '上滑加载'
+    const {moreLoading} = this.state
+    if (moreLoading) {
+      text = '加载中'
+    }
+    return (
+      <View ref={ref => this.ref = ref} style={style.listFooter}>
+        <ActivityIndicator animating={moreLoading}/>
+        <Text style={style.listFooterText}>{text}</Text>
+      </View>
+    )
+  }
+
   render() {
     const {memories} = this.state
     return (
-      <ScrollView style={style.scroll}>
+      <ScrollView onLayout={this.onLayout} style={style.scroll} contentContainerStyle={style.scrollContent}>
         <FlatList
           style={style.list}
           data={memories}
           keyExtractor={this.keyExtractor}
           renderItem={this.renderItem}
+          ListFooterComponent={this.ListFooterComponent()}
+          onScroll={this.onScroll}
         />
       </ScrollView>
     )
@@ -115,8 +162,10 @@ class Content extends Component<any, any> {
 }
 
 Content.propTypes = {
+  headerHeight: PropTypes.number.isRequired,
   isLogin: PropTypes.bool.isRequired,
   memories: PropTypes.array.isRequired,
+  memoryLength: PropTypes.number.isRequired,
   updateMemory: PropTypes.object.isRequired,
   memoryDel: PropTypes.func.isRequired,
   memoryFetch: PropTypes.func.isRequired,
@@ -126,6 +175,7 @@ export default connect(
   state => ({
     isLogin: state.common.login.isLogin,
     memories: state.memory.memory.memories,
+    memoryLength: state.memory.memory.memoryLength,
     updateMemory: state.memory.memory.updateMemory,
   }),
   dispatch => ({

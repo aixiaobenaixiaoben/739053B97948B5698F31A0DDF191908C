@@ -21,8 +21,11 @@ import Button from "../../../common/components/Button"
 class Main extends Component<any, any> {
 
   state = {
-    appState: AppState.currentState
+    appState: AppState.currentState,
+    modalPageY: 0,
   }
+
+  ref
 
   static navigationOptions = ({navigation}) => {
     const {headerRight} = navigation.state.params || {}
@@ -51,6 +54,7 @@ class Main extends Component<any, any> {
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChange)
     this.props.requestVersion()
+    setTimeout(() => this.ref.measure((frameX, frameY, width, height, pageX, pageY) => this.setState({modalPageY: pageY})), 1)
   }
 
   componentWillUnmount() {
@@ -82,10 +86,11 @@ class Main extends Component<any, any> {
   }
 
   render() {
+    const {modalPageY} = this.state
     const {isLogin} = this.props
     return (
-      <View style={style.outline}>
-        <Content {...this.props}/>
+      <View ref={ref => this.ref = ref} style={style.outline}>
+        <Content {...this.props} headerHeight={modalPageY}/>
 
         {!isLogin &&
         <View style={style.tail}>
