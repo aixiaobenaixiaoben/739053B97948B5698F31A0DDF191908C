@@ -1,9 +1,10 @@
 /** @flow */
 import React, {Component} from "react"
-import {FlatList, ScrollView, Text, TouchableOpacity, View} from "react-native"
+import {FlatList, RefreshControl, ScrollView, Text, TouchableOpacity, Vibration, View} from "react-native"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
 import {ActivityIndicator, SwipeAction} from "antd-mobile-rn"
+import Sound from "react-native-sound"
 import style from "../styles/Main/Content"
 import Button from "../../../common/components/Button"
 import * as memoryActions from "../../actions/Memory"
@@ -15,6 +16,8 @@ import * as DateUtils from "../../../common/utils/DateUtils"
 class Content extends Component<any, any> {
 
   state = {
+    refreshing: false,
+    refreshTitle: '',
     memories: [],
     moreLoading: false,
   }
@@ -23,6 +26,8 @@ class Content extends Component<any, any> {
   pageSize = 12
   ref
   scrollViewHeight: number
+  scrollView
+  flatList
 
   headerRight = (isLogin: boolean) => {
     return isLogin ? <Button style={style.headerButton} text='新建' onPress={this.addMemory}/> : null
@@ -35,22 +40,42 @@ class Content extends Component<any, any> {
   }
 
   componentDidMount() {
-    this.refreshMemory(this.props.isLogin)
+    if (this.props.isLogin) {
+      this.requestMemory()
+    }
   }
 
   shouldComponentUpdate(nextProps) {
+    if (this.props.isLogin && this.props.version !== nextProps.version) {
+      this.flatList.scrollToOffset({offset: 0})
+      this.scrollView.scrollTo({x: 0, y: -1, animated: true})
+    }
     if (this.props.headerHeight === 0 && nextProps.headerHeight > 0) {
       this.scrollViewHeight += nextProps.headerHeight
     }
     if (this.props.memories !== nextProps.memories) {
-      this.setState({moreLoading: false, memories: this.state.memories.concat(nextProps.memories)})
+      let memories = this.pageIndex === 0 ? nextProps.memories : this.state.memories.concat(nextProps.memories)
+      this.setState({moreLoading: false, memories})
+
+      if (this.state.refreshing) {
+        this.setState({refreshing: false})
+        const source = require('../../../../../assets/common/ring/refresh.m4a')
+        const sound = new Sound(source, () => sound.play(() => sound.release()))
+      }
     }
     if (this.props.updateMemory !== nextProps.updateMemory) {
-      this.refreshMemory(this.props.isLogin)
+      this.flatList.scrollToOffset({offset: 0})
+      this.pageIndex = 0
+      this.requestMemory()
     }
     if (this.props.isLogin !== nextProps.isLogin) {
       this.props.navigation.setParams({headerRight: this.headerRight(nextProps.isLogin)})
-      this.refreshMemory(nextProps.isLogin)
+      if (nextProps.isLogin) {
+        this.requestMemory()
+      } else {
+        this.pageIndex = 0
+        this.setState({memories: []})
+      }
     }
     return true
   }
@@ -61,14 +86,6 @@ class Content extends Component<any, any> {
       pageSize: this.pageSize,
     }
     this.props.memoryFetch(memory)
-  }
-
-  refreshMemory = (isLogin: boolean) => {
-    this.pageIndex = 0
-    this.setState({memories: []})
-    if (isLogin) {
-      this.requestMemory()
-    }
   }
 
   addMemory = () => {
@@ -144,15 +161,60 @@ class Content extends Component<any, any> {
     )
   }
 
-  render() {
-    const {memories} = this.state
+  ListEmptyComponent = () => {
     return (
-      <ScrollView onLayout={this.onLayout} style={style.scroll} contentContainerStyle={style.scrollContent}>
+      <View style={style.listFooter}>
+        <Text style={style.listFooterText}>没有回忆可以显示</Text>
+      </View>
+    )
+  }
+
+  onRefresh = () => {
+    if (!this.props.isLogin) return
+    Vibration.vibrate(100)
+    this.setState({refreshing: true, refreshTitle: '松开刷新'})
+  }
+
+  onScrollBeginDrag = () => {
+    if (!this.props.isLogin) return
+    this.setState({refreshTitle: '下拉刷新'})
+  }
+
+  onScrollEndDrag = () => {
+    if (this.state.refreshing) {
+      this.setState({refreshTitle: ''})
+      this.pageIndex = 0
+      this.requestMemory()
+    }
+  }
+
+  onMomentumScrollEnd = (event) => {
+    if (event.nativeEvent.contentOffset.y === -1) {
+      const source = require('../../../../../assets/common/ring/onRefresh.m4a')
+      const sound = new Sound(source, () => sound.play(() => sound.release()))
+      this.scrollView.scrollTo({x: 0, y: -70, animated: true})
+      this.setState({refreshing: true, refreshTitle: ''})
+      this.pageIndex = 0
+      this.requestMemory()
+    }
+  }
+
+  render() {
+    const {refreshing, refreshTitle, memories} = this.state
+    let refreshControl = <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh}
+                                         tintColor={COLOR_SYS} title={refreshTitle} titleColor={COLOR_SYS}/>
+    return (
+      <ScrollView ref={ref => this.scrollView = ref} onLayout={this.onLayout}
+                  style={style.scroll} contentContainerStyle={style.scrollContent}
+                  refreshControl={refreshControl} onMomentumScrollEnd={this.onMomentumScrollEnd}
+                  onScrollBeginDrag={this.onScrollBeginDrag} onScrollEndDrag={this.onScrollEndDrag}>
         <FlatList
+          ref={ref => this.flatList = ref}
           style={style.list}
           data={memories}
           keyExtractor={this.keyExtractor}
           renderItem={this.renderItem}
+          ListEmptyComponent={this.ListEmptyComponent}
           ListFooterComponent={this.ListFooterComponent()}
           onScroll={this.onScroll}
         />
@@ -162,6 +224,7 @@ class Content extends Component<any, any> {
 }
 
 Content.propTypes = {
+  version: PropTypes.number.isRequired,
   headerHeight: PropTypes.number.isRequired,
   isLogin: PropTypes.bool.isRequired,
   memories: PropTypes.array.isRequired,
@@ -173,6 +236,7 @@ Content.propTypes = {
 
 export default connect(
   state => ({
+    version: state.memory.main.version,
     isLogin: state.common.login.isLogin,
     memories: state.memory.memory.memories,
     memoryLength: state.memory.memory.memoryLength,

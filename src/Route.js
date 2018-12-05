@@ -9,6 +9,7 @@ import {common, future, memory, my} from "./modules"
 import {COLOR_FONT_GRAY_DARK, COLOR_SYS, COLOR_WHITE} from "./Style"
 import {ACTION_MY_MAIN_UPDATE} from "./modules/my/Constants"
 import {ACTION_FUTURE_MAIN_UPDATE} from "./modules/future/Constants"
+import {ACTION_MEMORY_MAIN_UPDATE} from "./modules/memory/Constants"
 
 const TabBarBadge = common.TabBarBadge
 
@@ -89,13 +90,19 @@ const RootTab = createTabNavigator(
   {
     MemoryTab: {
       screen: MemoryHomeStack,
-      navigationOptions: {
+      navigationOptions: ({screenProps}) => ({
         title: '回忆',
         tabBarIcon: ({focused, tintColor}) => {
           const icon = <SimpleLineIcons name='note' size={25} color={tintColor}/>
           return (<TabBarBadge tab='home' icon={icon}/>)
         },
-      }
+        tabBarOnPress: ({scene, jumpToIndex}) => {
+          jumpToIndex(scene.index)
+          if (scene.focused) {
+            screenProps.store.dispatch({type: ACTION_MEMORY_MAIN_UPDATE})
+          }
+        }
+      })
     },
     FutureTab: {
       screen: FutureHomeStack,
