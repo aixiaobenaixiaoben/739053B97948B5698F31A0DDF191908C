@@ -20,17 +20,20 @@ class Login extends Component<any, any> {
     password: '',
   }
 
+  headerLeft = () => {
+    let routeFrom = this.props.navigation.getParam('routeFrom')
+    return routeFrom ? <HeaderBackImage handler={() => this.jumpTo(routeFrom)}/> : null
+  }
+
   static navigationOptions = ({navigation}) => {
-    const routeFrom = navigation.getParam('routeFrom')
-    const jumpTo = navigation.getParam('jumpTo')
-    let headerLeft = <HeaderBackImage handler={() => jumpTo(routeFrom)}/>
+    const {headerLeft} = navigation.state.params || {}
     return {
-      headerLeft: routeFrom === undefined ? null : headerLeft,
+      headerLeft: headerLeft,
     }
   }
 
   componentWillMount() {
-    this.props.navigation.setParams({jumpTo: this.jumpTo})
+    this.props.navigation.setParams({headerLeft: this.headerLeft(),})
 
     const routeFrom = this.props.navigation.getParam('routeFrom')
     if (routeFrom === undefined && this.props.user.suiseqcod.length > 0) {

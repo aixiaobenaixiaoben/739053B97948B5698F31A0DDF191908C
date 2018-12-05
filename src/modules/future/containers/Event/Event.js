@@ -17,20 +17,20 @@ class Event extends Component<any, any> {
     event: this.props.navigation.getParam('event'),
   }
 
+  headerRight = (canModEvent: boolean) => {
+    return canModEvent ? <Button style={style.headerButton} text='编辑' onPress={this.modEvent}/> : null
+  }
+
   static navigationOptions = ({navigation}) => {
-    const modEvent = navigation.getParam('modEvent', () => {
-    })
-    const canModEvent = navigation.getParam('canModEvent')
-    const modButton = <Button style={style.headerButton} text='编辑' onPress={modEvent}/>
+    const {headerRight} = navigation.state.params || {}
     return {
-      headerRight: canModEvent ? modButton : null,
+      headerRight: headerRight,
     }
   }
 
   componentWillMount() {
     this.props.navigation.setParams({
-      modEvent: this.modEvent,
-      canModEvent: this.state.event.fetseqcod.length === 24,
+      headerRight: this.headerRight(this.state.event.fetseqcod.length === 24),
     })
   }
 

@@ -27,17 +27,19 @@ class EventNew extends Component<any, any> {
     c: '',
   }
 
+  headerRight = (canSubmit: boolean = false) => {
+    return <Button style={style.headerButton} text='保存' onPress={this.save} disabled={!canSubmit}/>
+  }
+
   static navigationOptions = ({navigation}) => {
-    const save = navigation.getParam('save', () => {
-    })
-    const canSubmit = navigation.getParam('canSubmit')
+    const {headerRight} = navigation.state.params || {}
     return {
-      headerRight: <Button style={style.headerButton} text='保存' onPress={save} disabled={!canSubmit}/>,
+      headerRight: headerRight,
     }
   }
 
   componentWillMount() {
-    this.props.navigation.setParams({save: this.save})
+    this.props.navigation.setParams({headerRight: this.headerRight()})
   }
 
   componentDidMount() {
@@ -50,7 +52,8 @@ class EventNew extends Component<any, any> {
   shouldComponentUpdate(nextProps, nextState) {
     if (this.state !== nextState) {
       const {a, b} = nextState
-      this.props.navigation.setParams({canSubmit: a.trim().length > 0 && b})
+      const canSubmit = a.trim().length > 0 && b
+      this.props.navigation.setParams({headerRight: this.headerRight(canSubmit)})
     }
     if (this.props.updateEvent !== nextProps.updateEvent) {
       this.props.navigation.pop()
