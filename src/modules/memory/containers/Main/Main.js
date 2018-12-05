@@ -30,6 +30,7 @@ class Main extends Component<any, any> {
   static navigationOptions = ({navigation}) => {
     const {headerRight} = navigation.state.params || {}
     return {
+      title: '回忆',
       headerRight: headerRight,
     }
   }

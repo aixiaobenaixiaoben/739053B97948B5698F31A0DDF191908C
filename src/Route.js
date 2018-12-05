@@ -16,7 +16,6 @@ const MemoryHomeStack = createStackNavigator(
     MemoryHome: {
       screen: memory.MemoryMain,
       navigationOptions: {
-        title: 'Memory',
         headerTintColor: COLOR_WHITE,
         headerStyle: {
           backgroundColor: COLOR_SYS,
