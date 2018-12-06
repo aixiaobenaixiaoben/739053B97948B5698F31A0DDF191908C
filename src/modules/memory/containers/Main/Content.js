@@ -129,7 +129,7 @@ class Content extends Component<any, any> {
   }
 
   noMoreMemory = (): boolean => {
-    return Math.ceil(this.props.memoryLength / this.pageSize) - 1 === this.pageIndex
+    return this.props.memoryLength === 0 || Math.ceil(this.props.memoryLength / this.pageSize) - 1 === this.pageIndex
   }
 
   onLayout = (event) => {

@@ -1,7 +1,7 @@
 /** @flow */
 
 /** version of the app */
-export const APP_VERSION = '1.0.0'
+export const APP_VERSION = '1.0.1'
 /** name of the app */
 export const APP_NAME = '回忆未来'
 

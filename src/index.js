@@ -9,7 +9,7 @@ import createStore from './createStore'
 import Root from "./Route"
 
 
-Request.defaults.baseURL = 'https://forfreedomandlove.com'
+Request.defaults.baseURL = 'https://forfreedomandlove.com/snow/'
 
 Request.interceptors.request.use(
   function (config) {
