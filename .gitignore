@@ -9,7 +9,9 @@
 /package-lock.json
 /yarn.lock
 
-
+android/app/src/main/res/drawable-*/
+android/app/src/main/res/raw/
+android/app/src/main/assets/index.android.*
 
 # ============================below is default config================================
 # OSX
